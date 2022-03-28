@@ -112,7 +112,7 @@ function init(){
 		setInterval(dibujar, 10);	
 	}
 	
-	
+	//Añado comentario de prueba GitHub
 	
 };
 
