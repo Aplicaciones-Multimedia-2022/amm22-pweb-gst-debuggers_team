@@ -1,0 +1,145 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<link rel="stylesheet" href="juegoweb.css">
+	<script src="juegoweb.js"></script>
+	
+	<title>Juego</title>
+</head>
+<body>
+
+	<!-- Creacion de distintas pestañas -->
+	<div class="tab">
+	<button class="tablinks" onclick="openCity(event, 'Juego')" id="defaultOpen">Juego</button>
+	<button class="tablinks" onclick="openCity(event, 'Descripcion')">Descripcion del juego</button>
+	<button class="tablinks" onclick="openCity(event, 'Autores')">Autores</button>	
+	<button class="tablinks" onclick="openCity(event, 'Multimedia')">Multimedia</button>
+	<button class="tablinks" onclick="openCity(event, 'Desarrollo')">Desarrollo</button>
+	<button class="tablinks" onclick="openCity(event, 'Referencias')">Referencias</button>
+	</div>
+	
+
+	<!-- Contenido de las pestañas -->
+	<div id="Juego" class="tabcontent">
+	<canvas id="micanvas" width="1420" height="680">
+		Este texto se muestra para los navegadores no compatibles con canvas
+	</canvas>
+	
+	<button id ="buttRedAstro">
+	
+	</button>
+	
+<div>
+	<img id="b1" src="./background/fila-1-columna-1.jpg"> 
+	<img id="b2" src="./background/fila-1-columna-2.jpg"> 
+	<img id="b3" src="./background/fila-1-columna-3.jpg">
+	<img id="b4" src="./background/fila-1-columna-4.jpg"> 
+	<img id="b5" src="./background/fila-1-columna-5.jpg"> 
+	<img id="b6" src="./background/fila-1-columna-6.jpg"> 
+	<img id="b7" src="./background/fila-1-columna-7.jpg"> 
+	<img id="b8" src="./background/fila-1-columna-8.jpg"> 
+	<img id="b9" src="./background/fila-1-columna-9.jpg"> 
+	<img id="b10" src="./background/fila-1-columna-10.jpg"> 
+	<img id="b11" src="./background/fila-1-columna-11.jpg">
+	<img id="b12" src="./background/fila-1-columna-12.jpg"> 
+	<img id="b13" src="./background/fila-1-columna-13.jpg"> 
+	<img id="b14" src="./background/fila-1-columna-14.jpg">
+	<img id="b15" src="./background/fila-1-columna-15.jpg"> 
+	<img id="b16" src="./background/fila-1-columna-16.jpg"> 
+	<img id="b17" src="./background/fila-1-columna-17.jpg"> 
+	<img id="b18" src="./background/fila-1-columna-18.jpg"> 
+	<img id="b19" src="./background/fila-1-columna-19.jpg"> 
+	<img id="b20" src="./background/fila-1-columna-20.jpg"> 
+	<img id="b21" src="./background/fila-1-columna-21.jpg"> 
+	<img id="b22" src="./background/fila-1-columna-22.jpg"> 
+	<img id="b23" src="./background/fila-1-columna-23.jpg"> 
+	<img id="b24" src="./background/fila-1-columna-24.jpg"> 
+	<img id="b25" src="./background/fila-1-columna-25.jpg"> 
+	<img id="b26" src="./background/fila-1-columna-26.jpg"> 
+	<img id="b27" src="./background/fila-1-columna-27.jpg"> 
+	<img id="b28" src="./background/fila-1-columna-28.jpg"> 
+	<img id="b29" src="./background/fila-1-columna-29.jpg"> 
+	<img id="b30" src="./background/fila-1-columna-30.jpg"> 
+	<img id="b31" src="./background/fila-1-columna-31.jpg"> 
+	<img id="b32" src="./background/fila-1-columna-32.jpg"> 
+	<img id="b33" src="./background/fila-1-columna-33.jpg"> 
+	<img id="b34" src="./background/fila-1-columna-34.jpg"> 
+	<img id="b35" src="./background/fila-1-columna-35.jpg"> 
+	<img id="b36" src="./background/fila-1-columna-36.jpg"> 
+	<img id="b37" src="./background/fila-1-columna-37.jpg"> 
+	<img id="b38" src="./background/fila-1-columna-38.jpg"> 
+	<img id="b39" src="./background/fila-1-columna-39.jpg"> 
+	<img id="b40" src="./background/fila-1-columna-40.jpg">
+	<img id="b41" src="./background/fila-1-columna-41.jpg"> 
+	<img id="b42" src="./background/fila-1-columna-42.jpg"> 
+	<img id="b43" src="./background/fila-1-columna-43.jpg">
+	<img id="b44" src="./background/fila-1-columna-44.jpg"> 
+	<img id="b45" src="./background/fila-1-columna-45.jpg"> 
+	<img id="b46" src="./background/fila-1-columna-46.jpg"> 
+	<img id="b47" src="./background/fila-1-columna-47.jpg"> 
+	<img id="b48" src="./background/fila-1-columna-48.jpg"> 
+	<img id="b49" src="./background/fila-1-columna-49.jpg"> 
+	<img id="b50" src="./background/fila-1-columna-50.jpg"> 
+	<img id="b51" src="./background/fila-1-columna-51.jpg">
+	<img id="b52" src="./background/fila-1-columna-52.jpg"> 
+	<img id="b53" src="./background/fila-1-columna-53.jpg"> 
+	<img id="b54" src="./background/fila-1-columna-54.jpg">
+	<img id="b55" src="./background/fila-1-columna-55.jpg"> 
+	<img id="b56" src="./background/fila-1-columna-56.jpg"> 
+	<img id="b57" src="./background/fila-1-columna-57.jpg"> 
+	<img id="b58" src="./background/fila-1-columna-58.jpg"> 
+	<img id="b59" src="./background/fila-1-columna-59.jpg"> 
+	<img id="b60" src="./background/fila-1-columna-60.jpg"> 
+	<img id="b61" src="./background/fila-1-columna-61.jpg"> 
+	<img id="b62" src="./background/fila-1-columna-62.jpg"> 
+	<img id="b63" src="./background/fila-1-columna-63.jpg"> 
+	<img id="b64" src="./background/fila-1-columna-64.jpg"> 
+	<img id="b65" src="./background/fila-1-columna-65.jpg"> 
+	<img id="b66" src="./background/fila-1-columna-66.jpg"> 
+	<img id="b67" src="./background/fila-1-columna-67.jpg"> 
+	<img id="b68" src="./background/fila-1-columna-68.jpg"> 
+	<img id="b69" src="./background/fila-1-columna-69.jpg"> 
+	<img id="b70" src="./background/fila-1-columna-70.jpg"> 
+	<img id="b71" src="./background/fila-1-columna-71.jpg"> 
+	<img id="b72" src="./background/fila-1-columna-72.jpg"> 
+	<img id="b73" src="./background/fila-1-columna-73.jpg"> 
+	<img id="b74" src="./background/fila-1-columna-74.jpg"> 
+	<img id="b75" src="./background/fila-1-columna-75.jpg"> 
+	<img id="b76" src="./background/fila-1-columna-76.jpg"> 
+	<img id="b77" src="./background/fila-1-columna-77.jpg"> 
+	<img id="b78" src="./background/fila-1-columna-78.jpg"> 
+	<img id="b79" src="./background/fila-1-columna-79.jpg"> 
+	<img id="b80" src="./background/fila-1-columna-80.jpg"> 
+	
+  	
+	<img id="astro1" src="../Astro1.png"> 
+	<img id="astro2" src="../Astro2.png"> 
+	<img id="astro3" src="../Astro3.png"> 
+	<img id="astro4" src="../Astro4.png"> 
+	
+	<img id="astro1Green" src="../Astro1Green.png"> 
+	<img id="astro2Green" src="../Astro2Green.png"> 
+	<img id="astro3Green" src="../Astro3Green.png"> 
+	<img id="astro4Green" src="../Astro4Green.png"> 
+	
+	<img id="meteorito" src="../meteorito.png">
+	<img id="meteorito1" src="../meteorito1.png">
+	<img id="meteorito2" src="../meteorito2.png">
+	<img id="meteorito3" src="../meteorito3.png">
+	<img id="meteorito4" src="../meteorito4.png">
+	<img id="meteorito5" src="../meteorito5.png">
+	<img id="meteorito6" src="../meteorito6.png">
+	<img id="meteorito7" src="../meteorito7.png">
+	<img id="meteorito8" src="../meteorito8.png">
+	<img id="meteorito9" src="../meteorito9.png">
+	
+	
+</div>
+</div>
+
+	<div id="Autores" class="tabcontent">
+	<h1> holaaaaa </h1>
+	</div>
+	
+</body>
+</html>

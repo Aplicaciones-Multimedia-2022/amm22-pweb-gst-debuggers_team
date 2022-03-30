@@ -12,16 +12,47 @@ var count2 = 0;
 var count3 = 0;
 var count4 = 0;
 
-//Declaración de Objeto para los elementos del juego:
+//Declaración de Objetos para los elementos del juego:
 
-var Elemento = function(coordx,coordy,sprite){
+var Astronauta = function(coordx,coordy,sprite){
 		this.coordx = coordx;
 		this.coordy = coordy;
 		this.sprite = sprite;
 	
 	};
 	
+var Meteorito = function(coordx, coordy, sprite){
+		this.coordx = coordx;
+		this.coordy = coordy;
+		this.sprite = sprite;
+}
 
+var Background = function(coordx, coordy, sprite){
+		this.coordx = coordx;
+		this.coordy = coordy;
+		this.sprite = sprite;
+}
+	
+function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+	
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  
+   // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
 
 window.onload = init;
 
@@ -65,7 +96,47 @@ function init(){
 		document.getElementById("b37"),
 		document.getElementById("b38"),
 		document.getElementById("b39"),
-		document.getElementById("b40")
+		document.getElementById("b40"),
+		document.getElementById("b41"),
+		document.getElementById("b42"),
+		document.getElementById("b43"),
+		document.getElementById("b44"),
+		document.getElementById("b45"),
+		document.getElementById("b46"),
+		document.getElementById("b47"),
+		document.getElementById("b48"),
+		document.getElementById("b49"),
+		document.getElementById("b50"),
+		document.getElementById("b51"),
+		document.getElementById("b52"),
+		document.getElementById("b53"),
+		document.getElementById("b54"),
+		document.getElementById("b55"),
+		document.getElementById("b56"),
+		document.getElementById("b57"),
+		document.getElementById("b58"),
+		document.getElementById("b59"),
+		document.getElementById("b60"),
+		document.getElementById("b61"),
+		document.getElementById("b62"),
+		document.getElementById("b63"),
+		document.getElementById("b64"),
+		document.getElementById("b65"),
+		document.getElementById("b66"),
+		document.getElementById("b67"),
+		document.getElementById("b68"),
+		document.getElementById("b69"),
+		document.getElementById("b70"),
+		document.getElementById("b71"),
+		document.getElementById("b72"),
+		document.getElementById("b73"),
+		document.getElementById("b74"),
+		document.getElementById("b75"),
+		document.getElementById("b76"),
+		document.getElementById("b77"),
+		document.getElementById("b78"),
+		document.getElementById("b79"),
+		document.getElementById("b80")
 		];
 	const spriteMeteorito = [document.getElementById("meteorito"),
 		document.getElementById("meteorito1"),
@@ -92,17 +163,18 @@ function init(){
 		];
 		
 	canvas = document.getElementById("micanvas");
-	buttonCharacter = document.getElementById("buttRedAstro")
 	ctx = canvas.getContext("2d");
+	
+	//Botón
+	buttonCharacter = document.getElementById("buttRedAstro")
 	ctx.font = "30px Arial";
 	ctx.fillText("Escoge tu personaje:", 10, 50);
 	ctx.textAlign = "center";
 	
-	astronauta = new Elemento(200, height/2, spriteAstronauta);
-	meteorito = new Elemento(width, height/2,spriteMeteorito)
-	background_1 = new Elemento(0,0,spriteBackground)	
+	astronauta = new Astronauta(200, height/2, spriteAstronauta);
+	meteorito = new Meteorito(width, height/2,spriteMeteorito)
+	background_1 = new Background(0,0,spriteBackground)	
 	
-	generateMeteoritos();
 	//keyboard arrows event configuration:
 	document.addEventListener("keydown", mueveAstronauta);
 	
@@ -111,8 +183,6 @@ function init(){
 	if (activate == true){
 		setInterval(dibujar, 10);	
 	}
-	
-	
 	
 };
 
