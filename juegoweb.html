@@ -7,80 +7,32 @@
 	<title>Juego</title>
 </head>
 <body>
-	<canvas id="micanvas" width="1420" height="680">
+	<h1>ASTRONAUTA!</h1>
+	
+	<!-- Creacion de distintas pestañas -->
+	<div class="tab">
+	<button class="tablinks" onclick="openCity(event, 'Juego')" id="defaultOpen">Juego</button>
+	<button class="tablinks" onclick="openCity(event, 'Descripcion')">Descripcion del juego</button>
+	<button class="tablinks" onclick="openCity(event, 'Autores')">Autores</button>	
+	<button class="tablinks" onclick="openCity(event, 'Multimedia')">Multimedia</button>
+	<button class="tablinks" onclick="openCity(event, 'Desarrollo')">Desarrollo</button>
+	<button class="tablinks" onclick="openCity(event, 'Referencias')">Referencias</button>
+	</div>
+	
+	<!-- Contenido de las pestañas -->
+	<div id="Juego" class="tabcontent">
+	<canvas id="micanvas" width="800" height="600">
 		Este texto se muestra para los navegadores no compatibles con canvas
 	</canvas>
+	<img id="astro" src="astronauta.jpg"> 
+	</div>
 	
-	<button id ="buttRedAstro">
-	
-	</button>
-	
-<div>
-	<img id="b1" src="b (1).png"> 
-	<img id="b2" src="b (2).png">
-	<img id="b3" src="b (3).png">
-	<img id="b4" src="b (4).png">
-	<img id="b5" src="b (5).png">
-	<img id="b6" src="b (6).png">
-	<img id="b7" src="b (7).png">
-	<img id="b8" src="b (8).png">
-	<img id="b9" src="b (9).png">
-	<img id="b10" src="b (10).png">
-	<img id="b11" src="b (11).png">
-	<img id="b12" src="b (12).png">
-	<img id="b13" src="b (13).png">
-	<img id="b14" src="b (14).png">
-	<img id="b15" src="b (15).png">
-	<img id="b16" src="b (16).png">
-	<img id="b17" src="b (17).png">
-	<img id="b18" src="b (18).png">
-	<img id="b19" src="b (19).png">
-	<img id="b20" src="b (20).png">
-	<img id="b21" src="b (21).png"> 
-	<img id="b22" src="b (22).png">
-	<img id="b23" src="b (23).png">
-	<img id="b24" src="b (24).png">
-	<img id="b25" src="b (25).png">
-	<img id="b26" src="b (26).png">
-	<img id="b27" src="b (27).png">
-	<img id="b28" src="b (28).png">
-	<img id="b29" src="b (29).png">
-	<img id="b30" src="b (30).png">
-	<img id="b31" src="b (31).png">
-	<img id="b32" src="b (32).png">
-	<img id="b33" src="b (33).png">
-	<img id="b34" src="b (34).png">
-	<img id="b35" src="b (35).png">
-	<img id="b36" src="b (36).png">
-	<img id="b37" src="b (37).png">
-	<img id="b38" src="b (38).png">
-	<img id="b39" src="b (39).png">
-	<img id="b40" src="b (40).png">
-	
-	
-		
-	<img id="astro1" src="Astro1.png"> 
-	<img id="astro2" src="Astro2.png"> 
-	<img id="astro3" src="Astro3.png"> 
-	<img id="astro4" src="Astro4.png"> 
-	
-	<img id="astro1Green" src="Astro1Green.png"> 
-	<img id="astro2Green" src="Astro2Green.png"> 
-	<img id="astro3Green" src="Astro3Green.png"> 
-	<img id="astro4Green" src="Astro4Green.png"> 
-	
-	<img id="meteorito" src="meteorito.png">
-	<img id="meteorito1" src="meteorito1.png">
-	<img id="meteorito2" src="meteorito2.png">
-	<img id="meteorito3" src="meteorito3.png">
-	<img id="meteorito4" src="meteorito4.png">
-	<img id="meteorito5" src="meteorito5.png">
-	<img id="meteorito6" src="meteorito6.png">
-	<img id="meteorito7" src="meteorito7.png">
-	<img id="meteorito8" src="meteorito8.png">
-	<img id="meteorito9" src="meteorito9.png">
-	
+	<div id="Autores" class="tabcontent">
+	<p> holaaaaa </p>
+	</div>
+
+	<!-- <img id="meteorito" src="meteorito.jpg"> -->
 	<!-- <img id="alien" src="alien.jpg"> -->
-</div>
+
 </body>
 </html>

@@ -1,0 +1,14 @@
+h1{
+	color: red;
+	text-align: center;
+	font-family: Impact
+}
+
+canvas{
+	
+	border-top: solid rgb(0,180,0);
+	border-right: solid rgb(0,180,0);
+	border-bottom: solid rgb(0,180,0);
+	border-width: 10px 10px 10px 0px;
+	background: rgb(102,204,0);
+}
