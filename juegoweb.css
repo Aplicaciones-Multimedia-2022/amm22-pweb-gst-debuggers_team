@@ -16,9 +16,13 @@ img{
 	display:none
 }
 
+						/******  ESTILO PESTAÑAS  ******/
+
 /* estilo del fondo de las pestañas */
 .tab {
+  display: inline-block;
   overflow: center;
+  align-items: center;
   border: 5px solid #2307C2;
   background-color: #2307C2;
 }
@@ -32,7 +36,7 @@ img{
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 15px 22px;
   transition: 0.3s;
 }
 
@@ -57,4 +61,46 @@ img{
 @keyframes fadeEffect {
   from {opacity: 0;}
   to {opacity: 1;}
+}
+
+					/******  PESTAÑA DE DESCRIPCION DEL JUEGO  ******/
+
+P {
+	
+}
+					/******  PESTAÑA DE AUTORES  ******/
+h2 {
+  -moz-animation-duration: 2.5s;
+  -webkit-animation-duration: 2.5s;
+  -moz-animation-name: slidein-left;
+  -webkit-animation-name: slidein-left;
+}
+
+h4 {
+  -moz-animation-duration: 2.5s;
+  -webkit-animation-duration: 2.5s;
+  -moz-animation-name: slidein-left;
+  -webkit-animation-name: slidein-left;
+}
+
+@-moz-keyframes slidein-left {
+  from {
+    margin-left: 100%;
+    width: 300%
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes slidein-left {
+  from {
+    margin-left: 100%;
+    width: 300%
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
 }
