@@ -7,6 +7,20 @@
 	<title>Juego</title>
 </head>
 <body>
+
+	<!-- Creacion de distintas pestañas -->
+	<div class="tab">
+	<button class="tablinks" onclick="openCity(event, 'Juego')" id="defaultOpen">Juego</button>
+	<button class="tablinks" onclick="openCity(event, 'Descripcion')">Descripcion del juego</button>
+	<button class="tablinks" onclick="openCity(event, 'Autores')">Autores</button>	
+	<button class="tablinks" onclick="openCity(event, 'Multimedia')">Multimedia</button>
+	<button class="tablinks" onclick="openCity(event, 'Desarrollo')">Desarrollo</button>
+	<button class="tablinks" onclick="openCity(event, 'Referencias')">Referencias</button>
+	</div>
+	
+
+	<!-- Contenido de las pestañas -->
+	<div id="Juego" class="tabcontent">
 	<canvas id="micanvas" width="1420" height="680">
 		Este texto se muestra para los navegadores no compatibles con canvas
 	</canvas>
@@ -82,5 +96,11 @@
 	
 	<!-- <img id="alien" src="alien.jpg"> -->
 </div>
+</div>
+
+	<div id="Autores" class="tabcontent">
+	<p> holaaaaa </p>
+	</div>
+	
 </body>
 </html>
