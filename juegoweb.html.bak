@@ -20,14 +20,10 @@
 	
 
 	<!-- Contenido de las pestañas -->
-	<div id="Juego" class="tabcontent">
+	<div id="Juego" class="tabcontent" style="display:block">
 	<canvas id="micanvas" width="1420" height="680">
 		Este texto se muestra para los navegadores no compatibles con canvas
 	</canvas>
-	
-	<button id ="buttRedAstro">
-	
-	</button>
 	
 <div>
 	<img id="b1" src="./background/fila-1-columna-1.jpg"> 
@@ -112,33 +108,59 @@
 	<img id="b80" src="./background/fila-1-columna-80.jpg"> 
 	
   	
-	<img id="astro1" src="../Astro1.png"> 
-	<img id="astro2" src="../Astro2.png"> 
-	<img id="astro3" src="../Astro3.png"> 
-	<img id="astro4" src="../Astro4.png"> 
+	<img id="astro1" src="./astronaranja/Astro1.png"> 
+	<img id="astro2" src="./astronaranja/Astro2.png"> 
+	<img id="astro3" src="./astronaranja/Astro3.png"> 
+	<img id="astro4" src="./astronaranja/Astro4.png"> 
 	
-	<img id="astro1Green" src="../Astro1Green.png"> 
-	<img id="astro2Green" src="../Astro2Green.png"> 
-	<img id="astro3Green" src="../Astro3Green.png"> 
-	<img id="astro4Green" src="../Astro4Green.png"> 
+	<img id="astro1Green" src="./astroverde/Astro1Green.png"> 
+	<img id="astro2Green" src="./astroverde/Astro2Green.png"> 
+	<img id="astro3Green" src="./astroverde/Astro3Green.png"> 
+	<img id="astro4Green" src="./astroverde/Astro4Green.png"> 
 	
-	<img id="meteorito" src="../meteorito.png">
-	<img id="meteorito1" src="../meteorito1.png">
-	<img id="meteorito2" src="../meteorito2.png">
-	<img id="meteorito3" src="../meteorito3.png">
-	<img id="meteorito4" src="../meteorito4.png">
-	<img id="meteorito5" src="../meteorito5.png">
-	<img id="meteorito6" src="../meteorito6.png">
-	<img id="meteorito7" src="../meteorito7.png">
-	<img id="meteorito8" src="../meteorito8.png">
-	<img id="meteorito9" src="../meteorito9.png">
+	<img id="meteorito" src="./meteorito/meteorito.png">
+	<img id="meteorito1" src="./meteorito/meteorito1.png">
+	<img id="meteorito2" src="./meteorito/meteorito2.png">
+	<img id="meteorito3" src="./meteorito/meteorito3.png">
+	<img id="meteorito4" src="./meteorito/meteorito4.png">
+	<img id="meteorito5" src="./meteorito/meteorito5.png">
+	<img id="meteorito6" src="./meteorito/meteorito6.png">
+	<img id="meteorito7" src="./meteorito/meteorito7.png">
+	<img id="meteorito8" src="./meteorito/meteorito8.png">
+	<img id="meteorito9" src="./meteorito/meteorito9.png">
 	
 	
 </div>
 </div>
 
+
+	<div id="Descripcion" class="tabcontent">
+	<p>holaaaaaaaaaa</p>
+	</div>
+	
 	<div id="Autores" class="tabcontent">
+
+	<h2> Gabriel Franco Ferreria </h2>
+	<h4>					
+	Estudiante de ingenieria de Sonido e imagen.<br>
+	HTML, CSS y Javascript.
+	</h4>
+	
+	<h2> Adriana Fuertes Dominguez </h2>
+	<h4>					
+	Estudiante de ingenieria de Sonido e imagen.<br>
+	HTML, CSS y Javascript.
+	</h4>
+	
+	<h2> Mario Roca Lago </h2>
+	<h4>					
+	Estudiante de ingenieria de Sonido e imagen.<br>
+	HTML, CSS y Javascript.
+	</h4>
+	
+
 	<h1> holaaaaa </h1>
+
 	</div>
 	
 </body>
