@@ -12,6 +12,10 @@ var count2 = 0;
 var count3 = 0;
 var count4 = 0;
 
+f_aparicion_met = 800
+numerodemet = 5
+vel_max_meteo = 5
+
 		/* ESTILO PESTAÑAS  */
 function openCity(evt, cityName) {
   // Declare all variables
@@ -190,7 +194,7 @@ function init(){
 			this.canvas.width = canvasWidth;
 			this.canvas.height = canvasHeight;
 			this.context = this.canvas.getContext("2d");
-			this.interval = setInterval(updateGameArea, 10);
+			this.interval = setInterval(updateGameArea, 5);
 		},
 		
 		borrar : function() {
@@ -211,7 +215,7 @@ function init(){
 		
 		this.updateElement = function(){
 			
-			if(this.recorrerSprite != this.sprite.length){
+			if(this.recorrerSprite < this.sprite.length){
 				ctx.drawImage(this.sprite[this.recorrerSprite],this.coordx, this.coordy)
 				if(this.contador == this.velocidad_refresco){
 					this.recorrerSprite++;
@@ -239,73 +243,55 @@ function init(){
 	//Creación de elementos:
 	var astronauta;
 	var meteoritos = new Array();
+	var timespace = new Array();
 	
-	function startgame(f_aparicion_met){
+	function startgame(f_aparicion_met,numerodemet,vel_max_meteo){
+		
 		gameArea.start();
-		astronauta = new Elemento(100,Math.round(getRndInteger(100,580)),0,spriteElegido,0,10)
+		timespace[0] = f_aparicion_met;
 		
-		meteoritos[0] = new Elemento(canvasWidth,Math.round(getRndInteger(50,630)),Math.round(getRndInteger(0,10)),spriteMeteorito,0,3)
-		meteoritos[1] = new Elemento(canvasWidth,Math.round(getRndInteger(50,630)),Math.round(getRndInteger(0,10)),spriteMeteorito,0,3)
-		meteoritos[2] = new Elemento(canvasWidth,Math.round(getRndInteger(50,630)),Math.round(getRndInteger(0,10)),spriteMeteorito,0,3)
-		meteoritos[3] = new Elemento(canvasWidth,Math.round(getRndInteger(50,630)),Math.round(getRndInteger(0,10)),spriteMeteorito,0,3)
-		meteoritos[4] = new Elemento(canvasWidth,Math.round(getRndInteger(50,630)),Math.round(getRndInteger(0,10)),spriteMeteorito,0,3)
+		background = new Elemento(0,0,0,spriteBackground,0,3)
+		astronauta = new Elemento(100,Math.round(getRndInteger(100,580)),0,spriteElegido,0,20)
 		
-		time0 = f_aparicion_met
-		time1 = time0 + getRndInteger(0,f_aparicion_met)
-		time2 = time1 + getRndInteger(0,f_aparicion_met)
-		time3 = time2 + getRndInteger(0,f_aparicion_met)
-		time4 = time3 + getRndInteger(0,f_aparicion_met)
+		for(let i = 0;i<numerodemet;i++){
 		
+			meteoritos[i] = new Elemento(canvasWidth,Math.round(getRndInteger(50,600)),Math.round(getRndInteger(1,vel_max_meteo)),spriteMeteorito,0,Math.round(getRndInteger(3, 6)));
+			timespace[i+1] = timespace[i] + getRndInteger(0,f_aparicion_met);
+		
+		}
 	}
 	
 	function updateGameArea(){
 		
 		
 		gameArea.borrar();
-		dibujarBackground(spriteBackground, 2)
+		background.updateElement();
 		astronauta.updateElement();
-		meteoritos[0].updateElement();
-		meteoritos[1].updateElement();
-		meteoritos[2].updateElement();
-		meteoritos[3].updateElement();
-		meteoritos[4].updateElement();
 		
-		if(time >= time0){meteoritos[0].coordx-=meteoritos[0].movimiento;}
-		if(time >= time1){meteoritos[1].coordx-=meteoritos[1].movimiento;}
-		if(time >= time2){meteoritos[2].coordx-=meteoritos[2].movimiento;}
-		if(time >= time3){meteoritos[3].coordx-=meteoritos[3].movimiento;}
-		if(time >= time4){meteoritos[4].coordx-=meteoritos[4].movimiento;}		
+		for(let i = 0;i<meteoritos.length;i++){
+			meteoritos[i].updateElement();
+		
+		
+			if(time >= timespace[i]){
+				meteoritos[i].coordx-=meteoritos[i].movimiento;
+			}	
+		
+			
+		}
 		
 		for(let i = 0; i<meteoritos.length; i++){
 			if(meteoritos[i].coordx<-200){
 				meteoritos[i].coordx = canvasWidth;
-				meteoritos[i].coordy = Math.round(getRndInteger(50,630));
-				meteoritos[i].movimiento = Math.round(getRndInteger(1,10));
+				meteoritos[i].coordy = Math.round(getRndInteger(50,600));
+				meteoritos[i].movimiento = Math.round(getRndInteger(1,vel_max_meteo));
+				timespace[i] = time + getRndInteger(Math.round(f_aparicion_met/2),f_aparicion_met);
 			}
 		}
-		
-			time++;
-		
+		time++;
 	}
 	
 	//keyboard arrows event configuration:
 	document.addEventListener("keydown", mueveAstronauta);
-	
-	function dibujarBackground(spriteBackground, v_3) {
-	
-		ctx.drawImage(spriteBackground[i3],0,0);
-		
-		if(count3==v_3){
-			if(i3 == spriteBackground.length-1){
-				i3=0;
-			}else{
-				i3++;
-			}
-			count3 = 0;
-		}else{
-			count3+=1;
-		}
-	}
 	
 		//Controles del astronauta:
 	function mueveAstronauta(){
@@ -346,7 +332,7 @@ function init(){
 	*/
 	}	
 	
-	startgame(160);
+	startgame(f_aparicion_met,numerodemet,vel_max_meteo);
 	
 }
 
