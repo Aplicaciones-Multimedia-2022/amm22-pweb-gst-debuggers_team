@@ -21,13 +21,14 @@
 
 	<!-- Contenido de las pestañas -->
 	<div id="Juego" class="tabcontent">
-	<canvas id="micanvas" width="1420" height="680">
+	<canvas id="micanvas" width="1420" height="640">
 		Este texto se muestra para los navegadores no compatibles con canvas
 	</canvas>
 	
-	<button id ="buttRedAstro">
-	
-	</button>
+	<video width="1420" height="640" controls id id = "video1">
+		<source src="./videos/videoaux.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
 	
 <div>
 	<img id="b1" src="./background/fila-1-columna-1.jpg"> 
@@ -109,29 +110,69 @@
 	<img id="b77" src="./background/fila-1-columna-77.jpg"> 
 	<img id="b78" src="./background/fila-1-columna-78.jpg"> 
 	<img id="b79" src="./background/fila-1-columna-79.jpg"> 
-	<img id="b80" src="./background/fila-1-columna-80.jpg"> 
+	<img id="b80" src="./background/fila-1-columna-80.jpg">
+	<img id="b81" src="./background/fila-1-columna-81.jpg"> 
+	<img id="b82" src="./background/fila-1-columna-82.jpg"> 
+	<img id="b83" src="./background/fila-1-columna-83.jpg">
+	<img id="b84" src="./background/fila-1-columna-84.jpg"> 
+	<img id="b85" src="./background/fila-1-columna-85.jpg"> 
+	<img id="b86" src="./background/fila-1-columna-86.jpg"> 
+	<img id="b87" src="./background/fila-1-columna-87.jpg"> 
+	<img id="b88" src="./background/fila-1-columna-88.jpg"> 
+	<img id="b89" src="./background/fila-1-columna-89.jpg"> 
+	<img id="b90" src="./background/fila-1-columna-90.jpg"> 
+	<img id="b91" src="./background/fila-1-columna-91.jpg">
+	<img id="b92" src="./background/fila-1-columna-92.jpg"> 
+	<img id="b93" src="./background/fila-1-columna-93.jpg"> 
+	<img id="b94" src="./background/fila-1-columna-94.jpg">
+	<img id="b95" src="./background/fila-1-columna-95.jpg"> 
+	<img id="b96" src="./background/fila-1-columna-96.jpg"> 
+	<img id="b97" src="./background/fila-1-columna-97.jpg"> 
+	<img id="b98" src="./background/fila-1-columna-98.jpg"> 
+	<img id="b99" src="./background/fila-1-columna-99.jpg"> 
+	<img id="b100" src="./background/fila-1-columna-100.jpg">
+	<img id="b101" src="./background/fila-1-columna-101.jpg"> 
+	<img id="b102" src="./background/fila-1-columna-102.jpg"> 
+	<img id="b103" src="./background/fila-1-columna-103.jpg">
+	<img id="b104" src="./background/fila-1-columna-104.jpg"> 
+	<img id="b105" src="./background/fila-1-columna-105.jpg"> 
+	<img id="b106" src="./background/fila-1-columna-106.jpg"> 
+	<img id="b107" src="./background/fila-1-columna-107.jpg"> 
+	<img id="b108" src="./background/fila-1-columna-108.jpg"> 
+	<img id="b109" src="./background/fila-1-columna-109.jpg"> 
+	<img id="b110" src="./background/fila-1-columna-110.jpg"> 
+	<img id="b111" src="./background/fila-1-columna-111.jpg">
+	<img id="b112" src="./background/fila-1-columna-112.jpg"> 
+	<img id="b113" src="./background/fila-1-columna-113.jpg"> 
+	<img id="b114" src="./background/fila-1-columna-114.jpg">
+	<img id="b115" src="./background/fila-1-columna-115.jpg"> 
+	<img id="b116" src="./background/fila-1-columna-116.jpg"> 
+	<img id="b117" src="./background/fila-1-columna-117.jpg"> 
+	<img id="b118" src="./background/fila-1-columna-118.jpg"> 
+	<img id="b119" src="./background/fila-1-columna-119.jpg"> 
+	<img id="b120" src="./background/fila-1-columna-120.jpg"> 
 	
   	
-	<img id="astro1" src="../Astro1.png"> 
-	<img id="astro2" src="../Astro2.png"> 
-	<img id="astro3" src="../Astro3.png"> 
-	<img id="astro4" src="../Astro4.png"> 
+	<img id="astro1" src="./astronaranja/Astro1.png"> 
+	<img id="astro2" src="./astronaranja/Astro2.png"> 
+	<img id="astro3" src="./astronaranja/Astro3.png"> 
+	<img id="astro4" src="./astronaranja/Astro4.png"> 
 	
-	<img id="astro1Green" src="../Astro1Green.png"> 
-	<img id="astro2Green" src="../Astro2Green.png"> 
-	<img id="astro3Green" src="../Astro3Green.png"> 
-	<img id="astro4Green" src="../Astro4Green.png"> 
+	<img id="astro1Green" src="./astroverde/Astro1Green.png"> 
+	<img id="astro2Green" src="./astroverde/Astro2Green.png"> 
+	<img id="astro3Green" src="./astroverde/Astro3Green.png"> 
+	<img id="astro4Green" src="./astroverde/Astro4Green.png"> 
 	
-	<img id="meteorito" src="../meteorito.png">
-	<img id="meteorito1" src="../meteorito1.png">
-	<img id="meteorito2" src="../meteorito2.png">
-	<img id="meteorito3" src="../meteorito3.png">
-	<img id="meteorito4" src="../meteorito4.png">
-	<img id="meteorito5" src="../meteorito5.png">
-	<img id="meteorito6" src="../meteorito6.png">
-	<img id="meteorito7" src="../meteorito7.png">
-	<img id="meteorito8" src="../meteorito8.png">
-	<img id="meteorito9" src="../meteorito9.png">
+	<img id="meteorito" src="./meteorito/meteorito.png">
+	<img id="meteorito1" src="./meteorito/meteorito1.png">
+	<img id="meteorito2" src="./meteorito/meteorito2.png">
+	<img id="meteorito3" src="./meteorito/meteorito3.png">
+	<img id="meteorito4" src="./meteorito/meteorito4.png">
+	<img id="meteorito5" src="./meteorito/meteorito5.png">
+	<img id="meteorito6" src="./meteorito/meteorito6.png">
+	<img id="meteorito7" src="./meteorito/meteorito7.png">
+	<img id="meteorito8" src="./meteorito/meteorito8.png">
+	<img id="meteorito9" src="./meteorito/meteorito9.png">
 	
 	
 </div>
