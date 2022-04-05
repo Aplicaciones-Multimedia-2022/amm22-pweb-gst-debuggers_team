@@ -3,7 +3,6 @@
 <head>
 	<link rel="stylesheet" href="juegoweb.css">
 	<script src="juegoweb.js"></script>
-	
 	<title>Juego</title>
 </head>
 <body>
@@ -20,17 +19,24 @@
 	
 
 	<!-- Contenido de las pestañas -->
-	<div id="Juego" class="tabcontent">
-	<canvas id="micanvas" width="1420" height="640">
+  
+	<div id="Juego" class="tabcontent" style="display:block">
+	<canvas id="micanvas" width="1420" height="680">
+
 		Este texto se muestra para los navegadores no compatibles con canvas
 	</canvas>
 	
-	<video id = "video1" width="1420" height="640" controls>
-		<source src="./videos/videoaux.mp4" type="video/mp4">
-		Your browser does not support the video tag.
+	<video id="video1" width = 1420 height = 640 controls muted autoplay>
+		<source src="./videos/videoaux1.mp4" type="video/mp4">
+		Your browser does not support HTML5 video.
 	</video>
 	
-<div>
+	<video id="video2" width = 1420 height = 640 controls >
+		<source src="./videos/videoaux2.mp4" type="video/mp4">
+		Your browser does not support HTML5 video.
+	</video>
+	
+
 	<img id="b1" src="./background/fila-1-columna-1.jpg"> 
 	<img id="b2" src="./background/fila-1-columna-2.jpg"> 
 	<img id="b3" src="./background/fila-1-columna-3.jpg">
@@ -174,12 +180,36 @@
 	<img id="meteorito8" src="./meteorito/meteorito8.png">
 	<img id="meteorito9" src="./meteorito/meteorito9.png">
 	
-	
-</div>
 </div>
 
+
+	<div id="Descripcion" class="tabcontent">
+	<p>holaaaaaaaaaa</p>
+	</div>
+	
 	<div id="Autores" class="tabcontent">
+
+	<h2> Gabriel Franco Ferreria </h2>
+	<h4>					
+	Estudiante de ingenieria de Sonido e imagen.<br>
+	HTML, CSS y Javascript.
+	</h4>
+	
+	<h2> Adriana Fuertes Dominguez </h2>
+	<h4>					
+	Estudiante de ingenieria de Sonido e imagen.<br>
+	HTML, CSS y Javascript.
+	</h4>
+	
+	<h2> Mario Roca Lago </h2>
+	<h4>					
+	Estudiante de ingenieria de Sonido e imagen.<br>
+	HTML, CSS y Javascript.
+	</h4>
+	
+
 	<h1> holaaaaa </h1>
+
 	</div>
 	
 </body>

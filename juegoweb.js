@@ -36,6 +36,8 @@ function openCity(evt, cityName) {
 window.onload = init;
 
 function init(){
+	video1 = document.getElementById("myVideo")
+	
 	//Cargo los sprites de los elementos del juego:
 	const spriteBackground = [document.getElementById("b1"),
 		document.getElementById("b2"),
@@ -185,7 +187,7 @@ function init(){
 	//Objeto que contiene todo lo relacionado con el área de juego(canvas)
 	var gameArea = {
 		canvas : document.getElementById("micanvas"),
-		
+	
 		start : function() {
 			this.canvas.width = canvasWidth;
 			this.canvas.height = canvasHeight;
@@ -250,6 +252,7 @@ function init(){
 	function startgame(f_aparicion_met,numerodemet,vel_max_meteo){
 		
 		gameArea.start();
+		
 		timespace[0] = f_aparicion_met;
 		
 		background = new Elemento(0,0,0,spriteBackground,3)
@@ -265,7 +268,7 @@ function init(){
 	
 	function updateGameArea(){
 		
-		
+	
 		gameArea.borrar();
 		background.updateElement();
 		astronauta.updateElement();
@@ -290,6 +293,13 @@ function init(){
 			}
 		}
 		time++;
+		
+		//GAME OVER:
+		if(astronauta.coordx<0){
+			clearInterval(gameArea.interval);
+			gameArea.borrar();
+			video2.play()
+		}
 	}
 	
 	//keyboard arrows event configuration:
@@ -314,37 +324,45 @@ function init(){
 		if(event.keyCode == '83'){
 			astronauta.coordy +=10;
 		}
-	/*
-		if(event.keyCode == '38'&& event.keyCode == '39'){
-			astronauta.coordy-=10
-			astronauta.coordx+=10
-		}
-		if(event.keyCode == '38'&& event.keyCode == '37'){
-			astronauta.coordy-=10
-			astronauta.coordx-=10
-		}
-		if(event.keyCode == '40'&& event.keyCode == '39'){
-			astronauta.coordy+=10
-			astronauta.coordx+=10
-		}
-		if(event.keyCode == '40'&& event.keyCode == '37'){
-			astronauta.coordy+=10
-			astronauta.coordx-=10
-		} 
-	*/
+		
 	}	
+	
 	video1 = document.getElementById("video1")
+	video2 = document.getElementById("video2")
+	
+	video1.play()
+	
+	//Cada vez que llamo a la funcion drawvideo es cada vez que el video dispara un evento play cuando se está reproduciendo:
 	
 	video1.addEventListener('play',function() {
-		draw(video1,gameArea.context,canvasWidth, canvasHeight);
-	},false);
+		drawvideo(video1,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+	});
 	
+	video2.addEventListener('play',function() {
+		drawvideo(video2,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+	});
+	
+	//Para que no se superponga el video con el juego le impongo la condición que deje de dibujarse cuando finaliza el video:
 	function drawvideo(video, c, w, h){
-		c.drawImage(video,0,0, w, h);
-		setTimeout(draw,20,v,c,w,h);
+		if(video.ended == false){
+			c.drawImage(video,0,0, w, h);
+			setTimeout(drawvideo,20,video,c,w,h);
+		}
 	}
 	
-	startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+	//hasta que no finalice el vídeo no empiezo la función que dispara el juego:
+	video1.onended = function() {
+		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+	};
+	
+	/*
+	Hasta este punto se ha hecho un clear del intervalo setInterval que refresca el juego y se ha reproducido el video 2
+	el cual no permite que empiece el juego de nuevo hasta que no acabe el vídeo
+	*/
+	
+	video2.onended = function() {
+		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+	};		
 	
 }
 
