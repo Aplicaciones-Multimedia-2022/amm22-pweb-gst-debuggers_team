@@ -1,19 +1,14 @@
 //Variables globales:
-var ctx;
-var canvas;
 var canvasWidth = 1420;
 var canvasHeight = 640;
 //contadores:
-var i1 = 0;
-var i2 = 0;
-var i3 = 0;
 var time = 0;
-var count2 = 0;
-var count3 = 0;
-var count4 = 0;
-
+//Variables de los elementos:
+//Frecuencia en la que aparecen los meteoritos:
 f_aparicion_met = 800
+//numero max de meteoritos:
 numerodemet = 5
+//velocidad de los met.
 vel_max_meteo = 5
 
 		/* ESTILO PESTAÑAS  */
@@ -187,6 +182,7 @@ function init(){
 		document.getElementById("astro4")
 		];
 	
+	//Objeto que contiene todo lo relacionado con el área de juego(canvas)
 	var gameArea = {
 		canvas : document.getElementById("micanvas"),
 		
@@ -202,17 +198,20 @@ function init(){
 		}
 	}
 	
-	var Elemento = function(coordx,coordy,movimiento,sprite,recorrerSprite,velocidad_refresco){
+	//Objeto elemento que será cualquier componente añadido al juego como los meteoritos, fondo, etc..
+	
+	var Elemento = function(coordx,coordy,movimiento,sprite,velocidad_refresco){
 		this.coordx = coordx;
 		this.coordy = coordy;
 		this.sprite = sprite;
 		this.movimiento = movimiento;
-		this.recorrerSprite = recorrerSprite;
 		this.velocidad_refresco = velocidad_refresco;
 		this.contador = 0;
+		this.recorrerSprite = 0;
 		
 		ctx = gameArea.context;
 		
+		//Esta función se encargará de actualizar los sprites de cada elemento:
 		this.updateElement = function(){
 			
 			if(this.recorrerSprite < this.sprite.length){
@@ -220,16 +219,19 @@ function init(){
 				if(this.contador == this.velocidad_refresco){
 					this.recorrerSprite++;
 					this.contador = 0;
+					//Solución al parpadeo
+					if(this.recorrerSprite == this.sprite.length){
+						this.recorrerSprite = 0;
+					}
 				}else{
 					this.contador++;
 				}
-			}else{
-				this.recorrerSprite = 0;
 			}
 		}
 	
 	};
 	
+	//Función que devuelve un número aleatorio entre dos números:
 	function getRndInteger(min, max) {
 		return Math.floor(Math.random() * (max - min) ) + min;
 	};
@@ -250,12 +252,12 @@ function init(){
 		gameArea.start();
 		timespace[0] = f_aparicion_met;
 		
-		background = new Elemento(0,0,0,spriteBackground,0,3)
-		astronauta = new Elemento(100,Math.round(getRndInteger(100,580)),0,spriteElegido,0,20)
+		background = new Elemento(0,0,0,spriteBackground,3)
+		astronauta = new Elemento(100,getRndInteger(100,580),0,spriteElegido,20)
 		
 		for(let i = 0;i<numerodemet;i++){
 		
-			meteoritos[i] = new Elemento(canvasWidth,Math.round(getRndInteger(50,600)),Math.round(getRndInteger(1,vel_max_meteo)),spriteMeteorito,0,Math.round(getRndInteger(3, 6)));
+			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteMeteorito,getRndInteger(2, 6));
 			timespace[i+1] = timespace[i] + getRndInteger(0,f_aparicion_met);
 		
 		}
@@ -282,8 +284,8 @@ function init(){
 		for(let i = 0; i<meteoritos.length; i++){
 			if(meteoritos[i].coordx<-200){
 				meteoritos[i].coordx = canvasWidth;
-				meteoritos[i].coordy = Math.round(getRndInteger(50,600));
-				meteoritos[i].movimiento = Math.round(getRndInteger(1,vel_max_meteo));
+				meteoritos[i].coordy = getRndInteger(50,600);
+				meteoritos[i].movimiento = getRndInteger(1,vel_max_meteo);
 				timespace[i] = time + getRndInteger(Math.round(f_aparicion_met/2),f_aparicion_met);
 			}
 		}
@@ -331,6 +333,16 @@ function init(){
 		} 
 	*/
 	}	
+	video1 = document.getElementById("video1")
+	
+	video1.addEventListener('play',function() {
+		draw(video1,gameArea.context,canvasWidth, canvasHeight);
+	},false);
+	
+	function draw(video, c, w, h){
+		c.drawImage(video,0,0, w, h);
+		setTimeout(draw,20,v,c,w,h);
+	}
 	
 	startgame(f_aparicion_met,numerodemet,vel_max_meteo);
 	
