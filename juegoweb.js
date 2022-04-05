@@ -5,11 +5,11 @@ var canvasHeight = 640;
 var time = 0;
 //Variables de los elementos:
 //Frecuencia en la que aparecen los meteoritos:
-f_aparicion_met = 800
+f_aparicion_met = 1200
 //numero max de meteoritos:
 numerodemet = 5
 //velocidad de los met.
-vel_max_meteo = 5
+vel_max_meteo = 4
 
 		/* ESTILO PESTAÑAS  */
 function openCity(evt, cityName) {
@@ -258,7 +258,7 @@ function init(){
 		for(let i = 0;i<numerodemet;i++){
 		
 			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteMeteorito,getRndInteger(2, 6));
-			timespace[i+1] = timespace[i] + getRndInteger(0,f_aparicion_met);
+			timespace[i+1] = timespace[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
 		
 		}
 	}
@@ -286,7 +286,7 @@ function init(){
 				meteoritos[i].coordx = canvasWidth;
 				meteoritos[i].coordy = getRndInteger(50,600);
 				meteoritos[i].movimiento = getRndInteger(1,vel_max_meteo);
-				timespace[i] = time + getRndInteger(Math.round(f_aparicion_met/2),f_aparicion_met);
+				timespace[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
 			}
 		}
 		time++;
@@ -299,19 +299,19 @@ function init(){
 	function mueveAstronauta(){
 	
 	//up arrow
-		if(event.keyCode == '38'){
+		if(event.keyCode == '87'){
 			astronauta.coordy-=10;
 		}
 	//right arrow
-		if(event.keyCode == '39'){
+		if(event.keyCode == '68'){
 			astronauta.coordx+=10;
 		}
 	//left arrow
-		if(event.keyCode == '37'){
+		if(event.keyCode == '65'){
 			astronauta.coordx-=10;
 		}
 	//down arrow
-		if(event.keyCode == '40'){
+		if(event.keyCode == '83'){
 			astronauta.coordy +=10;
 		}
 	/*
@@ -339,7 +339,7 @@ function init(){
 		draw(video1,gameArea.context,canvasWidth, canvasHeight);
 	},false);
 	
-	function draw(video, c, w, h){
+	function drawvideo(video, c, w, h){
 		c.drawImage(video,0,0, w, h);
 		setTimeout(draw,20,v,c,w,h);
 	}

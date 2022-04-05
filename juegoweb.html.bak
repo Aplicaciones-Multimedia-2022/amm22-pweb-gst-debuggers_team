@@ -25,7 +25,7 @@
 		Este texto se muestra para los navegadores no compatibles con canvas
 	</canvas>
 	
-	<video width="1420" height="640" controls id id = "video1">
+	<video id = "video1" width="1420" height="640" controls>
 		<source src="./videos/videoaux.mp4" type="video/mp4">
 		Your browser does not support the video tag.
 	</video>
