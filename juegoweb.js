@@ -5,13 +5,20 @@ var canvasHeight = 640;
 var time = 0;
 //Variables de los elementos:
 //Frecuencia en la que aparecen los meteoritos:
-f_aparicion_met = 1200
+var f_aparicion_met = 1200;
 //numero max de meteoritos:
-numerodemet = 5
+var numerodemet = 5;
 //velocidad de los met.
-vel_max_meteo = 4
+var vel_max_meteo = 4;
 
-		/* ESTILO PESTAÑAS  */
+var escalabackground = 1
+var escalameteor;
+var escalaastro = 1.5
+
+var nivel;
+var choosedCharacter = 1; //Esta variable indica si se ha elegido el personaje
+
+		/* PESTAÑAS  */
 function openCity(evt, cityName) {
   // Declare all variables
   var i, tabcontent, tablinks;
@@ -36,7 +43,6 @@ function openCity(evt, cityName) {
 window.onload = init;
 
 function init(){
-	video1 = document.getElementById("myVideo")
 	
 	//Cargo los sprites de los elementos del juego:
 	const spriteBackground = [document.getElementById("b1"),
@@ -202,7 +208,7 @@ function init(){
 	
 	//Objeto elemento que será cualquier componente añadido al juego como los meteoritos, fondo, etc..
 	
-	var Elemento = function(coordx,coordy,movimiento,sprite,velocidad_refresco){
+	var Elemento = function(coordx,coordy,movimiento,sprite,velocidad_refresco, escala){
 		this.coordx = coordx;
 		this.coordy = coordy;
 		this.sprite = sprite;
@@ -210,6 +216,13 @@ function init(){
 		this.velocidad_refresco = velocidad_refresco;
 		this.contador = 0;
 		this.recorrerSprite = 0;
+		this.centroElementox;
+		this.centroElementoy;
+		this.centroElementox1;
+		this.centroElementoy1;
+		this.centroElementox2;
+		this.centroElementoy2;
+		this.escala = escala; 
 		
 		ctx = gameArea.context;
 		
@@ -217,7 +230,7 @@ function init(){
 		this.updateElement = function(){
 			
 			if(this.recorrerSprite < this.sprite.length){
-				ctx.drawImage(this.sprite[this.recorrerSprite],this.coordx, this.coordy)
+				ctx.drawImage(this.sprite[this.recorrerSprite],this.coordx, this.coordy, this.sprite[this.recorrerSprite].width/escala, this.sprite[this.recorrerSprite].height/escala)
 				if(this.contador == this.velocidad_refresco){
 					this.recorrerSprite++;
 					this.contador = 0;
@@ -238,6 +251,10 @@ function init(){
 		return Math.floor(Math.random() * (max - min) ) + min;
 	};
 	
+	function distancia(coordx1,coordy1,coordx2,coordy2){
+		return Math.sqrt(((coordx1-coordx2)**2)+((coordy1-coordy2)**2))
+	}
+	
 	variable = 1;
 	if (variable = 1){
 		spriteElegido = spriteAstronauta;
@@ -248,19 +265,21 @@ function init(){
 	var astronauta;
 	var meteoritos = new Array();
 	var timespace = new Array();
+
 	
 	function startgame(f_aparicion_met,numerodemet,vel_max_meteo){
+		
 		
 		gameArea.start();
 		
 		timespace[0] = f_aparicion_met;
 		
-		background = new Elemento(0,0,0,spriteBackground,3)
-		astronauta = new Elemento(100,getRndInteger(100,580),0,spriteElegido,20)
+		background = new Elemento(0,0,0,spriteBackground,3,escalabackground)
+		astronauta = new Elemento(100,getRndInteger(100,580),0,spriteElegido,20,escalaastro)
 		
 		for(let i = 0;i<numerodemet;i++){
-		
-			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteMeteorito,getRndInteger(2, 6));
+			escalameteor = getRndInteger(1, 4)
+			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteMeteorito,getRndInteger(2, 6),escalameteor);
 			timespace[i+1] = timespace[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
 		
 		}
@@ -272,9 +291,11 @@ function init(){
 		gameArea.borrar();
 		background.updateElement();
 		astronauta.updateElement();
+		updatecentro(astronauta);
 		
 		for(let i = 0;i<meteoritos.length;i++){
 			meteoritos[i].updateElement();
+			updatecentro(meteoritos[i]);
 		
 		
 			if(time >= timespace[i]){
@@ -293,13 +314,43 @@ function init(){
 			}
 		}
 		time++;
+		colisiones();
 		
-		//GAME OVER:
-		if(astronauta.coordx<0){
-			clearInterval(gameArea.interval);
-			gameArea.borrar();
+	}
+	
+	function game_over(nivel){
+		clearInterval(gameArea.interval);
+		gameArea.borrar();
+		if (nivel = 1){
 			video2.play()
 		}
+		if (nivel = 2){
+			video3.play()
+		}
+		time = 0;
+	}
+	
+	function colisiones() {
+		for(let i=0;i<meteoritos.length;i++){
+			if(	(distancia(astronauta.centroElementox,astronauta.centroElementoy,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 100/escalaastro)||
+			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox1,meteoritos[i].centroElementoy1) <= 80/escalaastro))||
+			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox2,meteoritos[i].centroElementoy2) <= 70/escalaastro))){
+				
+				game_over(1);
+			}
+		}
+	}
+	
+	function updatecentro(Elementox){
+		Elementox.centroElementox = Elementox.coordx+(Elementox.sprite[0].width/2)
+		Elementox.centroElementoy = Elementox.coordy+(Elementox.sprite[0].height/2)
+		
+		Elementox.centroElementox1 = Elementox.coordx+(Elementox.sprite[0].width/2) // Centro superior
+		Elementox.centroElementoy1 = Elementox.coordy+((Elementox.sprite[0].height/2)-(Elementox.sprite[0].height/3))
+		
+		Elementox.centroElementox2 = Elementox.coordx+(Elementox.sprite[0].width/2) //Centro inferior
+		Elementox.centroElementoy2 = Elementox.coordy+((Elementox.sprite[0].height/2)+(Elementox.sprite[0].height/3))
+		
 	}
 	
 	//keyboard arrows event configuration:
@@ -310,25 +361,34 @@ function init(){
 	
 	//up arrow
 		if(event.keyCode == '87'){
-			astronauta.coordy-=10;
+			if(astronauta.coordy>=10){
+				astronauta.coordy-=10;
+			}
 		}
 	//right arrow
 		if(event.keyCode == '68'){
-			astronauta.coordx+=10;
+			if(astronauta.coordx<=canvasWidth-250){
+				astronauta.coordx+=10;
+			}
 		}
 	//left arrow
 		if(event.keyCode == '65'){
-			astronauta.coordx-=10;
+			if(astronauta.coordx>=10){
+				astronauta.coordx-=10;
+			}
 		}
 	//down arrow
 		if(event.keyCode == '83'){
-			astronauta.coordy +=10;
+			if(astronauta.coordy<=canvasHeight-300){
+				astronauta.coordy +=10;
+			}
 		}
 		
 	}	
 	
 	video1 = document.getElementById("video1")
 	video2 = document.getElementById("video2")
+	video3 = document.getElementById("video3")
 	
 	video1.play()
 	
@@ -349,9 +409,23 @@ function init(){
 			setTimeout(drawvideo,20,video,c,w,h);
 		}
 	}
+	/*
+	document.addEventListener('click',chooseCharacter())
 	
+	function chooseCharacter(){
+		if(video1.ended == true && choosedCharacter = 1){
+			if(){
+				choosedCharacter = 0
+			}
+			if(){
+				choosedCharacter = 0
+			}
+		}
+	}
+	*/
 	//hasta que no finalice el vídeo no empiezo la función que dispara el juego:
 	video1.onended = function() {
+		
 		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
 	};
 	

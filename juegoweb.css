@@ -25,9 +25,11 @@ video{
 .tab {
   display: inline-block;
   overflow: center;
-  align-items: center;
   border: 5px solid #2307C2;
   background-color: #2307C2;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 /* estilo botón de pestaña seleccionada */
@@ -41,6 +43,7 @@ video{
   cursor: pointer;
   padding: 15px 22px;
   transition: 0.3s;
+  
 }
 
 /* color botón al pasar el ratón por encima */
