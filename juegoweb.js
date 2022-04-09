@@ -11,9 +11,15 @@ var numerodemet = 5;
 //velocidad de los met.
 var vel_max_meteo = 4;
 
+var level;
+
 var escalabackground = 1
 var escalameteor;
 var escalaastro = 1.5
+
+var mySound; //Sonido de impacto
+var myMusic; //Música de fondo
+var video1Sound; //Sonido vídeo 1
 
 var nivel;
 var choosedCharacter = 1; //Esta variable indica si se ha elegido el personaje
@@ -166,6 +172,7 @@ function init(){
 		document.getElementById("b119"),
 		document.getElementById("b120")
 		];
+
 	const spriteMeteorito = [document.getElementById("meteorito"),
 		document.getElementById("meteorito1"),
 		document.getElementById("meteorito2"),
@@ -261,6 +268,7 @@ function init(){
 	}else{
 		spriteElegido = spriteAstronautaGreen;
 	}
+
 	//Creación de elementos:
 	var astronauta;
 	var meteoritos = new Array();
@@ -268,14 +276,17 @@ function init(){
 
 	
 	function startgame(f_aparicion_met,numerodemet,vel_max_meteo){
-		
-		
+		level = 1;
+		myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
+    		//myMusic.play();
+
+		mySound = new sound("./audios/impacto.mp3"); //Sonido de impacto
 		gameArea.start();
 		
 		timespace[0] = f_aparicion_met;
 		
 		background = new Elemento(0,0,0,spriteBackground,3,escalabackground)
-		astronauta = new Elemento(100,getRndInteger(100,580),0,spriteElegido,20,escalaastro)
+		astronauta = new Elemento(100,getRndInteger(100,400),0,spriteElegido,20,escalaastro)
 		
 		for(let i = 0;i<numerodemet;i++){
 			escalameteor = getRndInteger(1, 4)
@@ -287,7 +298,9 @@ function init(){
 	
 	function updateGameArea(){
 		
-	
+		//myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
+    		myMusic.play();
+
 		gameArea.borrar();
 		background.updateElement();
 		astronauta.updateElement();
@@ -319,6 +332,7 @@ function init(){
 	}
 	
 	function game_over(nivel){
+		
 		clearInterval(gameArea.interval);
 		gameArea.borrar();
 		if (nivel = 1){
@@ -335,10 +349,25 @@ function init(){
 			if(	(distancia(astronauta.centroElementox,astronauta.centroElementoy,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 100/escalaastro)||
 			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox1,meteoritos[i].centroElementoy1) <= 80/escalaastro))||
 			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox2,meteoritos[i].centroElementoy2) <= 70/escalaastro))){
-				
-				game_over(1);
+				mySound.play(); // Activo el sonido de impacto
+				myMusic.stop(); // Silencio la música de fondo
+				game_over(level);
 			}
 		}
+	}
+	function sound(src) { //Función constructora de sonido
+    		this.sound = document.createElement("audio");
+   		this.sound.src = src;
+    		this.sound.setAttribute("preload", "auto");
+    		this.sound.setAttribute("controls", "none");
+    		this.sound.style.display = "none";
+    		document.body.appendChild(this.sound);
+    		this.play = function(){
+        		this.sound.play();
+   	 	}
+    		this.stop = function(){
+        		this.sound.pause();
+    		}
 	}
 	
 	function updatecentro(Elementox){
@@ -387,10 +416,30 @@ function init(){
 	}	
 	
 	video1 = document.getElementById("video1")
+	video1Sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
 	video2 = document.getElementById("video2")
 	video3 = document.getElementById("video3")
+
+	/*var ok=true; // COMIENZO DEL INTENTO Intento de crear el evento de hacer click al entrar y que se reproduzcan tanto el vídeo como el audio
+
+        document.getElementById("video1").addEventListener("click", reproducir);
+
+	function reproducir(){
 	
-	video1.play()
+	document.removeEventListener('click',reproducir);
+	if(ok){
+		video1Sound.play();
+	}
+	ok=false;
+	} */ //FIN DEL INTENTO
+
+	function videoplay(video, audio) {
+		video.play();
+		audio.play();
+	} 
+	//video1.play()
+	videoplay(video1,video1Sound)
+	
 	
 	//Cada vez que llamo a la funcion drawvideo es cada vez que el video dispara un evento play cuando se está reproduciendo:
 	
@@ -405,6 +454,7 @@ function init(){
 	//Para que no se superponga el video con el juego le impongo la condición que deje de dibujarse cuando finaliza el video:
 	function drawvideo(video, c, w, h){
 		if(video.ended == false){
+			video1Sound.stop();
 			c.drawImage(video,0,0, w, h);
 			setTimeout(drawvideo,20,video,c,w,h);
 		}
