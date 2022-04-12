@@ -6,7 +6,7 @@
 	<title>Juego</title>
 </head>
 <body>
-
+	
 	<!-- Creacion de distintas pestañas -->
 	<div class="tab">
 	<button class="tablinks" onclick="openCity(event, 'Juego')" id="defaultOpen">Juego</button>
@@ -27,7 +27,7 @@
 	</canvas>
 	
 	<video id="video1" width = 1420 height = 640 controls muted>
-		<source src="./videos/videoaux1.mp4" type="video/mp4">
+		<source src="./videos/videoaux2.mp4" type="video/mp4">
 		Your browser does not support HTML5 video.
 	</video>
 	
@@ -40,6 +40,7 @@
 		<source src="./videos/videoaux3.mp4" type="video/mp4">
 		Your browser does not support HTML5 video.
 	</video>
+
 	
 
 	<img id="b1" src="./background/fila-1-columna-1.jpg"> 
@@ -184,6 +185,10 @@
 	<img id="meteorito7" src="./meteorito/meteorito7.png">
 	<img id="meteorito8" src="./meteorito/meteorito8.png">
 	<img id="meteorito9" src="./meteorito/meteorito9.png">
+	
+	<img id="imagenfinal" src="./imagenes/final_image.png">
+	<img id="go" src="./imagenes/gameover.png">
+	<img id="start_im" src="./imagenes/startimage.png">
 	
 </div>
 

@@ -1,8 +1,12 @@
 //Variables globales:
 var canvasWidth = 1420;
 var canvasHeight = 640;
+//Parametros niveles:
+var level = 1;
+var level_duration = 3000
 //contadores:
 var time = 0;
+var time_level = level_duration;
 //Variables de los elementos:
 //Frecuencia en la que aparecen los meteoritos:
 var f_aparicion_met = 1200;
@@ -11,17 +15,31 @@ var numerodemet = 5;
 //velocidad de los met.
 var vel_max_meteo = 4;
 
-var level;
-
+//Dimensiones de los elementos:
 var escalabackground = 1
 var escalameteor;
 var escalaastro = 1.5
 
+//Sonidos:
 var mySound; //Sonido de impacto
 var myMusic; //Música de fondo
 var video1Sound; //Sonido vídeo 1
 
-var nivel;
+//Botones del canvas:
+//Botón pantalla final:
+var finalbuttWidth = 300
+var finalbuttHeight = 100
+var finalbuttcoordx = (canvasWidth/2) - (finalbuttWidth/2)
+var finalbuttcoordy = ((canvasHeight/2)+180) - (finalbuttHeight/2)
+
+//Botón pantalla game over:
+var gobuttWidth = 400
+var gobuttHeight = 220
+var gobuttcoordx = (canvasWidth/2) - (gobuttWidth/2)
+var gobuttcoordy = ((canvasHeight/2)+140) - (gobuttHeight/2)
+
+var button;
+
 var choosedCharacter = 1; //Esta variable indica si se ha elegido el personaje
 
 		/* PESTAÑAS  */
@@ -49,6 +67,10 @@ function openCity(evt, cityName) {
 window.onload = init;
 
 function init(){
+	
+	imagenfinal = document.getElementById("imagenfinal");
+	im_go = document.getElementById("go");
+	start_im = document.getElementById("start_im");
 	
 	//Cargo los sprites de los elementos del juego:
 	const spriteBackground = [document.getElementById("b1"),
@@ -258,10 +280,12 @@ function init(){
 		return Math.floor(Math.random() * (max - min) ) + min;
 	};
 	
+	//Función que calcula las distancias entre dos coordenadas del canvas:
 	function distancia(coordx1,coordy1,coordx2,coordy2){
 		return Math.sqrt(((coordx1-coordx2)**2)+((coordy1-coordy2)**2))
 	}
 	
+	//Elección del traje naranja o verde:
 	variable = 1;
 	if (variable = 1){
 		spriteElegido = spriteAstronauta;
@@ -276,11 +300,8 @@ function init(){
 
 	
 	function startgame(f_aparicion_met,numerodemet,vel_max_meteo){
-		level = 1;
-		myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
-    		//myMusic.play();
-
-		mySound = new sound("./audios/impacto.mp3"); //Sonido de impacto
+		
+		myMusic.play();
 		gameArea.start();
 		
 		timespace[0] = f_aparicion_met;
@@ -297,9 +318,6 @@ function init(){
 	}
 	
 	function updateGameArea(){
-		
-		//myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
-    		myMusic.play();
 
 		gameArea.borrar();
 		background.updateElement();
@@ -328,20 +346,87 @@ function init(){
 		}
 		time++;
 		colisiones();
+		pass_level(level)
+		time_level--
 		
 	}
 	
-	function game_over(nivel){
+	function pass_level(nivel){
+		if(time_level == 0){
+			myMusic.stop(); // Silencio la música de fondo
+			clearInterval(gameArea.interval);
+			gameArea.borrar();
+				if (nivel == 1){
+					video2.play()
+					level++;
+					
+				}
+				if (nivel == 2){
+					video3.play()
+					level++;
+				}
+				if (nivel == 3){
+					button = 1
+					//Esta parte va a finalizar el juego con una pantalla en la que se muestra un botón para empezar de nuevo y un mensaje de victoria
+					level = 1
+					createButtonAndImage(finalbuttcoordx,finalbuttcoordy,finalbuttWidth,finalbuttHeight,gameArea.context,imagenfinal)
+					document.addEventListener("click", mouseCoord)
+				}
+				
+				time_level = level_duration;
+				time = 0;
+		}
+	}
+	function createButtonAndImage(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context,image){
+		context.drawImage(image,0,0)
+		context.beginPath();
+		context.strokeStyle = "white";
+		context.rect(buttoncoordx, buttoncoordy, buttonWidth, buttonHeight);
+		context.fillStyle = "white";
+		context.fill();
+	}
+	
+	function mouseCoord(){
 		
+		const rect = gameArea.canvas.getBoundingClientRect()
+		var x = event.clientX - rect.left;
+		var y = event.clientY - rect.top;
+		
+		if(button == 0){
+		
+			limitexizqda = gobuttcoordx
+			limitexdrcha = gobuttcoordy + gobuttWidth
+			limiteyabajo = gobuttcoordy
+			limiteyarriba = gobuttcoordy + gobuttHeight
+		
+		}else{
+			limitexizqda = finalbuttcoordx
+			limitexdrcha = finalbuttcoordx + finalbuttWidth
+			limiteyabajo = finalbuttcoordy
+			limiteyarriba = finalbuttcoordy + finalbuttHeight
+		}
+		
+			if(x >= limitexizqda && x <= limitexdrcha){
+				if(y >= limiteyabajo && y <= limiteyarriba){
+					document.removeEventListener("click", mouseCoord);
+					init();
+				}
+			}
+		
+	}
+	
+	function game_over(){
+		mySound.play(); // Activo el sonido de impacto
+		myMusic.stop(); // Silencio la música de fondo
 		clearInterval(gameArea.interval);
 		gameArea.borrar();
-		if (nivel = 1){
-			video2.play()
-		}
-		if (nivel = 2){
-			video3.play()
-		}
+		level = 1 //Reinicio niveles;
+		time_level = level_duration;
 		time = 0;
+		
+		button = 0
+		createButtonAndImage(gobuttcoordx,gobuttcoordy,gobuttWidth,gobuttHeight,gameArea.context,im_go)
+		document.addEventListener("click", mouseCoord)
 	}
 	
 	function colisiones() {
@@ -349,26 +434,11 @@ function init(){
 			if(	(distancia(astronauta.centroElementox,astronauta.centroElementoy,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 100/escalaastro)||
 			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox1,meteoritos[i].centroElementoy1) <= 80/escalaastro))||
 			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox2,meteoritos[i].centroElementoy2) <= 70/escalaastro))){
-				mySound.play(); // Activo el sonido de impacto
-				myMusic.stop(); // Silencio la música de fondo
-				game_over(level);
+				game_over();
 			}
 		}
 	}
-	function sound(src) { //Función constructora de sonido
-    		this.sound = document.createElement("audio");
-   		this.sound.src = src;
-    		this.sound.setAttribute("preload", "auto");
-    		this.sound.setAttribute("controls", "none");
-    		this.sound.style.display = "none";
-    		document.body.appendChild(this.sound);
-    		this.play = function(){
-        		this.sound.play();
-   	 	}
-    		this.stop = function(){
-        		this.sound.pause();
-    		}
-	}
+	
 	
 	function updatecentro(Elementox){
 		Elementox.centroElementox = Elementox.coordx+(Elementox.sprite[0].width/2)
@@ -414,9 +484,29 @@ function init(){
 		}
 		
 	}	
+	//***SONIDO***
+	function sound(src) { //Función constructora de sonido
+    		this.sound = document.createElement("audio");
+			this.sound.src = src;
+    		this.sound.setAttribute("preload", "auto");
+    		this.sound.setAttribute("controls", "none");
+    		this.sound.style.display = "none";
+    		document.body.appendChild(this.sound);
+			
+    		this.play = function(){
+        		this.sound.play();
+			}
+    		this.stop = function(){
+        		this.sound.pause();
+    		}
+	}
+	//***SONIDO***
+	
+	video1Sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
+	mySound = new sound("./audios/impacto.mp3"); //Sonido de impacto
+	myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
 	
 	video1 = document.getElementById("video1")
-	video1Sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
 	video2 = document.getElementById("video2")
 	video3 = document.getElementById("video3")
 
@@ -437,8 +527,8 @@ function init(){
 		video.play();
 		audio.play();
 	} 
-	//video1.play()
-	videoplay(video1,video1Sound)
+	
+	
 	
 	
 	//Cada vez que llamo a la funcion drawvideo es cada vez que el video dispara un evento play cuando se está reproduciendo:
@@ -451,10 +541,13 @@ function init(){
 		drawvideo(video2,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
 	});
 	
+	video3.addEventListener('play',function() {
+		drawvideo(video3,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+	});
+	
 	//Para que no se superponga el video con el juego le impongo la condición que deje de dibujarse cuando finaliza el video:
 	function drawvideo(video, c, w, h){
 		if(video.ended == false){
-			video1Sound.stop();
 			c.drawImage(video,0,0, w, h);
 			setTimeout(drawvideo,20,video,c,w,h);
 		}
@@ -473,20 +566,32 @@ function init(){
 		}
 	}
 	*/
+	
+															/****AQUÍ COMIENZA EL FLOW DEL JUEGO:****/
+	//Función escuchadora que inicia el juego al pulsar la barra espaciadora:
+	document.getElementById("micanvas").getContext("2d").drawImage(start_im,0,0)
+	
+	document.addEventListener('keypress',startgameflow)
+	function startgameflow(){
+		if(event.keyCode == '32'){
+			document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight)
+			document.removeEventListener("keypress", startgameflow);
+			videoplay(video1, video1Sound)
+		}
+	}
+	
 	//hasta que no finalice el vídeo no empiezo la función que dispara el juego:
 	video1.onended = function() {
-		
 		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
 	};
 	
-	/*
-	Hasta este punto se ha hecho un clear del intervalo setInterval que refresca el juego y se ha reproducido el video 2
-	el cual no permite que empiece el juego de nuevo hasta que no acabe el vídeo
-	*/
-	
 	video2.onended = function() {
 		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
-	};		
+	};	
+
+	video3.onended = function() {
+		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+	};	
 	
 }
 
