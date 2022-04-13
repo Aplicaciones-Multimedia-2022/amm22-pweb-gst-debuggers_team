@@ -38,9 +38,16 @@ var gobuttHeight = 220
 var gobuttcoordx = (canvasWidth/2) - (gobuttWidth/2)
 var gobuttcoordy = ((canvasHeight/2)+140) - (gobuttHeight/2)
 
-var button;
+//Botón skip intro:
+var skipbuttWidth = 300
+var skipbuttHeight = 100
+var skipbuttcoordx = ((canvasWidth/2)+300) - (skipbuttWidth/2)
+var skipbuttcoordy = ((canvasHeight/2)-200) - (skipbuttHeight/2)
 
-var choosedCharacter = 1; //Esta variable indica si se ha elegido el personaje
+var button; 
+
+//traje del astronauta:
+var spriteElegido;
 
 		/* PESTAÑAS  */
 function openCity(evt, cityName) {
@@ -68,9 +75,35 @@ window.onload = init;
 
 function init(){
 	
-	imagenfinal = document.getElementById("imagenfinal");
-	im_go = document.getElementById("go");
-	start_im = document.getElementById("start_im");
+	//declaración sonidos:
+	video1Sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
+	mySound = new sound("./audios/impacto.mp3"); //Sonido de impacto
+	myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
+	
+	//variables de los vídeos
+	video1 = document.getElementById("video1")
+	video2 = document.getElementById("video2")
+	video3 = document.getElementById("video3")
+	
+	videocharacter = document.getElementById("videocharacter") //vídeo de fondo de la selección personaje
+	var choosedCharacter = false; //Esta variable indica si se ha elegido el personaje
+	
+	//imagenes de momentos de la partida:
+	imagenfinal = document.getElementById("imagenfinal"); //imagen final
+	im_go = document.getElementById("go"); //game over
+	start_im = document.getElementById("start_im"); //imagen pulsa barra espaciadora
+	
+	//Botones para la selección de personaje:
+	//imagenes de los botones:
+	trajenaranja = document.getElementById("selnaranja");
+	trajeverde = document.getElementById("selverde");
+	//dimensiones y coordenadas de los botones
+	var imagenbuttWidth = trajenaranja.width
+	var imagenbuttHeight = trajenaranja.height
+	var naranjabuttcoordx = 125
+	var naranjabuttcoordy = 150
+	var verdebuttcoordx = canvasWidth - (naranjabuttcoordx+imagenbuttWidth)
+	var verdebuttcoordy = 150
 	
 	//Cargo los sprites de los elementos del juego:
 	const spriteBackground = [document.getElementById("b1"),
@@ -284,14 +317,6 @@ function init(){
 	function distancia(coordx1,coordy1,coordx2,coordy2){
 		return Math.sqrt(((coordx1-coordx2)**2)+((coordy1-coordy2)**2))
 	}
-	
-	//Elección del traje naranja o verde:
-	variable = 1;
-	if (variable = 1){
-		spriteElegido = spriteAstronauta;
-	}else{
-		spriteElegido = spriteAstronautaGreen;
-	}
 
 	//Creación de elementos:
 	var astronauta;
@@ -317,6 +342,7 @@ function init(){
 		}
 	}
 	
+	//función que se refresca gracias a setInterval
 	function updateGameArea(){
 
 		gameArea.borrar();
@@ -370,13 +396,15 @@ function init(){
 					//Esta parte va a finalizar el juego con una pantalla en la que se muestra un botón para empezar de nuevo y un mensaje de victoria
 					level = 1
 					createButtonAndImage(finalbuttcoordx,finalbuttcoordy,finalbuttWidth,finalbuttHeight,gameArea.context,imagenfinal)
-					document.addEventListener("click", mouseCoord)
+					document.addEventListener("click", buttonclick)
 				}
 				
 				time_level = level_duration;
 				time = 0;
 		}
 	}
+	
+	//creación de botón en una imagen:
 	function createButtonAndImage(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context,image){
 		context.drawImage(image,0,0)
 		context.beginPath();
@@ -384,34 +412,122 @@ function init(){
 		context.rect(buttoncoordx, buttoncoordy, buttonWidth, buttonHeight);
 		context.fillStyle = "white";
 		context.fill();
+		//text
+		context.font = "30px Arial";
+		context.fillStyle = "black"
+		context.fillText("REBOOT",buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2));
 	}
-	
-	function mouseCoord(){
+	//creación de botón sin imagen:
+	function createButton(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context){
+		context.beginPath();
+		context.strokeStyle = "white";
+		context.rect(buttoncoordx, buttoncoordy, buttonWidth, buttonHeight);
+		context.fillStyle = "white";
+		context.fill();
+		//text
+		context.font = "30px Arial";
+		context.fillStyle = "black"
+		context.fillText("SKIP",buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2));
+	}
+	//función que maneja los botones:
+	function buttonclick(){
 		
 		const rect = gameArea.canvas.getBoundingClientRect()
 		var x = event.clientX - rect.left;
 		var y = event.clientY - rect.top;
-		
+		//si es game over
 		if(button == 0){
 		
 			limitexizqda = gobuttcoordx
 			limitexdrcha = gobuttcoordy + gobuttWidth
 			limiteyabajo = gobuttcoordy
 			limiteyarriba = gobuttcoordy + gobuttHeight
+			
+			if(x >= limitexizqda && x <= limitexdrcha){
+				if(y >= limiteyabajo && y <= limiteyarriba){
+					document.removeEventListener("click", buttonclick);
+					init();
+				}
+			}
 		
-		}else{
+		}
+		//si es la pantalla final
+		if(button == 1){
 			limitexizqda = finalbuttcoordx
 			limitexdrcha = finalbuttcoordx + finalbuttWidth
 			limiteyabajo = finalbuttcoordy
 			limiteyarriba = finalbuttcoordy + finalbuttHeight
-		}
-		
+			
 			if(x >= limitexizqda && x <= limitexdrcha){
 				if(y >= limiteyabajo && y <= limiteyarriba){
-					document.removeEventListener("click", mouseCoord);
+					document.removeEventListener("click", buttonclick);
 					init();
 				}
 			}
+		}
+		//botón skip
+		if(button == 2){
+			limitexizqda = skipbuttcoordx
+			limitexdrcha = skipbuttcoordx + skipbuttWidth
+			limiteyabajo = skipbuttcoordy
+			limiteyarriba = skipbuttcoordy + skipbuttHeight
+			
+			if(x >= limitexizqda && x <= limitexdrcha){
+				if(y >= limiteyabajo && y <= limiteyarriba){
+					document.removeEventListener("click", buttonclick);
+					if(video1.paused == false){
+						video1.currentTime = video1.duration
+						video1Sound.stop()
+					}
+					if(video2.paused == false){
+						video2.currentTime = video2.duration
+					}
+					if(video3.paused == false){
+						video3.currentTime = video3.duration
+					}
+				}
+			}
+		}
+		//Botón personajes
+		if(button == 3){
+			
+			//Naranja:
+			limitexizqda1 = naranjabuttcoordx
+			limitexdrcha1 = naranjabuttcoordx + imagenbuttWidth
+			limiteyabajo1 = naranjabuttcoordy
+			limiteyarriba1 = naranjabuttcoordy + imagenbuttHeight
+			
+			//Verde:
+			limitexizqda2 = verdebuttcoordx
+			limitexdrcha2 = verdebuttcoordx + imagenbuttWidth
+			limiteyabajo2 = verdebuttcoordy
+			limiteyarriba2 = verdebuttcoordy + imagenbuttHeight
+			
+			if(x >= limitexizqda1 && x <= limitexdrcha1){
+				if(y >= limiteyabajo1 && y <= limiteyarriba1){
+					document.removeEventListener("click", buttonclick);
+					spriteElegido = spriteAstronauta;
+					choosedCharacter = true;
+					videocharacter.currentTime = videocharacter.duration
+				}
+			}
+			if(x >= limitexizqda2 && x <= limitexdrcha2){
+				if(y >= limiteyabajo2 && y <= limiteyarriba2){
+					document.removeEventListener("click", buttonclick);
+					spriteElegido = spriteAstronautaGreen;
+					choosedCharacter = true;
+					videocharacter.currentTime = videocharacter.duration
+				}
+			}
+		}
+	}
+	
+	function saltarIntro(video, context){
+		if(video.currentTime >= 4){
+			button = 2
+			createButton(skipbuttcoordx,skipbuttcoordy,skipbuttWidth,skipbuttHeight,context)
+			document.addEventListener("click", buttonclick)
+		}
 		
 	}
 	
@@ -426,7 +542,7 @@ function init(){
 		
 		button = 0
 		createButtonAndImage(gobuttcoordx,gobuttcoordy,gobuttWidth,gobuttHeight,gameArea.context,im_go)
-		document.addEventListener("click", mouseCoord)
+		document.addEventListener("click", buttonclick)
 	}
 	
 	function colisiones() {
@@ -439,7 +555,7 @@ function init(){
 		}
 	}
 	
-	
+	//función que actualiza los centros de cada elemento para el cálculo de distancias
 	function updatecentro(Elementox){
 		Elementox.centroElementox = Elementox.coordx+(Elementox.sprite[0].width/2)
 		Elementox.centroElementoy = Elementox.coordy+(Elementox.sprite[0].height/2)
@@ -485,43 +601,23 @@ function init(){
 		
 	}	
 	//***SONIDO***
-	function sound(src) { //Función constructora de sonido
-    		this.sound = document.createElement("audio");
-			this.sound.src = src;
-    		this.sound.setAttribute("preload", "auto");
-    		this.sound.setAttribute("controls", "none");
-    		this.sound.style.display = "none";
-    		document.body.appendChild(this.sound);
+	function sound(src) {//Función constructora de sonido
+	
+    	this.sound = document.createElement("audio");
+		this.sound.src = src;
+    	this.sound.setAttribute("preload", "auto");
+    	this.sound.setAttribute("controls", "none");
+    	this.sound.style.display = "none";
+    	document.body.appendChild(this.sound);
 			
-    		this.play = function(){
-        		this.sound.play();
-			}
-    		this.stop = function(){
-        		this.sound.pause();
-    		}
+    	this.play = function(){
+        	this.sound.play();
+		}
+    	this.stop = function(){
+        	this.sound.pause();
+    	}
 	}
-	//***SONIDO***
 	
-	video1Sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
-	mySound = new sound("./audios/impacto.mp3"); //Sonido de impacto
-	myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
-	
-	video1 = document.getElementById("video1")
-	video2 = document.getElementById("video2")
-	video3 = document.getElementById("video3")
-
-	/*var ok=true; // COMIENZO DEL INTENTO Intento de crear el evento de hacer click al entrar y que se reproduzcan tanto el vídeo como el audio
-
-        document.getElementById("video1").addEventListener("click", reproducir);
-
-	function reproducir(){
-	
-	document.removeEventListener('click',reproducir);
-	if(ok){
-		video1Sound.play();
-	}
-	ok=false;
-	} */ //FIN DEL INTENTO
 
 	function videoplay(video, audio) {
 		video.play();
@@ -534,44 +630,48 @@ function init(){
 	//Cada vez que llamo a la funcion drawvideo es cada vez que el video dispara un evento play cuando se está reproduciendo:
 	
 	video1.addEventListener('play',function() {
-		drawvideo(video1,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoIntroSkip(video1,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
 	});
 	
 	video2.addEventListener('play',function() {
-		drawvideo(video2,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoIntroSkip(video2,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
 	});
 	
 	video3.addEventListener('play',function() {
-		drawvideo(video3,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoIntroSkip(video3,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+	});
+	
+	videocharacter.addEventListener('play',function() {
+		drawvideoCharacter(videocharacter,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
 	});
 	
 	//Para que no se superponga el video con el juego le impongo la condición que deje de dibujarse cuando finaliza el video:
-	function drawvideo(video, c, w, h){
+	function drawvideoIntroSkip(video, c, w, h){
 		if(video.ended == false){
 			c.drawImage(video,0,0, w, h);
-			setTimeout(drawvideo,20,video,c,w,h);
+			saltarIntro(video,c)
+			setTimeout(drawvideoIntroSkip,20,video,c,w,h);
 		}
 	}
-	/*
-	document.addEventListener('click',chooseCharacter())
-	
-	function chooseCharacter(){
-		if(video1.ended == true && choosedCharacter = 1){
-			if(){
-				choosedCharacter = 0
+	function drawvideoCharacter(video, c, w, h){
+		if(choosedCharacter == false){
+			c.drawImage(video,0,0, w, h);
+			c.drawImage(trajenaranja,naranjabuttcoordx,naranjabuttcoordy)
+			c.drawImage(trajeverde,verdebuttcoordx,verdebuttcoordy)
+			if(video.ended == true){
+				video.currentTime = 0
+				video.play()
 			}
-			if(){
-				choosedCharacter = 0
-			}
+			setTimeout(drawvideoCharacter,20,video,c,w,h);
 		}
-	}
-	*/
+	}	
 	
 															/****AQUÍ COMIENZA EL FLOW DEL JUEGO:****/
 	//Función escuchadora que inicia el juego al pulsar la barra espaciadora:
 	document.getElementById("micanvas").getContext("2d").drawImage(start_im,0,0)
 	
 	document.addEventListener('keypress',startgameflow)
+	
 	function startgameflow(){
 		if(event.keyCode == '32'){
 			document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight)
@@ -579,10 +679,18 @@ function init(){
 			videoplay(video1, video1Sound)
 		}
 	}
-	
-	//hasta que no finalice el vídeo no empiezo la función que dispara el juego:
 	video1.onended = function() {
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+				button = 3
+				document.addEventListener("click", buttonclick);
+				document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight);
+				videocharacter.play()
+	}
+	
+	videocharacter.onended = function() {
+		videocharacter = null
+		if(choosedCharacter == true){
+			startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+		}
 	};
 	
 	video2.onended = function() {

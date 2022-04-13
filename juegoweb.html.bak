@@ -27,7 +27,7 @@
 	</canvas>
 	
 	<video id="video1" width = 1420 height = 640 controls muted>
-		<source src="./videos/videoaux2.mp4" type="video/mp4">
+		<source src="./videos/videoaux1.mp4" type="video/mp4">
 		Your browser does not support HTML5 video.
 	</video>
 	
@@ -189,6 +189,9 @@
 	<img id="imagenfinal" src="./imagenes/final_image.png">
 	<img id="go" src="./imagenes/gameover.png">
 	<img id="start_im" src="./imagenes/startimage.png">
+	
+	<img id="selnaranja" src="./imagenes/naranja.png">
+	<img id="selverde" src="./imagenes/verde.png">
 	
 </div>
 
