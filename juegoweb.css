@@ -1,11 +1,48 @@
-h1{
-	color: green;
-	text-align: center;
-	font-family: Impact
+body{ /*color de fondo de la página*/
+	background-color: #F9CDB9;
+}
+
+span{
+	margin: 0 15px;
+	line-height: .7;
+	text-shadow: 0 0 5px #2E43E0;
+	animation: span 5s ease-in infinite alternate;
+}
+
+.title{ /*título de la página*/
+	display: flex;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: bold;
+	font-size: 45px;
+	color: #192158;
+	justify-content: center;
+	align-items: flex-start;
+	@media(max-width: 500px)
+	transform: scale(3); 
+}
+
+.letter{ /*animación para la 'U' del título*/
+	height: 27px;
+	width: 38px;
+	border: 6px solid #192158;
+	border-top: 0px;
+	border-radius: 10px;
+	box-shadow:
+		 0 3px 3px -1.5px #B3BFF6,
+		inset 0 -5px 5px -0.01px #B3BFF6;
+	animation: letter 5s ease-in-out infinite alternate;
+}
+
+@keyframes span {
+	0%,30%{ margin: 0 15px; }
+	70%,100%{ margin: 0 5px; }
+}
+@keyframes letter {
+	0%,30%{ width: 27px; }
+	70%,100%{ width: 30vw; }
 }
 
 canvas{
-	
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -21,39 +58,36 @@ video{
 
 						/******  ESTILO PESTAÑAS  ******/
 
-/* estilo del fondo de las pestañas */
-.tab {
-  display: inline-block;
-  overflow: center;
-  border: 5px solid #2307C2;
-  background-color: #2307C2;
-  margin-left: auto;
-  margin-right: auto;
+
+/* estilo de la barra de pestañas */
+nav {
+  border: 6px solid #192158;
+  background-color: #192158;
   display: block;
+  text-align: center;
 }
 
 /* estilo botón de pestaña seleccionada */
-.tab button {
-  font-size: 50px solid #000000;
-  background-color: #C9B8E9;
-  color: #000000;
-  float: center;
+nav button {
+  font-size: 17px;
+  color: #FFFFFF;
+  font-weight: bold;
+  min-width: 150px;
+  background-color: #2A3795;
   border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 15px 22px;
+  padding: 15px 15px;
   transition: 0.3s;
-  
 }
 
 /* color botón al pasar el ratón por encima */
-.tab button:hover {
-  background-color: #CAE4EA;
+nav button:hover {
+  background-color: #2E43E0;
 }
 
 /* color específico pestaña seleccionada */
-.tab button.active {
-  background-color: #995FD4;
+nav button.active {
+  background-color: #E5670F;
+  color: #192158;
 }
 
 /* Style the tab content */
@@ -62,7 +96,7 @@ video{
   padding: 6px 12px;
   border: 0px solid;
   border-top: none;
-  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+  animation: fadeEffect 1s; /* efecto fade tarda 1 segundo */
 }
 @keyframes fadeEffect {
   from {opacity: 0;}
@@ -72,9 +106,58 @@ video{
 
 					/******  PESTAÑA DE DESCRIPCION DEL JUEGO  ******/
 
-P {
-	
+
+h1{
+	color: #E5670F;
+	font-family: verdana;
+}	
+					
+.maquina {
+  width: 20ch;
+  font-family: 'Courier new', monospace;
+  font-weight: bold;
+  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 24px;
 }
+
+.maquina2 {
+  width: 150ch;
+  font-family: 'Courier new', monospace;
+  font-weight: bold;
+  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  /*border-right: 2px solid;*/
+  font-size: 18px;
+}
+
+.maquina3 {
+  width: 50ch;
+  font-family: 'Courier new', monospace;
+  font-weight: bold;
+  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid;
+  font-size: 18px;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+    
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}
+
+				
+					
 					/******  PESTAÑA DE AUTORES  ******/
 h2 {
   -moz-animation-duration: 2.5s;
@@ -111,4 +194,3 @@ h4 {
     width: 100%;
   }
 }
-
