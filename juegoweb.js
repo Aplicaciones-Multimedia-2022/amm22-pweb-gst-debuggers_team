@@ -1,74 +1,71 @@
-//Variables globales:
-var canvasWidth = 1420;
-var canvasHeight = 640;
-//Parametros niveles:
+//Variables globales
+var canvas_width = 1420;
+var canvas_height = 640;
+
+//Parametros niveles
 var level = 1;
 var level_duration = 3000
-//contadores:
+
+//contadores
 var time = 0;
 var time_level = level_duration;
-//Variables de los elementos:
-//Frecuencia en la que aparecen los meteoritos:
-var f_aparicion_met = 1200;
-//numero max de meteoritos:
-var numerodemet = 5;
-//velocidad de los met.
-var vel_max_meteo = 4;
 
-var velocidadAstronauta = 5
+//Variables de los elementos
+//Frecuencia en la que aparecen los meteoritos
+var frec_apar_meteor = 1200;
+//numero max de meteoritos
+var num_meteor = 5;
+//velocidad de los meteoritos
+var vel_max_meteor = 4;
 
-//Dimensiones de los elementos:
-var escalabackground = 1
-var escalameteor;
-var escalaastro = 1.5
+//Dimensiones de los elementos
+var escala_background = 1
+var escala_meteor;
+var escala_astro = 1.5
 
-//Sonidos:
-var mySound; //Sonido de impacto
-var myMusic; //Música de fondo
-var video1Sound; //Sonido vídeo 1
+//Sonidos
+var my_sound; //Sonido de impacto
+var my_music; //Música de fondo
+var video1_sound; //Sonido vídeo 1
 
-//Botones del canvas:
-//Botón pantalla final:
-var finalbuttWidth = 300
-var finalbuttHeight = 100
-var finalbuttcoordx = (canvasWidth/2) - (finalbuttWidth/2)
-var finalbuttcoordy = ((canvasHeight/2)+180) - (finalbuttHeight/2)
+//Botones del canvas
+//Botón pantalla final
+var final_butt_width = 300
+var final_butt_height = 100
+var final_butt_coordx = (canvas_width/2) - (final_butt_width/2)
+var final_butt_coordy = ((canvas_height/2)+180) - (final_butt_height/2)
 
-//Botón pantalla game over:
-var gobuttWidth = 400
-var gobuttHeight = 220
-var gobuttcoordx = (canvasWidth/2) - (gobuttWidth/2)
-var gobuttcoordy = ((canvasHeight/2)+140) - (gobuttHeight/2)
+//Botón pantalla game over
+var go_butt_width = 400
+var go_butt_height = 220
+var go_butt_coordx = (canvas_width/2) - (go_butt_width/2)
+var go_butt_coordy = ((canvas_height/2)+140) - (go_butt_height/2)
 
-//Botón skip intro:
-var skipbuttWidth = 300
-var skipbuttHeight = 100
-var skipbuttcoordx = ((canvasWidth/2)+300) - (skipbuttWidth/2)
-var skipbuttcoordy = ((canvasHeight/2)-200) - (skipbuttHeight/2)
+//Botón skip intro
+var skip_butt_width = 300
+var skip_butt_height = 100
+var skip_butt_coordx = ((canvas_width/2)+300) - (skip_butt_width/2)
+var skip_butt_coordy = ((canvas_height/2)-200) - (skip_butt_height/2)
 
 var button; 
 
-//traje del astronauta:
-var spriteElegido;
+//traje del astronauta
+var sprite_elegido;
 
 		/* PESTAÑAS  */
 function openCity(evt, cityName) {
-  // Declare all variables
-  var i, tabcontent, tablinks;
-	
-  // Get all elements with class="tabcontent" and hide them
+  let i, tabcontent, tablinks;
+  // obtener elementos con "tabcontent" y esconderlos
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
-  
-   // Get all elements with class="tablinks" and remove the class "active"
+   // obtener elementos con "tablinks" y eliminar el componente activo
   tablinks = document.getElementsByClassName("tablinks");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
+    // mostrar la pestaña actual y establecerla como activa
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
@@ -76,13 +73,11 @@ function openCity(evt, cityName) {
 window.onload = init;
 
 function init(){
-	var movimientox = 0;
-	var movimientoy = 0;
 	
 	//declaración sonidos:
-	video1Sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
-	mySound = new sound("./audios/impacto.mp3"); //Sonido de impacto
-	myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
+	video1_sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
+	my_sound = new sound("./audios/impacto.mp3"); //Sonido de impacto
+	my_music = new sound("./audios/ambiente.mp3"); //Música de fondo
 	
 	//variables de los vídeos
 	video1 = document.getElementById("video1")
@@ -90,7 +85,7 @@ function init(){
 	video3 = document.getElementById("video3")
 	
 	videocharacter = document.getElementById("videocharacter") //vídeo de fondo de la selección personaje
-	var choosedCharacter = false; //Esta variable indica si se ha elegido el personaje
+	var chosen_character = false; //Esta variable indica si se ha elegido el personaje
 	
 	//imagenes de momentos de la partida:
 	imagenfinal = document.getElementById("imagenfinal"); //imagen final
@@ -106,10 +101,10 @@ function init(){
 	var imagenbuttHeight = trajenaranja.height
 	var naranjabuttcoordx = 125
 	var naranjabuttcoordy = 150
-	var verdebuttcoordx = canvasWidth - (naranjabuttcoordx+imagenbuttWidth)
+	var verdebuttcoordx = canvas_width - (naranjabuttcoordx+imagenbuttWidth)
 	var verdebuttcoordy = 150
 	
-	//Cargo los sprites de los elementos del juego:
+	//Cargar los sprites de los elementos del juego:
 	const spriteBackground = [document.getElementById("b1"),
 		document.getElementById("b2"),
 		document.getElementById("b3"),
@@ -261,8 +256,8 @@ function init(){
 		canvas : document.getElementById("micanvas"),
 	
 		start : function() {
-			this.canvas.width = canvasWidth;
-			this.canvas.height = canvasHeight;
+			this.canvas.width = canvas_width;
+			this.canvas.height = canvas_height;
 			this.context = this.canvas.getContext("2d");
 			this.interval = setInterval(updateGameArea, 5);
 		},
@@ -328,20 +323,20 @@ function init(){
 	var timespace = new Array();
 
 	
-	function startgame(f_aparicion_met,numerodemet,vel_max_meteo){
+	function startgame(frec_apar_meteor,num_meteor,vel_max_meteor){
 		
-		myMusic.play();
+		my_music.play();
 		gameArea.start();
 		
-		timespace[0] = f_aparicion_met;
+		timespace[0] = frec_apar_meteor;
 		
-		background = new Elemento(0,0,0,spriteBackground,3,escalabackground)
-		astronauta = new Elemento(100,getRndInteger(100,400),0,spriteElegido,20,escalaastro)
+		background = new Elemento(0,0,0,spriteBackground,3,escala_background)
+		astronauta = new Elemento(100,getRndInteger(100,400),0,sprite_elegido,20,escala_astro)
 		
-		for(let i = 0;i<numerodemet;i++){
-			escalameteor = getRndInteger(1, 4)
-			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteMeteorito,getRndInteger(2, 6),escalameteor);
-			timespace[i+1] = timespace[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
+		for(let i = 0;i<num_meteor;i++){
+			escala_meteor = getRndInteger(1, 4)
+			meteoritos[i] = new Elemento(canvas_width,getRndInteger(50,600),getRndInteger(1,vel_max_meteor),spriteMeteorito,getRndInteger(2, 6),escala_meteor);
+			timespace[i+1] = timespace[i] + getRndInteger(frec_apar_meteor*0.8,frec_apar_meteor);
 		
 		}
 	}
@@ -354,26 +349,6 @@ function init(){
 		astronauta.updateElement();
 		updatecentro(astronauta);
 		
-		astronauta.coordx += movimientox
-		astronauta.coordy += movimientoy
-		
-		if(astronauta.coordx<-20){
-			movimientox = 0
-			astronauta.coordx = -20;
-		}
-		if(astronauta.coordx>(canvasWidth-imagenbuttWidth)){
-			movimientox = 0
-			astronauta.coordx = canvasWidth-imagenbuttWidth
-		}
-		if(astronauta.coordy<-20){
-			movimientoy = 0
-			astronauta.coordy = -20;
-		}
-		if(astronauta.coordy>(canvasHeight-imagenbuttHeight)){
-			movimientoy = 0
-			astronauta.coordy = canvasHeight-imagenbuttHeight
-		}
-		
 		for(let i = 0;i<meteoritos.length;i++){
 			meteoritos[i].updateElement();
 			updatecentro(meteoritos[i]);
@@ -385,13 +360,12 @@ function init(){
 		
 			
 		}
-		
 		for(let i = 0; i<meteoritos.length; i++){
 			if(meteoritos[i].coordx<-200){
-				meteoritos[i].coordx = canvasWidth;
+				meteoritos[i].coordx = canvas_width;
 				meteoritos[i].coordy = getRndInteger(50,600);
-				meteoritos[i].movimiento = getRndInteger(1,vel_max_meteo);
-				timespace[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
+				meteoritos[i].movimiento = getRndInteger(1,vel_max_meteor);
+				timespace[i] = time + getRndInteger(Math.round(frec_apar_meteor*0.8),frec_apar_meteor);
 			}
 		}
 		time++;
@@ -403,7 +377,7 @@ function init(){
 	
 	function pass_level(nivel){
 		if(time_level == 0){
-			myMusic.stop(); // Silencio la música de fondo
+			my_music.stop(); // Silencio la música de fondo
 			clearInterval(gameArea.interval);
 			gameArea.borrar();
 				if (nivel == 1){
@@ -419,7 +393,7 @@ function init(){
 					button = 1
 					//Esta parte va a finalizar el juego con una pantalla en la que se muestra un botón para empezar de nuevo y un mensaje de victoria
 					level = 1
-					createButtonAndImage(finalbuttcoordx,finalbuttcoordy,finalbuttWidth,finalbuttHeight,gameArea.context,imagenfinal)
+					createButtonAndImage(final_butt_coordx,final_butt_coordy,final_butt_width,final_butt_height,gameArea.context,imagenfinal)
 					document.addEventListener("click", buttonclick)
 				}
 				
@@ -462,10 +436,10 @@ function init(){
 		//si es game over
 		if(button == 0){
 		
-			limitexizqda = gobuttcoordx
-			limitexdrcha = gobuttcoordx + gobuttWidth
-			limiteyabajo = gobuttcoordy
-			limiteyarriba = gobuttcoordy + gobuttHeight
+			limitexizqda = go_butt_coordx
+			limitexdrcha = go_butt_coordx + go_butt_width
+			limiteyabajo = go_butt_coordy
+			limiteyarriba = go_butt_coordy + go_butt_height
 			
 			if(x >= limitexizqda && x <= limitexdrcha){
 				if(y >= limiteyabajo && y <= limiteyarriba){
@@ -477,10 +451,10 @@ function init(){
 		}
 		//si es la pantalla final
 		if(button == 1){
-			limitexizqda = finalbuttcoordx
-			limitexdrcha = finalbuttcoordx + finalbuttWidth
-			limiteyabajo = finalbuttcoordy
-			limiteyarriba = finalbuttcoordy + finalbuttHeight
+			limitexizqda = final_butt_coordx
+			limitexdrcha = final_butt_coordx + final_butt_width
+			limiteyabajo = final_butt_coordy
+			limiteyarriba = final_butt_coordy + final_butt_height
 			
 			if(x >= limitexizqda && x <= limitexdrcha){
 				if(y >= limiteyabajo && y <= limiteyarriba){
@@ -491,17 +465,17 @@ function init(){
 		}
 		//botón skip
 		if(button == 2){
-			limitexizqda = skipbuttcoordx
-			limitexdrcha = skipbuttcoordx + skipbuttWidth
-			limiteyabajo = skipbuttcoordy
-			limiteyarriba = skipbuttcoordy + skipbuttHeight
+			limitexizqda = skip_butt_coordx
+			limitexdrcha = skip_butt_coordx + skip_butt_width
+			limiteyabajo = skip_butt_coordy
+			limiteyarriba = skip_butt_coordy + skip_butt_height
 			
 			if(x >= limitexizqda && x <= limitexdrcha){
 				if(y >= limiteyabajo && y <= limiteyarriba){
 					document.removeEventListener("click", buttonclick);
 					if(video1.paused == false){
 						video1.currentTime = video1.duration
-						video1Sound.stop()
+						video1_sound.stop()
 					}
 					if(video2.paused == false){
 						video2.currentTime = video2.duration
@@ -530,16 +504,16 @@ function init(){
 			if(x >= limitexizqda1 && x <= limitexdrcha1){
 				if(y >= limiteyabajo1 && y <= limiteyarriba1){
 					document.removeEventListener("click", buttonclick);
-					spriteElegido = spriteAstronauta;
-					choosedCharacter = true;
+					sprite_elegido = spriteAstronauta;
+					chosen_character = true;
 					videocharacter.currentTime = videocharacter.duration
 				}
 			}
 			if(x >= limitexizqda2 && x <= limitexdrcha2){
 				if(y >= limiteyabajo2 && y <= limiteyarriba2){
 					document.removeEventListener("click", buttonclick);
-					spriteElegido = spriteAstronautaGreen;
-					choosedCharacter = true;
+					sprite_elegido = spriteAstronautaGreen;
+					chosen_character = true;
 					videocharacter.currentTime = videocharacter.duration
 				}
 			}
@@ -549,31 +523,31 @@ function init(){
 	function saltarIntro(video, context){
 		if(video.currentTime >= 4){
 			button = 2
-			createButton(skipbuttcoordx,skipbuttcoordy,skipbuttWidth,skipbuttHeight,context)
+			createButton(skip_butt_coordx,skip_butt_coordy,skip_butt_width,skip_butt_height,context)
 			document.addEventListener("click", buttonclick)
 		}
 		
 	}
 	
 	function game_over(){
-		mySound.play(); // Activo el sonido de impacto
-		myMusic.stop(); // Silencio la música de fondo
+		my_sound.play(); // Activar sonido de impacto
+		my_music.stop(); // Silenciar la música de fondo
 		clearInterval(gameArea.interval);
 		gameArea.borrar();
-		level = 1 //Reinicio niveles;
+		level = 1 //Reiniciafr niveles;
 		time_level = level_duration;
 		time = 0;
 		
 		button = 0
-		createButtonAndImage(gobuttcoordx,gobuttcoordy,gobuttWidth,gobuttHeight,gameArea.context,im_go)
+		createButtonAndImage(go_butt_coordx,go_butt_coordy,go_butt_width,go_butt_height,gameArea.context,im_go)
 		document.addEventListener("click", buttonclick)
 	}
 	
 	function colisiones() {
 		for(let i=0;i<meteoritos.length;i++){
-			if(	(distancia(astronauta.centroElementox,astronauta.centroElementoy,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 100/escalaastro)||
-			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox1,meteoritos[i].centroElementoy1) <= 80/escalaastro))||
-			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox2,meteoritos[i].centroElementoy2) <= 70/escalaastro))){
+			if(	(distancia(astronauta.centroElementox,astronauta.centroElementoy,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 100/escala_astro)||
+			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox1,meteoritos[i].centroElementoy1) <= 80/escala_astro))||
+			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox2,meteoritos[i].centroElementoy2) <= 70/escala_astro))){
 				game_over();
 			}
 		}
@@ -594,31 +568,35 @@ function init(){
 	
 	//keyboard arrows event configuration:
 	document.addEventListener("keydown", mueveAstronauta);
-	document.addEventListener("keyup", paraAstronauta);
 	
 		//Controles del astronauta:
-	function paraAstronauta(){
-		movimientox = 0
-		movimientoy = 0
-	}
 	function mueveAstronauta(){
 	
-	//up arrow
+	//tecla W, mover hacia arriba
 		if(event.keyCode == '87'){
-				movimientoy = -velocidadAstronauta;
+			if(astronauta.coordy>=10){
+				astronauta.coordy-=10;
+			}
 		}
-	//right arrow
+	//tecla D, mover hacia la derecha
 		if(event.keyCode == '68'){
-				movimientox = velocidadAstronauta;
+			if(astronauta.coordx<=canvas_width-250){
+				astronauta.coordx+=10;
+			}
 		}
-	//left arrow
+	//tecla A, mover hacia la izquierda
 		if(event.keyCode == '65'){
-				movimientox = -velocidadAstronauta;
+			if(astronauta.coordx>=10){
+				astronauta.coordx-=10;
+			}
 		}
-	//down arrow
+	//tecla S, mover hacia arriba
 		if(event.keyCode == '83'){
-				movimientoy = velocidadAstronauta;
+			if(astronauta.coordy<=canvas_height-300){
+				astronauta.coordy +=10;
+			}
 		}
+		
 	}	
 	//***SONIDO***
 	function sound(src) {//Función constructora de sonido
@@ -647,22 +625,22 @@ function init(){
 	
 	
 	
-	//Cada vez que llamo a la funcion drawvideo es cada vez que el video dispara un evento play cuando se está reproduciendo:
+	//Cada vez que se llama a la funcion drawvideo es cada vez que el video dispara un evento play cuando se está reproduciendo:
 	
 	video1.addEventListener('play',function() {
-		drawvideoIntroSkip(video1,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoIntroSkip(video1,gameArea.canvas.getContext("2d"),canvas_width, canvas_height);
 	});
 	
 	video2.addEventListener('play',function() {
-		drawvideoIntroSkip(video2,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoIntroSkip(video2,gameArea.canvas.getContext("2d"),canvas_width, canvas_height);
 	});
 	
 	video3.addEventListener('play',function() {
-		drawvideoIntroSkip(video3,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoIntroSkip(video3,gameArea.canvas.getContext("2d"),canvas_width, canvas_height);
 	});
 	
 	videocharacter.addEventListener('play',function() {
-		drawvideoCharacter(videocharacter,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoCharacter(videocharacter,gameArea.canvas.getContext("2d"),canvas_width, canvas_height);
 	});
 	
 	//Para que no se superponga el video con el juego le impongo la condición que deje de dibujarse cuando finaliza el video:
@@ -674,7 +652,7 @@ function init(){
 		}
 	}
 	function drawvideoCharacter(video, c, w, h){
-		if(choosedCharacter == false){
+		if(chosen_character == false){
 			c.drawImage(video,0,0, w, h);
 			c.drawImage(trajenaranja,naranjabuttcoordx,naranjabuttcoordy)
 			c.drawImage(trajeverde,verdebuttcoordx,verdebuttcoordy)
@@ -694,31 +672,30 @@ function init(){
 	
 	function startgameflow(){
 		if(event.keyCode == '32'){
-			document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight)
+			document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvas_width, canvas_height)
 			document.removeEventListener("keypress", startgameflow);
-			videoplay(video1, video1Sound)
+			videoplay(video1, video1_sound)
 		}
 	}
 	video1.onended = function() {
 				button = 3
 				document.addEventListener("click", buttonclick);
-				document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight);
+				document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvas_width, canvas_height);
 				videocharacter.play()
 	}
 	
 	videocharacter.onended = function() {
-		if(choosedCharacter == true){
-			startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+		if(chosen_character == true){
+			startgame(frec_apar_meteor,num_meteor,vel_max_meteor);
 		}
 	};
 	
 	video2.onended = function() {
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+		startgame(frec_apar_meteor,num_meteor,vel_max_meteor);
 	};	
 
 	video3.onended = function() {
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+		startgame(frec_apar_meteor,num_meteor,vel_max_meteor);
 	};	
 	
 }
-
