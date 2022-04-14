@@ -44,10 +44,9 @@ var skipbuttHeight = 100
 var skipbuttcoordx = ((canvasWidth/2)+300) - (skipbuttWidth/2)
 var skipbuttcoordy = ((canvasHeight/2)-200) - (skipbuttHeight/2)
 
-
-
 var button; 
 
+//traje del astronauta:
 var spriteElegido;
 
 		/* PESTAÑAS  */
@@ -76,23 +75,29 @@ window.onload = init;
 
 function init(){
 	
+	//declaración sonidos:
 	video1Sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
 	mySound = new sound("./audios/impacto.mp3"); //Sonido de impacto
 	myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
 	
+	//variables de los vídeos
 	video1 = document.getElementById("video1")
 	video2 = document.getElementById("video2")
 	video3 = document.getElementById("video3")
-	videocharacter = document.getElementById("videocharacter")
 	
+	videocharacter = document.getElementById("videocharacter") //vídeo de fondo de la selección personaje
 	var choosedCharacter = false; //Esta variable indica si se ha elegido el personaje
-	imagenfinal = document.getElementById("imagenfinal");
-	im_go = document.getElementById("go");
-	start_im = document.getElementById("start_im");
+	
+	//imagenes de momentos de la partida:
+	imagenfinal = document.getElementById("imagenfinal"); //imagen final
+	im_go = document.getElementById("go"); //game over
+	start_im = document.getElementById("start_im"); //imagen pulsa barra espaciadora
 	
 	//Botones para la selección de personaje:
+	//imagenes de los botones:
 	trajenaranja = document.getElementById("selnaranja");
 	trajeverde = document.getElementById("selverde");
+	//dimensiones y coordenadas de los botones
 	var imagenbuttWidth = trajenaranja.width
 	var imagenbuttHeight = trajenaranja.height
 	var naranjabuttcoordx = 125
@@ -312,14 +317,6 @@ function init(){
 	function distancia(coordx1,coordy1,coordx2,coordy2){
 		return Math.sqrt(((coordx1-coordx2)**2)+((coordy1-coordy2)**2))
 	}
-	
-	//Elección del traje naranja o verde:
-	variable = 1;
-	if (variable = 1){
-		spriteElegido = spriteAstronauta;
-	}else{
-		spriteElegido = spriteAstronautaGreen;
-	}
 
 	//Creación de elementos:
 	var astronauta;
@@ -345,6 +342,7 @@ function init(){
 		}
 	}
 	
+	//función que se refresca gracias a setInterval
 	function updateGameArea(){
 
 		gameArea.borrar();
@@ -405,6 +403,8 @@ function init(){
 				time = 0;
 		}
 	}
+	
+	//creación de botón en una imagen:
 	function createButtonAndImage(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context,image){
 		context.drawImage(image,0,0)
 		context.beginPath();
@@ -417,7 +417,7 @@ function init(){
 		context.fillStyle = "black"
 		context.fillText("REBOOT",buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2));
 	}
-	
+	//creación de botón sin imagen:
 	function createButton(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context){
 		context.beginPath();
 		context.strokeStyle = "white";
@@ -429,13 +429,13 @@ function init(){
 		context.fillStyle = "black"
 		context.fillText("SKIP",buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2));
 	}
-	
+	//función que maneja los botones:
 	function buttonclick(){
 		
 		const rect = gameArea.canvas.getBoundingClientRect()
 		var x = event.clientX - rect.left;
 		var y = event.clientY - rect.top;
-		
+		//si es game over
 		if(button == 0){
 		
 			limitexizqda = gobuttcoordx
@@ -451,6 +451,7 @@ function init(){
 			}
 		
 		}
+		//si es la pantalla final
 		if(button == 1){
 			limitexizqda = finalbuttcoordx
 			limitexdrcha = finalbuttcoordx + finalbuttWidth
@@ -464,7 +465,7 @@ function init(){
 				}
 			}
 		}
-		
+		//botón skip
 		if(button == 2){
 			limitexizqda = skipbuttcoordx
 			limitexdrcha = skipbuttcoordx + skipbuttWidth
@@ -487,7 +488,7 @@ function init(){
 				}
 			}
 		}
-		//Personajes
+		//Botón personajes
 		if(button == 3){
 			
 			//Naranja:
@@ -554,7 +555,7 @@ function init(){
 		}
 	}
 	
-	
+	//función que actualiza los centros de cada elemento para el cálculo de distancias
 	function updatecentro(Elementox){
 		Elementox.centroElementox = Elementox.coordx+(Elementox.sprite[0].width/2)
 		Elementox.centroElementoy = Elementox.coordy+(Elementox.sprite[0].height/2)
@@ -670,6 +671,7 @@ function init(){
 	document.getElementById("micanvas").getContext("2d").drawImage(start_im,0,0)
 	
 	document.addEventListener('keypress',startgameflow)
+	
 	function startgameflow(){
 		if(event.keyCode == '32'){
 			document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight)
@@ -683,8 +685,8 @@ function init(){
 				document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight);
 				videocharacter.play()
 	}
+	
 	videocharacter.onended = function() {
-		videocharacter = null
 		if(choosedCharacter == true){
 			startgame(f_aparicion_met,numerodemet,vel_max_meteo);
 		}

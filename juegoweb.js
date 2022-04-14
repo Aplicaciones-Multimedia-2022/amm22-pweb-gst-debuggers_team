@@ -439,7 +439,7 @@ function init(){
 		if(button == 0){
 		
 			limitexizqda = gobuttcoordx
-			limitexdrcha = gobuttcoordy + gobuttWidth
+			limitexdrcha = gobuttcoordx + gobuttWidth
 			limiteyabajo = gobuttcoordy
 			limiteyarriba = gobuttcoordy + gobuttHeight
 			
@@ -687,7 +687,6 @@ function init(){
 	}
 	
 	videocharacter.onended = function() {
-		videocharacter = null
 		if(choosedCharacter == true){
 			startgame(f_aparicion_met,numerodemet,vel_max_meteo);
 		}
