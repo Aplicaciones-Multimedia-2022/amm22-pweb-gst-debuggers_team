@@ -15,6 +15,8 @@ var numerodemet = 5;
 //velocidad de los met.
 var vel_max_meteo = 4;
 
+var velocidadAstronauta = 5
+
 //Dimensiones de los elementos:
 var escalabackground = 1
 var escalameteor;
@@ -74,6 +76,8 @@ function openCity(evt, cityName) {
 window.onload = init;
 
 function init(){
+	var movimientox = 0;
+	var movimientoy = 0;
 	
 	//declaración sonidos:
 	video1Sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
@@ -350,6 +354,26 @@ function init(){
 		astronauta.updateElement();
 		updatecentro(astronauta);
 		
+		astronauta.coordx += movimientox
+		astronauta.coordy += movimientoy
+		
+		if(astronauta.coordx<-20){
+			movimientox = 0
+			astronauta.coordx = 0;
+		}
+		if(astronauta.coordx>(canvasWidth-imagenbuttWidth)){
+			movimientox = 0
+			astronauta.coordx = canvasWidth-imagenbuttWidth
+		}
+		if(astronauta.coordy<-20){
+			movimientoy = 0
+			astronauta.coordy = 0;
+		}
+		if(astronauta.coordy>(canvasHeight-imagenbuttHeight)){
+			movimientoy = 0
+			astronauta.coordy = canvasHeight-imagenbuttHeight
+		}
+		
 		for(let i = 0;i<meteoritos.length;i++){
 			meteoritos[i].updateElement();
 			updatecentro(meteoritos[i]);
@@ -439,7 +463,7 @@ function init(){
 		if(button == 0){
 		
 			limitexizqda = gobuttcoordx
-			limitexdrcha = gobuttcoordy + gobuttWidth
+			limitexdrcha = gobuttcoordx + gobuttWidth
 			limiteyabajo = gobuttcoordy
 			limiteyarriba = gobuttcoordy + gobuttHeight
 			
@@ -570,35 +594,31 @@ function init(){
 	
 	//keyboard arrows event configuration:
 	document.addEventListener("keydown", mueveAstronauta);
+	document.addEventListener("keyup", paraAstronauta);
 	
 		//Controles del astronauta:
+	function paraAstronauta(){
+		movimientox = 0
+		movimientoy = 0
+	}
 	function mueveAstronauta(){
 	
 	//up arrow
 		if(event.keyCode == '87'){
-			if(astronauta.coordy>=10){
-				astronauta.coordy-=10;
-			}
+				movimientoy = -velocidadAstronauta;
 		}
 	//right arrow
 		if(event.keyCode == '68'){
-			if(astronauta.coordx<=canvasWidth-250){
-				astronauta.coordx+=10;
-			}
+				movimientox = velocidadAstronauta;
 		}
 	//left arrow
 		if(event.keyCode == '65'){
-			if(astronauta.coordx>=10){
-				astronauta.coordx-=10;
-			}
+				movimientox = -velocidadAstronauta;
 		}
 	//down arrow
 		if(event.keyCode == '83'){
-			if(astronauta.coordy<=canvasHeight-300){
-				astronauta.coordy +=10;
-			}
+				movimientoy = velocidadAstronauta;
 		}
-		
 	}	
 	//***SONIDO***
 	function sound(src) {//Función constructora de sonido
