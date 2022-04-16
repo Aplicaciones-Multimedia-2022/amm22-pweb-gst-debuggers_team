@@ -447,7 +447,6 @@ function init(){
 		context.fillStyle = "white";
 		context.fill();
 		//text
-		loadFont();
 		context.font = "30 px", "FuenteNasa";
 		context.fillStyle = "black"
 		context.fillText("VOLVER A JUGAR",buttoncoordx+(buttonWidth/3.8),buttoncoordy+(buttonHeight/1.85));
