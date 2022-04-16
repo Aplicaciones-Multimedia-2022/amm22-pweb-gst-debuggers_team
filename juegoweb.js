@@ -573,8 +573,8 @@ function init(){
 		gameArea.borrar();
 		}
 		else {
-		myMusic.play();
-		setInterval(updateGameArea, 5);
+		/*myMusic.play();
+		setInterval(updateGameArea, 5);*/
 		}
 	}
 	
