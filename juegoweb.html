@@ -7,26 +7,40 @@
 </head>
 <body>
 	
+	<div class="title">
+	<span>S</span>
+	<span>P</span>
+	<span>A</span>
+	<span>C</span>
+	<span>E</span>
+	<span>J</span>
+	<span class="letter"></span>
+	<span>M</span>
+	<span>P</span>
+	<br>
+	</div>
+	
 	<!-- Creacion de distintas pestañas -->
-	<div class="tab">
+	<nav>
 	<button class="tablinks" onclick="openCity(event, 'Juego')" id="defaultOpen">Juego</button>
-	<button class="tablinks" onclick="openCity(event, 'Descripcion')">Descripcion del juego</button>
+	<button class="tablinks" onclick="openCity(event, 'Descripcion')">Descripci&oacuten del juego</button>
 	<button class="tablinks" onclick="openCity(event, 'Autores')">Autores</button>	
 	<button class="tablinks" onclick="openCity(event, 'Multimedia')">Multimedia</button>
 	<button class="tablinks" onclick="openCity(event, 'Desarrollo')">Desarrollo</button>
 	<button class="tablinks" onclick="openCity(event, 'Referencias')">Referencias</button>
-	</div>
+	</nav>
 	
 
 	<!-- Contenido de las pestañas -->
   
+  	<!-- Contenido de la pestaña de Juego -->
 	<div id="Juego" class="tabcontent" style="display:block">
 	<canvas id="micanvas" width="1420" height="680">
 
 		Este texto se muestra para los navegadores no compatibles con canvas
 	</canvas>
 	
-	<video id="video1" width = 1420 height = 640 controls muted>
+	<video id="video1" width = 1420 height = 640 controls >
 		<source src="./videos/videoaux1.mp4" type="video/mp4">
 		Your browser does not support HTML5 video.
 	</video>
@@ -198,36 +212,76 @@
 	<img id="selnaranja" src="./imagenes/naranja.png">
 	<img id="selverde" src="./imagenes/verde.png">
 	
-</div>
+	</div>
 
-
+  	<!-- Contenido de la pestaña de Descripción del juego -->
 	<div id="Descripcion" class="tabcontent">
-	<p>holaaaaaaaaaa</p>
+	<div class="maquina"><br>17 de Agosto, 2087</div>
+	<div class="maquina2"><br>La nave espacial ‘Libertfall’ despega de la Tierra en la misión ‘M310-x3’, con el objetivo de llevar provisiones<br> 
+	al campamento base establecido por los humanos en Marte.<br>
+	Tras varias semanas de viaje, por problemas técnicos, la nave se detiene en mitad de la ruta entre ambos planetas,<br> 
+	cerca de la estrella comúnmente conocida como ‘Red’.<br>
+	Uno de los astronautas, encargado del mantenimiento del motor de la nave, tiene que salir para arreglar una pieza<br> 
+	sin la que la nave no podrá avanzar.<br>
+	Sin embargo, nada más salir, el cable que le une con sus compañeros se rompe, quedando flotando en medio del espacio.<br>
+	En un intento por volver a engancharse a la cuerda, pierde la mochila que contenía las herramientas necesarias para<br> 
+	la reparación de ‘Libertfall’.<br> </div>
+	<div class="maquina3"> Y tampoco consigue reenganchar el cable...<br> </div>
+	<div class="maquina2">
+	<h1>OBJETIVO DEL JUEGO</h1>
+	El protagonista de la historia deberá conseguir coger la mochila con las herramientas, intentar sobrevivir a los ataques<br>
+	alienígenas de las colonias descubiertas que habitan en la estrella ‘Red’ y llegar de nuevo a la nave ‘Libertfall’, pero <br>
+	no será nada fácil.<br>
+	<h1>CONTROLES</h1>
+	Para comenzar el juego, se debe presionar la barra espaciadora.<br>
+	A continuación, se debe elegir el color del traje del astronauta.<br>
+	Movimiento del astronauta:<br>
+	ARRIBA: tecla W<br>
+	ABAJO: tecla S<br>
+	DERECHA: tecla D<br>
+	IZQUIERDA: tecla A<br>
+	</div>
 	</div>
 	
+	
+	<!-- Contenido de la pestaña de Autores -->
 	<div id="Autores" class="tabcontent">
 
 	<h2> Gabriel Franco Ferreria </h2>
 	<h4>					
-	Estudiante de ingenieria de Sonido e imagen.<br>
-	HTML, CSS y Javascript.
+	Estudiante de ingenier&iacutea de Sonido e imagen.<br>
+
 	</h4>
 	
-	<h2> Adriana Fuertes Dominguez </h2>
+	<h2> Adriana Fuertes Dom&iacutenguez </h2>
 	<h4>					
-	Estudiante de ingenieria de Sonido e imagen.<br>
-	HTML, CSS y Javascript.
+	Estudiante de ingenier&iacutea de Sonido e imagen.<br>
+	Desarrollo HTML y CSS.<br>
+	Dise&ntildeo creativo.
 	</h4>
 	
 	<h2> Mario Roca Lago </h2>
 	<h4>					
-	Estudiante de ingenieria de Sonido e imagen.<br>
-	HTML, CSS y Javascript.
+	Estudiante de ingenier&iacutea de Sonido e imagen.<br>
 	</h4>
+	</div>
 	
-
-	<h1> holaaaaa </h1>
-
+	
+  	<!-- Contenido de la pestaña de elementos Multimedia -->
+	<div id="Multimedia" class="tabcontent">
+	<p>Flujo multimedia insertado externamente mediante framework de Gstreamer + explicación</p>
+	</div>
+	
+	
+  	<!-- Contenido de la pestaña de Desarollo del juego -->
+	<div id="Desarrollo" class="tabcontent">
+	<p>Desarrollo</p>
+	</div>
+	
+	
+  	<!-- Contenido de la pestaña de Referencias -->
+	<div id="Referencias" class="tabcontent">
+	<p>Referencias</p>
 	</div>
 	
 </body>
