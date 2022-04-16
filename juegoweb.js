@@ -22,7 +22,7 @@ var velocidadAstronauta = 5
 //Dimensiones de los elementos:
 var escalabackground = 1
 var escalameteor;
-var escalaastro = 1.5
+var escalaastro = 2
 
 //Sonidos:
 var mySound; //Sonido de impacto
@@ -437,7 +437,7 @@ function init(){
 				time = 0;
 		}
 	}
-	
+
 	//creación de botón en una imagen:
 	function createButtonAndImage(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context,image){
 		context.drawImage(image,0,0)
@@ -447,7 +447,8 @@ function init(){
 		context.fillStyle = "white";
 		context.fill();
 		//text
-		context.font = "30px Impact";
+		loadFont();
+		context.font = "30 px", "FuenteNasa";
 		context.fillStyle = "black"
 		context.fillText("VOLVER A JUGAR",buttoncoordx+(buttonWidth/3.8),buttoncoordy+(buttonHeight/1.85));
 	}
