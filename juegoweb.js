@@ -22,6 +22,7 @@ var velocidadAstronauta = 5
 //Dimensiones de los elementos:
 var escalabackground = 1
 var escalameteor;
+var escalaovni;
 var escalaastro = 2
 
 //Sonidos:
@@ -250,6 +251,16 @@ function init(){
 		document.getElementById("meteorito8"),
 		document.getElementById("meteorito9")
 		];
+	const spriteOvni = [document.getElementById("ovni"),
+		document.getElementById("ovni1"),
+		document.getElementById("ovni2"),
+		document.getElementById("ovni3"),
+		document.getElementById("ovni4"),
+		document.getElementById("ovni5"),
+		document.getElementById("ovni6"),
+		document.getElementById("ovni7"),
+		document.getElementById("ovni8"),
+		];
 		
 	const spriteAstronautaGreen = [document.getElementById("astro1Green"),
 		document.getElementById("astro2Green"),
@@ -270,9 +281,37 @@ function init(){
 	
 		start : function() {
 			this.canvas.width = canvasWidth;
-		    this.canvas.height = canvasHeight;
+		    	this.canvas.height = canvasHeight;
 			this.context = this.canvas.getContext("2d");
 			this.interval = setInterval(updateGameArea, 5);
+		},
+		
+		borrar : function() {
+			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		}
+	}
+	var gameArea2 = {
+		canvas : document.getElementById("micanvas"),
+	
+		start : function() {
+			this.canvas.width = canvasWidth;
+		    	this.canvas.height = canvasHeight;
+			this.context = this.canvas.getContext("2d");
+			this.interval = setInterval(updateGameArea2, 5);
+		},
+		
+		borrar : function() {
+			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		}
+	}
+	var gameArea3 = {
+		canvas : document.getElementById("micanvas"),
+	
+		start : function() {
+			this.canvas.width = canvasWidth;
+		    	this.canvas.height = canvasHeight;
+			this.context = this.canvas.getContext("2d");
+			this.interval = setInterval(updateGameArea3, 5);
 		},
 		
 		borrar : function() {
@@ -335,6 +374,7 @@ function init(){
 	var astronauta;
 	var meteoritos = new Array();
 	var timespace = new Array();
+	var ovnis = new Array();
 
 	
 	function startgame(f_aparicion_met,numerodemet,vel_max_meteo){
@@ -350,6 +390,42 @@ function init(){
 		for(let i = 0;i<numerodemet;i++){
 			escalameteor = getRndInteger(1, 4)
 			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteMeteorito,getRndInteger(2, 6),escalameteor);
+			timespace[i+1] = timespace[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
+		
+		}
+	}
+
+
+	function startgame2(f_aparicion_met,numerodemet,vel_max_meteo){ //level 2
+		
+		myMusic.play();
+		gameArea2.start();
+		
+		timespace[0] = f_aparicion_met;
+		
+		background = new Elemento(0,0,0,spriteBackground,3,escalabackground)
+		astronauta = new Elemento(100,getRndInteger(100,400),0,spriteElegido,20,escalaastro)
+		
+		for(let i = 0;i<numerodemet;i++){
+			escalaovni = getRndInteger(3, 5)
+			ovnis[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteOvni,getRndInteger(2, 6),escalaovni);
+			timespace[i+1] = timespace[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
+		
+		}
+	}
+	function startgame3(f_aparicion_met,numerodemet,vel_max_meteo){ //level 2
+		
+		myMusic.play();
+		gameArea3.start();
+		
+		timespace[0] = f_aparicion_met;
+		
+		background = new Elemento(0,0,0,spriteBackground,3,escalabackground)
+		astronauta = new Elemento(100,getRndInteger(100,400),0,spriteElegido,20,escalaastro)
+		
+		for(let i = 0;i<numerodemet;i++){
+			escalaovni = getRndInteger(1, 2)
+			ovnis[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteOvni,getRndInteger(2, 6),escalaovni);
 			timespace[i+1] = timespace[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
 		
 		}
@@ -410,6 +486,116 @@ function init(){
 		time_level--
 		
 	}
+
+
+	//función que se refresca gracias a setInterval
+	function updateGameArea2(){
+
+		gameArea.borrar();
+		background.updateElement();
+		astronauta.updateElement();
+		updatecentro(astronauta);
+		
+		astronauta.coordx += movimientox
+		astronauta.coordy += movimientoy
+		
+		if(astronauta.coordx<-20){
+			movimientox = 0
+			astronauta.coordx = -20;
+		}
+		if(astronauta.coordx>(canvasWidth-imagenbuttWidth)){
+			movimientox = 0
+			astronauta.coordx = canvasWidth-imagenbuttWidth
+		}
+		if(astronauta.coordy<-20){
+			movimientoy = 0
+			astronauta.coordy = -20;
+		}
+		if(astronauta.coordy>(canvasHeight-imagenbuttHeight)){
+			movimientoy = 0
+			astronauta.coordy = canvasHeight-imagenbuttHeight
+		}
+		
+		for(let i = 0;i<ovnis.length;i++){
+			ovnis[i].updateElement();
+			updatecentro(ovnis[i]);
+		
+		
+			if(time >= timespace[i]){
+				ovnis[i].coordx-=ovnis[i].movimiento;
+			}	
+		
+			
+		}
+		
+		for(let i = 0; i<ovnis.length; i++){
+			if(ovnis[i].coordx<-200){
+				ovnis[i].coordx = canvasWidth;
+				ovnis[i].coordy = getRndInteger(50,600);
+				ovnis[i].movimiento = getRndInteger(1,vel_max_meteo);
+				timespace[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
+			}
+		}
+		time++;
+		colisiones2();
+		pass_level(level)
+		time_level--
+		
+	}
+
+	function updateGameArea3(){
+
+		gameArea3.borrar();
+		background.updateElement();
+		astronauta.updateElement();
+		updatecentro(astronauta);
+		
+		astronauta.coordx += movimientox
+		astronauta.coordy += movimientoy
+		
+		if(astronauta.coordx<-20){
+			movimientox = 0
+			astronauta.coordx = -20;
+		}
+		if(astronauta.coordx>(canvasWidth-imagenbuttWidth)){
+			movimientox = 0
+			astronauta.coordx = canvasWidth-imagenbuttWidth
+		}
+		if(astronauta.coordy<-20){
+			movimientoy = 0
+			astronauta.coordy = -20;
+		}
+		if(astronauta.coordy>(canvasHeight-imagenbuttHeight)){
+			movimientoy = 0
+			astronauta.coordy = canvasHeight-imagenbuttHeight
+		}
+		
+		for(let i = 0;i<ovnis.length;i++){
+			ovnis[i].updateElement();
+			updatecentro(ovnis[i]);
+		
+		
+			if(time >= timespace[i]){
+				ovnis[i].coordx-=ovnis[i].movimiento;
+			}	
+		
+			
+		}
+		
+		for(let i = 0; i<ovnis.length; i++){
+			if(ovnis[i].coordx<-200){
+				ovnis[i].coordx = canvasWidth;
+				ovnis[i].coordy = getRndInteger(50,600);
+				ovnis[i].movimiento = getRndInteger(1,vel_max_meteo);
+				timespace[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
+			}
+		}
+		time++;
+		colisiones3();
+		pass_level(level)
+		time_level--
+		
+	}
 	
 	function pass_level(nivel){
 		if(time_level == 0){
@@ -417,15 +603,23 @@ function init(){
 			clearInterval(gameArea.interval);
 			gameArea.borrar();
 				if (nivel == 1){
+					myMusic.stop(); // Se silencia la música de fondo
+					clearInterval(gameArea2.interval);
+					gameArea2.borrar();
 					video2.play()
 					level++;
-					
 				}
 				if (nivel == 2){
+					myMusic.stop(); // Se silencia la música de fondo
+					clearInterval(gameArea2.interval);
+					gameArea2.borrar();
 					video3.play()
 					level++;
 				}
 				if (nivel == 3){
+					myMusic.stop(); // Se silencia la música de fondo
+					clearInterval(gameArea3.interval);
+					gameArea3.borrar();
 					button = 1
 					//Esta parte va a finalizar el juego con una pantalla en la que se muestra un botón para empezar de nuevo y un mensaje de victoria
 					level = 1
@@ -469,6 +663,7 @@ function init(){
 		const rect = gameArea.canvas.getBoundingClientRect()
 		var x = event.clientX - rect.left;
 		var y = event.clientY - rect.top;
+
 		//si es game over
 		if(button == 0){
 		
@@ -581,8 +776,8 @@ function init(){
 	function game_over(){
 		mySound.play(); // Se activa el sonido de impacto
 		myMusic.stop(); // Se silencia la música de fondo
-		clearInterval(gameArea.interval);
-		gameArea.borrar();
+		clearInterval(gameArea3.interval);
+		gameArea3.borrar();
 		level = 1 //Se reinician los niveles;
 		time_level = level_duration;
 		time = 0;
@@ -597,6 +792,24 @@ function init(){
 			if(	(distancia(astronauta.centroElementox,astronauta.centroElementoy,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 100/escalaastro)||
 			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox1,meteoritos[i].centroElementoy1) <= 80/escalaastro))||
 			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox2,meteoritos[i].centroElementoy2) <= 70/escalaastro))){
+				game_over();
+			}
+		}
+	}
+	function colisiones2() {
+		for(let i=0;i<ovnis.length;i++){
+			if(	(distancia(astronauta.centroElementox,astronauta.centroElementoy,ovnis[i].centroElementox,ovnis[i].centroElementoy) <= 100/escalaastro)||
+			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,ovnis[i].centroElementox1,ovnis[i].centroElementoy1) <= 80/escalaastro))||
+			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,ovnis[i].centroElementox2,ovnis[i].centroElementoy2) <= 70/escalaastro))){
+				game_over();
+			}
+		}
+	}
+	function colisiones3() {
+		for(let i=0;i<ovnis.length;i++){
+			if(	(distancia(astronauta.centroElementox,astronauta.centroElementoy,ovnis[i].centroElementox,ovnis[i].centroElementoy) <= 100/escalaastro)||
+			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,ovnis[i].centroElementox1,ovnis[i].centroElementoy1) <= 80/escalaastro))||
+			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,ovnis[i].centroElementox2,ovnis[i].centroElementoy2) <= 70/escalaastro))){
 				game_over();
 			}
 		}
@@ -737,16 +950,16 @@ function init(){
 	
 	videocharacter.onended = function() {
 		if(chosen_character == true){
-			startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+			startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 1
 		}
 	};
 	
 	video2.onended = function() {
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
-	};	
+		startgame2(f_aparicion_met,numerodemet,vel_max_meteo); //level 2
+	};
 
 	video3.onended = function() {
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+		startgame3(f_aparicion_met,numerodemet,vel_max_meteo); //level 3
 	};	
 	
 	if(paused == true){
