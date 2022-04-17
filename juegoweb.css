@@ -1,3 +1,12 @@
+@font-face { /*tipografía nasa*/
+    font-family: FuenteNasa;
+    src: url("./fuentes/nasa.otf") format("opentype");
+}
+
+#button {
+  font-family: FuenteNasa, Arial, sans-serif;
+}
+
 body{ /*color de fondo de la página*/
 	background-color: #FAE4D5;
 	width: 100%;
@@ -14,7 +23,7 @@ span{ /*movimiento del resto de letras del título*/
 
 .title{ /*título de la página*/
 	display: flex;
-	font-family: 'Quicksand', sans-serif;
+	font-family: 'FuenteNasa', sans-serif;
 	font-weight: bold;
 	font-size: 45px;
 	color: #192158;
