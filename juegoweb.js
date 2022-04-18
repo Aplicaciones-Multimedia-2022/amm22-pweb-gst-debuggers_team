@@ -63,6 +63,9 @@ var continuebuttHeight = 100
 var continuebuttcoordx = (canvasWidth/2) - (continuebuttWidth/2)
 var continuebuttcoordy = ((canvasHeight/2)+140) - (continuebuttHeight/2)
 
+//Juego pausado
+var paused = false;
+
 var button; 
 
 //traje del astronauta:
@@ -301,9 +304,6 @@ function init(){
 			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		}
 	}
-	
-	
-	
 	//Objeto 'elemento' que será cualquier componente añadido al juego como los meteoritos, fondo, etc..
 	
 	var Elemento = function(coordx,coordy,movimiento,sprite,velocidad_refresco, escala){
@@ -517,10 +517,12 @@ function init(){
 		context.fillStyle = "white";
 		context.fill();
 		//text
+
 		context.font = "80px FuenteNasa";
 		context.fillStyle = "black"
 		context.textAlign = "center";
 		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+40);
+
 	}
 	
 	
@@ -534,6 +536,7 @@ function init(){
 		//text
 		context.font = "30px FuenteNasa";
 		context.fillStyle = "black"
+
 		context.textAlign = "center";
 		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+15);
 	}
@@ -669,6 +672,19 @@ function init(){
 			document.addEventListener("click", buttonclick)
 		}
 		
+	}
+	
+	function pause_game() {
+		paused = !paused;
+		if(paused){
+		myMusic.stop(); // Se silencia la música de fondo
+		clearInterval(gameArea.interval);
+		gameArea.borrar();
+		}
+		else {
+		/*myMusic.play();
+		setInterval(updateGameArea, 5);*/
+		}
 	}
 	
 	function game_over(){
