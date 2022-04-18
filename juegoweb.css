@@ -1,11 +1,60 @@
-h1{
-	color: green;
-	text-align: center;
-	font-family: Impact
+@font-face { /*tipografía nasa*/
+    font-family: FuenteNasa;
+    src: url("./fuentes/nasa.otf") format("opentype");
 }
 
-canvas{
-	
+#button {
+  font-family: FuenteNasa, Arial, sans-serif;
+}
+
+body{ /*color de fondo de la página*/
+	background-color: #FAE4D5;
+	width: 100%;
+	height: 100%;
+	margin: 10px 0;
+}
+
+span{ /*movimiento del resto de letras del título*/
+	margin: 0 15px;
+	line-height: .7;
+	text-shadow: 0 0 5px #2E43E0;
+	animation: span 5s ease-in infinite alternate;
+}
+
+.title{ /*título de la página*/
+	display: flex;
+	font-family: 'FuenteNasa', sans-serif;
+	font-weight: bold;
+	font-size: 45px;
+	color: #192158;
+	justify-content: center;
+	align-items: flex-start;
+	@media(max-width: 500px)
+	transform: scale(3); 
+}
+
+.letter{ /*animación para la 'U' del título*/
+	height: 27px;
+	width: 38px;
+	border: 6px solid #192158;
+	border-top: 0px;
+	border-radius: 10px;
+	box-shadow:
+		 0 3px 3px -1.5px #B3BFF6,
+		inset 0 -5px 5px -0.01px #B3BFF6;
+	animation: letter 5s ease-in-out infinite alternate;
+}
+
+@keyframes span {
+	0%,30%{ margin: 0 15px; }
+	70%,100%{ margin: 0 5px; }
+}
+@keyframes letter {
+	0%,30%{ width: 27px; }
+	70%,100%{ width: 30vw; }
+}
+
+canvas{ /*características del canvas*/
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -21,48 +70,45 @@ video{
 
 						/******  ESTILO PESTAÑAS  ******/
 
-/* estilo del fondo de las pestañas */
-.tab {
-  display: inline-block;
-  overflow: center;
-  border: 5px solid #2307C2;
-  background-color: #2307C2;
-  margin-left: auto;
-  margin-right: auto;
+
+/* estilo de la barra de pestañas */
+nav {
+  border: 6px solid #192158;
+  background-color: #192158;
   display: block;
+  text-align: center;
 }
 
 /* estilo botón de pestaña seleccionada */
-.tab button {
-  font-size: 50px solid #000000;
-  background-color: #C9B8E9;
-  color: #000000;
-  float: center;
+nav button {
+  font-size: 17px;
+  color: #FFFFFF;
+  font-weight: bold;
+  min-width: 210px;
+  background-color: #2A3795;
   border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 15px 22px;
+  padding: 15px 15px;
   transition: 0.3s;
-  
+  cursor: pointer;
 }
 
 /* color botón al pasar el ratón por encima */
-.tab button:hover {
-  background-color: #CAE4EA;
+nav button:hover {
+  background-color: #2E43E0;
 }
 
 /* color específico pestaña seleccionada */
-.tab button.active {
-  background-color: #995FD4;
+nav button.active {
+  background-color: #E5670F;
+  color: #192158;
 }
 
-/* Style the tab content */
 .tabcontent {
   display: none;
   padding: 6px 12px;
   border: 0px solid;
   border-top: none;
-  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+  animation: fadeEffect 1s; /* efecto fade tarda 1 segundo */
 }
 @keyframes fadeEffect {
   from {opacity: 0;}
@@ -72,10 +118,198 @@ video{
 
 					/******  PESTAÑA DE DESCRIPCION DEL JUEGO  ******/
 
-P {
-	
+
+h1{
+	color: #E5670F;
+	font-family: verdana;
+}	
+					
+.maquina { /*estilo título 1 a máquina*/
+  width: 20ch;
+  font-family: 'Courier new', monospace;
+  font-weight: bold;
+  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 24px;
 }
-					/******  PESTAÑA DE AUTORES  ******/
+
+.maquina2 { /*estilo tipo de texto 2 a máquina*/
+  width: 120ch;
+  font-family: 'Courier new', monospace;
+  font-weight: bold;
+  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 18px;
+}
+
+.maquina3 { /*estilo tipo de texto 3 a máquina*/
+  width: 50ch;
+  font-family: 'Courier new', monospace;
+  font-weight: bold;
+  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid;
+  font-size: 18px;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+    
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}
+
+dd{ /*Cohetes para la enumeración de elementos*/
+	display: list-item;
+	list-style-type: "🚀";
+	padding-inline-start: 1ch;
+}
+
+
+					/******  PESTAÑA DE AUTORES  ******/				
+.container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}	
+
+.wgh-slider {
+  position: relative;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
+}	
+
+.wgh-slider__viewport {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}		
+
+.wgh-slider__viewbox {
+  display: block;
+  position: relative;
+  perspective: 100vw;
+  margin: 0 auto;
+  width: 33.3333333333%;
+  max-width: 280px;
+  transform-style: preserve-3d;
+  z-index: 0;
+}
+.wgh-slider__viewbox::before {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  content: "";
+  height: 0;
+  padding-bottom: 100%;
+  width: 100%;
+}	
+
+input.wgh-slider-target {
+  display: none;
+}
+
+.wgh-slider-item {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotateY(45deg);
+  transition: transform 0.6s cubic-bezier(0.62, 0.28, 0.23, 0.99) 0.15s;
+}
+
+.wgh-slider-item-figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.wgh-slider-item-figure__image {
+  position: absolute;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  opacity: 1;
+}
+
+.wgh-slider-item-figure__caption {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  padding: 24px;
+  background-image: linear-gradient(0deg, #000 0%, transparent 100%);
+  z-index: 2;
+}
+.wgh-slider-item-figure__caption a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+.wgh-slider-item-figure__caption span {
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+
+.wgh-slider-item:nth-child(1) {
+  left: 0%;
+}
+.wgh-slider-item:nth-child(2) {
+  left: 50%;
+}
+.wgh-slider-item:nth-child(3) {
+  left: 100%;
+}
+
+
+.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) .wgh-slider-item__inner, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) .wgh-slider-item__inner, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) .wgh-slider-item__inner{
+  transform: scale(1);
+  transition-delay: 0.6s;
+}
+.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(5):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(5) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(4):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(4) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) .wgh-slider-item__inner::before {
+  transform: translate(0, 24px);
+}
+.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) .wgh-slider-item__inner::after, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) .wgh-slider-item__inner::after, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) .wgh-slider-item__inner::after{
+  background-position: -50% 0%;
+}
+.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) ~ .wgh-slider-item .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) ~ .wgh-slider-item .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) ~ .wgh-slider-item .wgh-slider-item__inner::before {
+  transform: translate(24px, 12px);
+}
+.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) ~ .wgh-slider-item .wgh-slider-item__inner::after, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) ~ .wgh-slider-item .wgh-slider-item__inner::after, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) ~ .wgh-slider-item .wgh-slider-item__inner::after {
+  background-position: -100% 0%;
+}
+
+					
+					/******  PESTAÑA DE DESARROLLO  ******/
 h2 {
   -moz-animation-duration: 2.5s;
   -webkit-animation-duration: 2.5s;
@@ -112,3 +346,37 @@ h4 {
   }
 }
 
+					/******  PESTAÑA DE REFERENCIAS  ******/
+
+.boton-ref{
+	padding: 15px 5px 15px 5px; /*arriba dcha abajo izda*/
+	width: 100%;
+	display: inline-block;
+}	
+					
+
+.boton-ref button {
+  color: #000000;
+  width: 33%;
+  font-style: 'Courier new', monostyle;
+  font-size: 13px;
+  font-weight: bold;
+  background-color: #98A2EA; 
+  border: 2px solid #808DEB;
+  border-radius: 6px;
+  padding: 8px 8px 8px 8px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.boton-ref button:hover{
+  background-color: #5365E9;
+  color: #FFFFFF;
+  border: 2px solid #4559E7;
+}
+
+.boton-ref button:active{
+  background-color: #EE985B;
+  color: #000000;
+  border: 2px solid #EC8943;
+}

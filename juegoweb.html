@@ -3,23 +3,39 @@
 <head>
 	<link rel="stylesheet" href="juegoweb.css">
 	<script src="juegoweb.js"></script>
-	<title>Juego</title>
+	<title>SPACE JUMP</title>
+	<link rel="shortcut icon" href="./meteorito/icon.png">
 </head>
+
 <body>
 	
+	<div class="title">
+	<span>S</span>
+	<span>P</span>
+	<span>A</span>
+	<span>C</span>
+	<span>E</span>
+	<span>J</span>
+	<span class="letter"></span>
+	<span>M</span>
+	<span>P</span>
+	<br>
+	</div>
+	
 	<!-- Creacion de distintas pestañas -->
-	<div class="tab">
+	<nav>
 	<button class="tablinks" onclick="openCity(event, 'Juego')" id="defaultOpen">Juego</button>
-	<button class="tablinks" onclick="openCity(event, 'Descripcion')">Descripcion del juego</button>
+	<button class="tablinks" onclick="openCity(event, 'Descripcion')">Descripci&oacuten del juego</button>
 	<button class="tablinks" onclick="openCity(event, 'Autores')">Autores</button>	
 	<button class="tablinks" onclick="openCity(event, 'Multimedia')">Multimedia</button>
 	<button class="tablinks" onclick="openCity(event, 'Desarrollo')">Desarrollo</button>
 	<button class="tablinks" onclick="openCity(event, 'Referencias')">Referencias</button>
-	</div>
+	</nav>
 	
 
 	<!-- Contenido de las pestañas -->
   
+  	<!-- Contenido de la pestaña de Juego -->
 	<div id="Juego" class="tabcontent" style="display:block">
 	<canvas id="micanvas" width="1420" height="680">
 
@@ -46,6 +62,7 @@
 		Your browser does not support HTML5 video.
 	</video>
 
+		
 	
 
 	<img id="b1" src="./background/fila-1-columna-1.jpg"> 
@@ -190,6 +207,16 @@
 	<img id="meteorito7" src="./meteorito/meteorito7.png">
 	<img id="meteorito8" src="./meteorito/meteorito8.png">
 	<img id="meteorito9" src="./meteorito/meteorito9.png">
+
+	<img id="ovni" src="./ovni/s0.png">
+	<img id="ovni1" src="./ovni/s1.png">
+	<img id="ovni2" src="./ovni/s2.png">
+	<img id="ovni3" src="./ovni/s3.png">
+	<img id="ovni4" src="./ovni/s4.png">
+	<img id="ovni5" src="./ovni/s5.png">
+	<img id="ovni6" src="./ovni/s6.png">
+	<img id="ovni7" src="./ovni/s7.png">
+	<img id="ovni8" src="./ovni/s8.png">
 	
 	<img id="imagenfinal" src="./imagenes/final_image.png">
 	<img id="go" src="./imagenes/gameover.png">
@@ -198,36 +225,139 @@
 	<img id="selnaranja" src="./imagenes/naranja.png">
 	<img id="selverde" src="./imagenes/verde.png">
 	
-</div>
+	</div>
 
-
+  	<!-- Contenido de la pestaña de Descripción del juego -->
 	<div id="Descripcion" class="tabcontent">
-	<p>holaaaaaaaaaa</p>
+	<div class="maquina"><br>17 de Agosto, 2087</div>
+	<div class="maquina2"><br>La nave espacial ‘Libertfall’ despega de la Tierra en la misión ‘M310-x3’, con el objetivo de llevar provisiones<br> 
+	al campamento base establecido por los humanos en Marte.<br>
+	Tras varias semanas de viaje, por problemas técnicos, la nave se detiene en mitad de la ruta entre ambos planetas,<br> 
+	cerca de la estrella comúnmente conocida como ‘Red’.<br>
+	Uno de los astronautas, encargado del mantenimiento del motor de la nave, tiene que salir para arreglar una pieza<br> 
+	sin la que la nave no podrá avanzar.<br>
+	Sin embargo, nada más salir, el cable que le une con sus compañeros se rompe, quedando flotando en medio del espacio.<br>
+	En un intento por volver a engancharse a la cuerda, pierde la mochila que contenía las herramientas necesarias para<br> 
+	la reparación de ‘Libertfall’.<br> </div>
+	<div class="maquina3"> Y tampoco consigue reenganchar el cable...<br> </div>
+	<div class="maquina2">
+	<h1>OBJETIVO DEL JUEGO</h1>
+	El protagonista de la historia deberá conseguir coger la mochila con las herramientas, intentar sobrevivir a los ataques<br>
+	alienígenas de las colonias descubiertas que habitan en la estrella ‘Red’ y llegar de nuevo a la nave ‘Libertfall’, pero <br>
+	no será nada fácil.<br>
+	<h1>CONTROLES</h1>
+	Para comenzar el juego, se debe presionar la barra espaciadora.<br>
+	A continuación, se debe elegir el color del traje del astronauta.<br>
+	<dl>
+	<dt>Movimiento del astronauta:<br></dt>
+	<dd>ARRIBA: tecla W<br></dd>
+	<dd>ABAJO: tecla S<br></dd>
+	<dd>DERECHA: tecla D<br></dd>
+	<dd>IZQUIERDA: tecla A<br></dd>
+	<dt><br>Controles adicionales:<br></dt>
+	<dd>Pausa: tecla P<br></dd>
+	</dl>
+	</div>
 	</div>
 	
+	
+	<!-- Contenido de la pestaña de Autores -->
 	<div id="Autores" class="tabcontent">
+	<div class="container">
+  <div class="wgh-slider">
+    <input class="wgh-slider-target" type="radio" id="slide-1" name="slider"/>
+    <input class="wgh-slider-target" type="radio" id="slide-2" name="slider" checked="checked"/>
+    <input class="wgh-slider-target" type="radio" id="slide-3" name="slider"/>
+	<div class="wgh-slider__viewport">
+      <div class="wgh-slider__viewbox">
+        <div class="wgh-slider__container">
+		
+          <div class="wgh-slider-item">
+            <div class="wgh-slider-item__inner">
+				<figure class="wgh-slider-item-figure"><img class="wgh-slider-item-figure__image" src="./imagenes/foto-adriana.jpg" alt="Foto adriana"/>
+                <figcaption class="wgh-slider-item-figure__caption">Adriana Fuertes<span>Desarrollo HTML y CSS.<br>Dise&ntildeo creativo.</span></figcaption>
+                </figure>
+	        <label class="wgh-slider-item__trigger" for="slide-1" title="Show product 1"></label>
+            </div>
+          </div>
 
+		  <div class="wgh-slider-item">
+            <div class="wgh-slider-item__inner">
+              <figure class="wgh-slider-item-figure"><img class="wgh-slider-item-figure__image" src="./imagenes/erizo1.jpg" alt="Erizo 1"/>
+                <figcaption class="wgh-slider-item-figure__caption">Erizo 1<span>Hola</span></figcaption>
+              </figure>
+              <label class="wgh-slider-item__trigger" for="slide-2" title="Show product 2"></label>
+            </div>
+          </div>
+		  
+          <div class="wgh-slider-item">
+            <div class="wgh-slider-item__inner">
+              <figure class="wgh-slider-item-figure"><img class="wgh-slider-item-figure__image" src="./imagenes/erizo2.jpg" alt="Erizo 2"/>
+                <figcaption class="wgh-slider-item-figure__caption">Erizo 2<span>Hola tambien</span></figcaption>
+              </figure>
+              <label class="wgh-slider-item__trigger" for="slide-3" title="Show product 3"></label>
+            </div>
+          </div>
+		 </div>
+        </div>
+       </div>
+      </div>
+	 </div>
+	</div>
+	
+	
+  	<!-- Contenido de la pestaña de elementos Multimedia -->
+	<div id="Multimedia" class="tabcontent">
+	<p>Flujo multimedia insertado externamente mediante framework de Gstreamer + explicación</p>
+	</div>
+	
+	
+  	<!-- Contenido de la pestaña de Desarollo del juego -->
+	<div id="Desarrollo" class="tabcontent">
 	<h2> Gabriel Franco Ferreria </h2>
 	<h4>					
-	Estudiante de ingenieria de Sonido e imagen.<br>
-	HTML, CSS y Javascript.
+	Estudiante de ingenier&iacutea de Sonido e imagen.<br>
+
 	</h4>
 	
-	<h2> Adriana Fuertes Dominguez </h2>
+	<h2> Adriana Fuertes Dom&iacutenguez </h2>
 	<h4>					
-	Estudiante de ingenieria de Sonido e imagen.<br>
-	HTML, CSS y Javascript.
+	Estudiante de ingenier&iacutea de Sonido e imagen.<br>
 	</h4>
 	
 	<h2> Mario Roca Lago </h2>
 	<h4>					
-	Estudiante de ingenieria de Sonido e imagen.<br>
-	HTML, CSS y Javascript.
+	Estudiante de ingenier&iacutea de Sonido e imagen.<br>
 	</h4>
+	</div>
 	
-
-	<h1> holaaaaa </h1>
-
+	
+  	<!-- Contenido de la pestaña de Referencias -->
+	<div id="Referencias" class="tabcontent">
+	<div class="boton-ref">
+	<button onclick="window.open('https://www.artstation.com/artwork/288Lyx')">Sprite astronauta</button>
+	<button onclick="window.open('https://www.cleanpng.com/png-astronaut-drawing-royalty-free-astronauta-ni-ntild-5585063/')">Imagen astronauta final</button>
+	<button onclick="window.open('https://www.freepng.es/png-kcvzdm/')">Sprite meteorito</button>
+	</div>
+	<div class="boton-ref">
+	<button onclick="window.open('https://stock.adobe.com/es/search?k=cartoon+space&search_type=recentsearch&asset_id=289726988')">Imagen fondo</button>
+	<button onclick="window.open('https://www.pexels.com/es-es/video/nubes-galaxy-via-lactea-estrellas-9341428/')">Fondo elección traje</button>		
+	<button onclick="window.open('https://www.pexels.com/es-es/video/lanzamiento-del-transbordador-espacial-854252/')">V&iacutedeo inicial</button>
+	</div>
+	<div class="boton-ref">	
+	<button onclick="window.open('https://www.pexels.com/es-es/video/espacio-exterior-856309/')">V&iacutedeo nivel 3</button>
+	<button onclick="window.open('https://www.w3schools.com/graphics/game_intro.asp')">Ejemplos juego</button>
+	<button onclick="window.open('http://html5doctor.com/video-canvas-magic/')">Insertar v&iacutedeo en canvas</button>
+	</div>
+	<div class="boton-ref">
+	<button onclick="window.open('https://stackoverflow.com/questions/55677/how-do-i-get-the-coordinates-of-a-mouse-click-on-a-canvas-element')">Coordenadas en canvas</button>
+	<button onclick="window.open('https://codepen.io/ricardoolivaalonso/pen/wvvGoeY')">Letras t&iacutetulo</button>
+	<button onclick="window.open('https://codepen.io/denic/pen/GRoOxbM')">Texto a m&aacutequina</button>
+	</div>
+	<div class="boton-ref">
+	<button onclick="window.open('https://www.fiftysounds.com/es/musica-libre-de-derechos/sfx-impacto-horror.html')">Sonido impacto</button>
+	<button onclick="window.open('https://www.fiftysounds.com/es/musica-libre-de-derechos/en-la-memoria.html')">M&uacutesica piano</button>
+	</div>
 	</div>
 	
 </body>
