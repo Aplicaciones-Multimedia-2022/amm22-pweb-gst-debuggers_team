@@ -1,6 +1,7 @@
 //Variables globales:
 var canvasWidth = 1420;
 var canvasHeight = 640;
+var velocidad_juego = 5;
 
 //Parametros niveles:
 var level = 1;
@@ -15,6 +16,7 @@ var time_level = level_duration;
 var f_aparicion_met = 1200;
 //numero max de meteoritos:
 var numerodemet = 5;
+var numerodeovnis = 5;
 //velocidad de los met.
 var vel_max_meteo = 4;
 var velocidadAstronauta = 5
@@ -22,6 +24,7 @@ var velocidadAstronauta = 5
 //Dimensiones de los elementos:
 var escalabackground = 1
 var escalameteor;
+var escalaovni;
 var escalaastro = 2
 
 //Sonidos:
@@ -31,25 +34,34 @@ var video1Sound; //Sonido vídeo 1
 
 //Botones del canvas:
 //Botón pantalla final:
-var finalbuttWidth = 300
-var finalbuttHeight = 100
+var finalbuttWidth = 400
+var finalbuttHeight = 150
 var finalbuttcoordx = (canvasWidth/2) - (finalbuttWidth/2)
-var finalbuttcoordy = ((canvasHeight/2)+180) - (finalbuttHeight/2)
+var finalbuttcoordy = ((canvasHeight/2)+90) - (finalbuttHeight/2)
 
 //Botón pantalla game over:
 var gobuttWidth = 400
-var gobuttHeight = 220
+var gobuttHeight = 150
 var gobuttcoordx = (canvasWidth/2) - (gobuttWidth/2)
 var gobuttcoordy = ((canvasHeight/2)+140) - (gobuttHeight/2)
 
 //Botón skip intro:
-var skipbuttWidth = 300
-var skipbuttHeight = 100
-var skipbuttcoordx = ((canvasWidth/2)+300) - (skipbuttWidth/2)
-var skipbuttcoordy = ((canvasHeight/2)-200) - (skipbuttHeight/2)
+var skipbuttWidth = 150
+var skipbuttHeight = 40
+var skipbuttcoordx = 1250
+var skipbuttcoordy = 25
 
-//Juego pausado
-var paused = false;
+//Botón pausa
+var pausabuttWidth = 150
+var pausabuttHeight = 40
+var pausabuttcoordx = 1250
+var pausabuttcoordy = 25
+
+//Botón continuar
+var continuebuttWidth = 200
+var continuebuttHeight = 100
+var continuebuttcoordx = (canvasWidth/2) - (continuebuttWidth/2)
+var continuebuttcoordy = ((canvasHeight/2)+140) - (continuebuttHeight/2)
 
 var button; 
 
@@ -250,6 +262,16 @@ function init(){
 		document.getElementById("meteorito8"),
 		document.getElementById("meteorito9")
 		];
+	const spriteOvni = [document.getElementById("ovni"),
+		document.getElementById("ovni1"),
+		document.getElementById("ovni2"),
+		document.getElementById("ovni3"),
+		document.getElementById("ovni4"),
+		document.getElementById("ovni5"),
+		document.getElementById("ovni6"),
+		document.getElementById("ovni7"),
+		document.getElementById("ovni8"),
+		];
 		
 	const spriteAstronautaGreen = [document.getElementById("astro1Green"),
 		document.getElementById("astro2Green"),
@@ -272,7 +294,7 @@ function init(){
 			this.canvas.width = canvasWidth;
 		    this.canvas.height = canvasHeight;
 			this.context = this.canvas.getContext("2d");
-			this.interval = setInterval(updateGameArea, 5);
+			this.interval = setInterval(updateGameArea, velocidad_juego);
 		},
 		
 		borrar : function() {
@@ -281,28 +303,32 @@ function init(){
 	}
 	
 	
+	
 	//Objeto 'elemento' que será cualquier componente añadido al juego como los meteoritos, fondo, etc..
 	
 	var Elemento = function(coordx,coordy,movimiento,sprite,velocidad_refresco, escala){
 		this.coordx = coordx;
 		this.coordy = coordy;
-		this.sprite = sprite;
 		this.movimiento = movimiento;
+		this.sprite = sprite;
 		this.velocidad_refresco = velocidad_refresco;
+		this.escala = escala; 
 		this.contador = 0;
 		this.recorrerSprite = 0;
-		this.centroElementox;
-		this.centroElementoy;
-		this.centroElementox1;
-		this.centroElementoy1;
-		this.centroElementox2;
-		this.centroElementoy2;
-		this.escala = escala; 
+		this.ancho_elemento = this.sprite[0].width/this.escala;
+		this.alto_elemento = this.sprite[0].height/this.escala;
 		
 		ctx = gameArea.context;
 		
 		//Esta función se encargará de actualizar los sprites de cada elemento:
 		this.updateElement = function(){
+			
+			this.centroElementox = this.coordx+(this.ancho_elemento/2);
+			this.centroElementoy = this.coordy+(this.alto_elemento/2);
+			this.centroElementox1 = this.centroElementox;
+			this.centroElementoy1 = this.centroElementoy-(this.alto_elemento/3);
+			this.centroElementox2 = this.centroElementox;
+			this.centroElementoy2 = this.centroElementoy+(this.alto_elemento/3);
 			
 			if(this.recorrerSprite < this.sprite.length){
 				ctx.drawImage(this.sprite[this.recorrerSprite],this.coordx, this.coordy, this.sprite[this.recorrerSprite].width/escala, this.sprite[this.recorrerSprite].height/escala)
@@ -334,15 +360,22 @@ function init(){
 	//Creación de elementos:
 	var astronauta;
 	var meteoritos = new Array();
-	var timespace = new Array();
+	var timespacemeteor = new Array();
+	var timespaceovni = new Array();
+	var ovnis = new Array();
 
 	
 	function startgame(f_aparicion_met,numerodemet,vel_max_meteo){
 		
-		myMusic.play();
 		gameArea.start();
 		
-		timespace[0] = f_aparicion_met;
+		document.addEventListener("click", buttonclick)
+		button = 4
+		
+		myMusic.play();
+		
+		timespacemeteor[0] = f_aparicion_met;
+		timespaceovni[0] = f_aparicion_met;
 		
 		background = new Elemento(0,0,0,spriteBackground,3,escalabackground)
 		astronauta = new Elemento(100,getRndInteger(100,400),0,spriteElegido,20,escalaastro)
@@ -350,7 +383,14 @@ function init(){
 		for(let i = 0;i<numerodemet;i++){
 			escalameteor = getRndInteger(1, 4)
 			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteMeteorito,getRndInteger(2, 6),escalameteor);
-			timespace[i+1] = timespace[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
+			timespacemeteor[i+1] = timespacemeteor[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
+		
+		}
+		
+		for(let i = 0;i<numerodeovnis;i++){
+			escalaovni = getRndInteger(3, 5)
+			ovnis[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteOvni,getRndInteger(2, 6),escalaovni);
+			timespaceovni[i+1] = timespaceovni[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
 		
 		}
 	}
@@ -358,11 +398,11 @@ function init(){
 	
 	//función que se refresca gracias a setInterval
 	function updateGameArea(){
-
+		
 		gameArea.borrar();
 		background.updateElement();
 		astronauta.updateElement();
-		updatecentro(astronauta);
+		createButton(pausabuttcoordx,pausabuttcoordy,pausabuttWidth,pausabuttHeight,gameArea.context,"PAUSE")
 		
 		astronauta.coordx += movimientox
 		astronauta.coordy += movimientoy
@@ -371,29 +411,25 @@ function init(){
 			movimientox = 0
 			astronauta.coordx = -20;
 		}
-		if(astronauta.coordx>(canvasWidth-imagenbuttWidth)){
+		if(astronauta.coordx>(canvasWidth-(imagenbuttWidth/escalaastro))){
 			movimientox = 0
-			astronauta.coordx = canvasWidth-imagenbuttWidth
+			astronauta.coordx = canvasWidth-(imagenbuttWidth/escalaastro)
 		}
 		if(astronauta.coordy<-20){
 			movimientoy = 0
 			astronauta.coordy = -20;
 		}
-		if(astronauta.coordy>(canvasHeight-imagenbuttHeight)){
+		if(astronauta.coordy>(canvasHeight-(imagenbuttHeight/escalaastro))){
 			movimientoy = 0
-			astronauta.coordy = canvasHeight-imagenbuttHeight
+			astronauta.coordy = canvasHeight-(imagenbuttHeight/escalaastro)
 		}
 		
 		for(let i = 0;i<meteoritos.length;i++){
-			meteoritos[i].updateElement();
-			updatecentro(meteoritos[i]);
+			meteoritos[i].updateElement();		
 		
-		
-			if(time >= timespace[i]){
+			if(time >= timespacemeteor[i]){
 				meteoritos[i].coordx-=meteoritos[i].movimiento;
-			}	
-		
-			
+			}			
 		}
 		
 		for(let i = 0; i<meteoritos.length; i++){
@@ -401,13 +437,34 @@ function init(){
 				meteoritos[i].coordx = canvasWidth;
 				meteoritos[i].coordy = getRndInteger(50,600);
 				meteoritos[i].movimiento = getRndInteger(1,vel_max_meteo);
-				timespace[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
+				timespacemeteor[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
 			}
 		}
+		
+		if(level >= 2){
+			
+			for(let i = 0;i<ovnis.length;i++){
+				ovnis[i].updateElement();		
+		
+				if(time >= timespaceovni[i]){
+					ovnis[i].coordx-=ovnis[i].movimiento;
+				}	
+			}
+		
+			for(let i = 0; i<ovnis.length; i++){
+				if(ovnis[i].coordx<-200){
+					ovnis[i].coordx = canvasWidth;
+					ovnis[i].coordy = getRndInteger(50,600);
+					ovnis[i].movimiento = getRndInteger(1,vel_max_meteo);
+					timespaceovni[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
+				}
+			}
+		}
+		
 		time++;
+		time_level--
 		colisiones();
 		pass_level(level)
-		time_level--
 		
 	}
 	
@@ -417,19 +474,27 @@ function init(){
 			clearInterval(gameArea.interval);
 			gameArea.borrar();
 				if (nivel == 1){
+					myMusic.stop(); // Se silencia la música de fondo
+					clearInterval(gameArea.interval);
+					gameArea.borrar();
 					video2.play()
 					level++;
-					
 				}
 				if (nivel == 2){
+					myMusic.stop(); // Se silencia la música de fondo
+					clearInterval(gameArea.interval);
+					gameArea.borrar();
 					video3.play()
 					level++;
 				}
 				if (nivel == 3){
+					myMusic.stop(); // Se silencia la música de fondo
+					clearInterval(gameArea.interval);
+					gameArea.borrar();
 					button = 1
 					//Esta parte va a finalizar el juego con una pantalla en la que se muestra un botón para empezar de nuevo y un mensaje de victoria
 					level = 1
-					createButtonAndImage(finalbuttcoordx,finalbuttcoordy,finalbuttWidth,finalbuttHeight,gameArea.context,imagenfinal)
+					createButtonAndImage(finalbuttcoordx,finalbuttcoordy,finalbuttWidth,finalbuttHeight,gameArea.context,imagenfinal,"RESTART")
 					document.addEventListener("click", buttonclick)
 				}
 				
@@ -439,7 +504,7 @@ function init(){
 	}
 
 	//creación de botón en una imagen:
-	function createButtonAndImage(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context,image){
+	function createButtonAndImage(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context,image,texto){
 		context.drawImage(image,0,0)
 		context.beginPath();
 		context.strokeStyle = "white";
@@ -447,21 +512,25 @@ function init(){
 		context.fillStyle = "white";
 		context.fill();
 		//text
-		context.font = "30 px", "FuenteNasa";
+		context.font = "80px FuenteNasa";
 		context.fillStyle = "black"
-		context.fillText("VOLVER A JUGAR",buttoncoordx+(buttonWidth/3.8),buttoncoordy+(buttonHeight/1.85));
+		context.textAlign = "center";
+		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+40);
 	}
+	
+	
 	//creación de botón sin imagen:
-	function createButton(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context){
+	function createButton(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context,texto){
 		context.beginPath();
 		context.strokeStyle = "white";
 		context.rect(buttoncoordx, buttoncoordy, buttonWidth, buttonHeight);
 		context.fillStyle = "#C9ECF5";
 		context.fill();
 		//text
-		context.font = "30px Arial";
+		context.font = "30px FuenteNasa";
 		context.fillStyle = "black"
-		context.fillText("SALTAR",buttoncoordx+(buttonWidth/3.2),buttoncoordy+(buttonHeight/1.85));
+		context.textAlign = "center";
+		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+15);
 	}
 	//función que maneja los botones:
 	function buttonclick(){
@@ -469,6 +538,7 @@ function init(){
 		const rect = gameArea.canvas.getBoundingClientRect()
 		var x = event.clientX - rect.left;
 		var y = event.clientY - rect.top;
+
 		//si es game over
 		if(button == 0){
 		
@@ -554,28 +624,46 @@ function init(){
 				}
 			}
 		}
+		//botón pausa
+		if(button == 4){
+			limitexizqda1 = pausabuttcoordx
+			limitexdrcha1 = pausabuttcoordx + pausabuttWidth
+			limiteyabajo1 = pausabuttcoordy
+			limiteyarriba1 = pausabuttcoordy + pausabuttHeight
+			
+			if(x >= limitexizqda1 && x <= limitexdrcha1){
+				if(y >= limiteyabajo1 && y <= limiteyarriba1){
+					clearInterval(gameArea.interval);
+					createButton(continuebuttcoordx,continuebuttcoordy,continuebuttWidth,continuebuttHeight,gameArea.context,"CONTINUE");
+					myMusic.stop();
+					button = 5;
+				}
+			}
+		}
+		//botón continuar
+		if(button == 5){
+			limitexizqda1 = continuebuttcoordx
+			limitexdrcha1 = continuebuttcoordx + continuebuttWidth
+			limiteyabajo1 = continuebuttcoordy
+			limiteyarriba1 = continuebuttcoordy + continuebuttHeight
+			
+			if(x >= limitexizqda1 && x <= limitexdrcha1){
+				if(y >= limiteyabajo1 && y <= limiteyarriba1){
+					gameArea.interval = setInterval(updateGameArea, velocidad_juego);
+					myMusic.play();
+					button = 4;
+				}
+			}
+		}
 	}
 	
 	function saltarIntro(video, context){
 		if(video.currentTime >= 4){
 			button = 2
-			createButton(skipbuttcoordx,skipbuttcoordy,skipbuttWidth,skipbuttHeight,context)
+			createButton(skipbuttcoordx,skipbuttcoordy,skipbuttWidth,skipbuttHeight,context,"SKIP")
 			document.addEventListener("click", buttonclick)
 		}
 		
-	}
-	
-	function pause_game() {
-		paused = !paused;
-		if(paused){
-		myMusic.stop(); // Se silencia la música de fondo
-		clearInterval(gameArea.interval);
-		gameArea.borrar();
-		}
-		else {
-		/*myMusic.play();
-		setInterval(updateGameArea, 5);*/
-		}
 	}
 	
 	function game_over(){
@@ -588,32 +676,32 @@ function init(){
 		time = 0;
 		
 		button = 0
-		createButtonAndImage(gobuttcoordx,gobuttcoordy,gobuttWidth,gobuttHeight,gameArea.context,im_go)
+		createButtonAndImage(gobuttcoordx,gobuttcoordy,gobuttWidth,gobuttHeight,gameArea.context,im_go,"RESTART")
 		document.addEventListener("click", buttonclick)
 	}
 	
 	function colisiones() {
+		
 		for(let i=0;i<meteoritos.length;i++){
-			if(	(distancia(astronauta.centroElementox,astronauta.centroElementoy,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 100/escalaastro)||
-			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox1,meteoritos[i].centroElementoy1) <= 80/escalaastro))||
-			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox2,meteoritos[i].centroElementoy2) <= 70/escalaastro))){
+			if((	(distancia(astronauta.centroElementox,astronauta.centroElementoy,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 100/escalaastro))||
+			(		(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 80/escalaastro))||
+			(		(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 70/escalaastro))){
 				game_over();
+			}
+		}
+		if(level >= 2){
+			for(let i=0;i<ovnis.length;i++){
+				if((	(distancia(astronauta.centroElementox,astronauta.centroElementoy,ovnis[i].centroElementox,ovnis[i].centroElementoy) <= 100/escalaastro))||
+				(		(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,ovnis[i].centroElementox,ovnis[i].centroElementoy) <= 80/escalaastro))||
+				(		(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,ovnis[i].centroElementox,ovnis[i].centroElementoy) <= 70/escalaastro))){
+					game_over();
+				}
 			}
 		}
 	}
 	
+	
 	//función que actualiza los centros de cada elemento para el cálculo de distancias
-	function updatecentro(Elementox){
-		Elementox.centroElementox = Elementox.coordx+(Elementox.sprite[0].width/2)
-		Elementox.centroElementoy = Elementox.coordy+(Elementox.sprite[0].height/2)
-		
-		Elementox.centroElementox1 = Elementox.coordx+(Elementox.sprite[0].width/2) // Centro superior
-		Elementox.centroElementoy1 = Elementox.coordy+((Elementox.sprite[0].height/2)-(Elementox.sprite[0].height/3))
-		
-		Elementox.centroElementox2 = Elementox.coordx+(Elementox.sprite[0].width/2) //Centro inferior
-		Elementox.centroElementoy2 = Elementox.coordy+((Elementox.sprite[0].height/2)+(Elementox.sprite[0].height/3))
-		
-	}
 	
 		
 	//configuración de los controles
@@ -642,10 +730,6 @@ function init(){
 	//movimiento hacia abajo, tecla S
 		if(event.keyCode == '83'){
 				movimientoy = velocidadAstronauta;
-		}
-	//pausa, tecla 'shift'
-		if(event.keyCode == '80'){
-				pause_game();
 		}
 	}
 	
@@ -707,6 +791,11 @@ function init(){
 			c.drawImage(video,0,0, w, h);
 			c.drawImage(trajenaranja,naranjabuttcoordx,naranjabuttcoordy)
 			c.drawImage(trajeverde,verdebuttcoordx,verdebuttcoordy)
+			c.font = "80px FuenteNasa";
+			c.fillStyle = "white";
+			c.textAlign = "center";
+			c.fillText("SELECT", canvasWidth/2, (canvasHeight/2)-50);
+			c.fillText("YOUR SUIT", canvasWidth/2, (canvasHeight/2)+50);
 			if(video.ended == true){
 				video.currentTime = 0
 				video.play()
@@ -737,20 +826,16 @@ function init(){
 	
 	videocharacter.onended = function() {
 		if(chosen_character == true){
-			startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+			startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 1
 		}
 	};
 	
 	video2.onended = function() {
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
-	};	
+		startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 2
+	};
 
 	video3.onended = function() {
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
+		startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 3
 	};	
-	
-	if(paused == true){
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo);
-	}
 }
 
