@@ -1,27 +1,32 @@
-@font-face { /*tipografía nasa*/
+/*tipografía nasa*/
+@font-face { 
     font-family: FuenteNasa;
     src: url("./fuentes/nasa.otf") format("opentype");
 }
 
+/*Tipografía botones interior canvas*/
 #button {
   font-family: FuenteNasa, Arial, sans-serif;
 }
 
-body{ /*color de fondo de la página*/
+/*color de fondo y dimensiones de la página*/
+body{ 
 	background-color: #FAE4D5;
 	width: 100%;
 	height: 100%;
 	margin: 10px 0;
 }
 
-span{ /*movimiento del resto de letras del título*/
+/*movimiento de letras del título*/
+span{ 
 	margin: 0 15px;
 	line-height: .7;
 	text-shadow: 0 0 5px #2E43E0;
 	animation: span 5s ease-in infinite alternate;
 }
 
-.title{ /*título de la página*/
+/*título de la página*/
+.title{ 
 	display: flex;
 	font-family: 'FuenteNasa', sans-serif;
 	font-weight: bold;
@@ -33,7 +38,8 @@ span{ /*movimiento del resto de letras del título*/
 	transform: scale(3); 
 }
 
-.letter{ /*animación para la 'U' del título*/
+/*animación para la 'U' del título*/
+.letter{ 
 	height: 27px;
 	width: 38px;
 	border: 6px solid #192158;
@@ -54,7 +60,8 @@ span{ /*movimiento del resto de letras del título*/
 	70%,100%{ width: 30vw; }
 }
 
-canvas{ /*características del canvas*/
+/*características del canvas*/
+canvas{ 
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -116,15 +123,17 @@ nav button.active {
 }
 
 
+
 					/******  PESTAÑA DE DESCRIPCION DEL JUEGO  ******/
 
-
+/*Color títulos*/
 h1{
 	color: #E5670F;
 	font-family: verdana;
 }	
-					
-.maquina { /*estilo título 1 a máquina*/
+
+/*estilo título 1 a máquina*/				
+.maquina { 
   width: 20ch;
   font-family: 'Courier new', monospace;
   font-weight: bold;
@@ -134,7 +143,8 @@ h1{
   font-size: 24px;
 }
 
-.maquina2 { /*estilo tipo de texto 2 a máquina*/
+/*estilo tipo de texto 2 a máquina*/
+.maquina2 { 
   width: 120ch;
   font-family: 'Courier new', monospace;
   font-weight: bold;
@@ -144,7 +154,8 @@ h1{
   font-size: 18px;
 }
 
-.maquina3 { /*estilo tipo de texto 3 a máquina*/
+/*estilo tipo de texto 3 a máquina*/
+.maquina3 { 
   width: 50ch;
   font-family: 'Courier new', monospace;
   font-weight: bold;
@@ -159,15 +170,15 @@ h1{
   from {
     width: 0
   }
-}
-    
+} 
 @keyframes blink {
   50% {
     border-color: transparent
   }
 }
 
-dd{ /*Cohetes para la enumeración de elementos*/
+/*Cohetes para la enumeración de elementos*/
+dd{ 
 	display: list-item;
 	list-style-type: "🚀";
 	padding-inline-start: 1ch;
@@ -175,141 +186,95 @@ dd{ /*Cohetes para la enumeración de elementos*/
 
 
 					/******  PESTAÑA DE AUTORES  ******/				
-.container {
-  position: relative;
-  width: 100%;
-  height: 400px;
-  overflow: hidden;
-}	
 
-.wgh-slider {
+/*Características de la estructura del slider*/					
+#slider{
   position: relative;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-}	
-
-.wgh-slider__viewport {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}		
-
-.wgh-slider__viewbox {
-  display: block;
-  position: relative;
-  perspective: 100vw;
-  margin: 0 auto;
-  width: 33.3333333333%;
-  max-width: 280px;
+  width: 50%;
+  height: 32vw;
+  margin: 150px auto;
+  color: #FFFFFF;
+  perspective: 1400px;
   transform-style: preserve-3d;
-  z-index: 0;
 }
-.wgh-slider__viewbox::before {
+
+/*desarrollo botones para pasar imágenes*/
+input[type=radio] {
   position: relative;
-  top: 0;
-  left: 0;
-  display: block;
-  content: "";
-  height: 0;
-  padding-bottom: 100%;
-  width: 100%;
-}	
-
-input.wgh-slider-target {
-  display: none;
-}
-
-.wgh-slider-item {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  transform: translate3d(0, 0, 0) rotateY(45deg);
-  transition: transform 0.6s cubic-bezier(0.62, 0.28, 0.23, 0.99) 0.15s;
-}
-
-.wgh-slider-item-figure {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-.wgh-slider-item-figure__image {
-  position: absolute;
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  opacity: 1;
-}
-
-.wgh-slider-item-figure__caption {
-  position: absolute;
-  display: block;
-  overflow: hidden;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  color: #fff;
-  padding: 24px;
-  background-image: linear-gradient(0deg, #000 0%, transparent 100%);
-  z-index: 2;
-}
-.wgh-slider-item-figure__caption a {
-  display: inline-block;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 20px;
-  font-weight: bold;
-  color: #fff;
-}
-.wgh-slider-item-figure__caption span {
-  display: block;
-  font-size: 14px;
-  line-height: 16px;
-}
-
-
-.wgh-slider-item:nth-child(1) {
-  left: 0%;
-}
-.wgh-slider-item:nth-child(2) {
+  top: 108%;
   left: 50%;
-}
-.wgh-slider-item:nth-child(3) {
-  left: 100%;
+  width: 18px;
+  height: 18px;
+  margin: 0 15px 0 0;
+  opacity: 1;
+  transform: translateX(-50px);
+  cursor: pointer;
 }
 
 
-.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) .wgh-slider-item__inner, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) .wgh-slider-item__inner, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) .wgh-slider-item__inner{
-  transform: scale(1);
-  transition-delay: 0.6s;
+input[type=radio]:nth-child(3) {
+  margin-right: 0px;
 }
-.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(5):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(5) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(4):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(4) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) .wgh-slider-item__inner::before {
-  transform: translate(0, 24px);
+input[type=radio]:checked {
+  opacity: 1;
 }
-.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) .wgh-slider-item__inner::after, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) .wgh-slider-item__inner::after, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) .wgh-slider-item__inner::after{
-  background-position: -50% 0%;
+
+/*Características de cada imagen del slider*/
+#slider label,
+#slider label img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 3px;
+  display: flex;
+  justify-content: left-side;
+  transition: transform 400ms ease;
 }
-.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) ~ .wgh-slider-item .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) ~ .wgh-slider-item .wgh-slider-item__inner::before, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) ~ .wgh-slider-item .wgh-slider-item__inner::before {
-  transform: translate(24px, 12px);
+
+/*Texto responsabilidades superpuesto en las imágenes*/
+p{
+  z-index: 0;
+  margin-left: 5px;
+  margin-bottom: 0px;
+  font-size: 25px;
+  font-family: 'Roboto';
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
 }
-.wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) ~ .wgh-slider-item .wgh-slider-item__inner::after, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) ~ .wgh-slider-item .wgh-slider-item__inner::after, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) ~ .wgh-slider-item .wgh-slider-item__inner::after {
-  background-position: -100% 0%;
+
+/*Posición y sombra imagen central*/
+#s1:checked ~ #slide1,
+ #s2:checked ~ #slide2,
+  #s3:checked ~ #slide3 {
+  box-shadow: 0 13px 26px rgba(0,0,0, 0.3), 0 12px 6px rgba(0,0,0, 0.2);
+  transform: translate3d(0%, 0, 0px);
 }
+
+/*Posición y sombra imagen siguiente a la central*/
+#s1:checked ~ #slide2,
+ #s2:checked ~ #slide3,
+  #s3:checked ~ #slide1 {
+  box-shadow: 0 6px 10px rgba(0,0,0, 0.3), 0 2px 2px rgba(0,0,0, 0.2);
+  transform: translate3d(20%, 0, -100px);
+}
+
+/*Posición y sombra imagen anterior a la central*/
+#s1:checked ~ #slide3,
+ #s2:checked ~ #slide1,
+  #s3:checked ~ #slide2 {
+  box-shadow: 0 6px 10px rgba(0,0,0, 0.3), 0 2px 2px rgba(0,0,0, 0.2);
+  transform: translate3d(-20%, 0, -100px);
+}
+
+
 
 					
 					/******  PESTAÑA DE DESARROLLO  ******/
+					
+/*Deslizar texto hacia la izquierda */
 h2 {
   -moz-animation-duration: 2.5s;
   -webkit-animation-duration: 2.5s;
@@ -348,13 +313,14 @@ h4 {
 
 					/******  PESTAÑA DE REFERENCIAS  ******/
 
+/* espacio botones referencias*/					
 .boton-ref{
 	padding: 15px 5px 15px 5px; /*arriba dcha abajo izda*/
 	width: 100%;
 	display: inline-block;
 }	
 					
-
+/* diseño botones referencias*/
 .boton-ref button {
   color: #000000;
   width: 33%;
@@ -369,12 +335,14 @@ h4 {
   cursor: pointer;
 }
 
+/* diseño botones referencias al pasar el cursor por encima*/
 .boton-ref button:hover{
   background-color: #5365E9;
   color: #FFFFFF;
   border: 2px solid #4559E7;
 }
 
+/* diseño botones referencias al hacer clic*/
 .boton-ref button:active{
   background-color: #EE985B;
   color: #000000;
