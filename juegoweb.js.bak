@@ -312,15 +312,17 @@ function init(){
 		this.movimiento = movimiento;
 		this.sprite = sprite;
 		this.velocidad_refresco = velocidad_refresco;
+		this.escala = escala; 
 		this.contador = 0;
 		this.recorrerSprite = 0;
-		this.centroElementox;
-		this.centroElementoy;
-		this.centroElementox1;
-		this.centroElementoy1;
-		this.centroElementox2;
-		this.centroElementoy2;
-		this.escala = escala; 
+		this.ancho_elemento = this.sprite[0].width/this.escala;
+		this.alto_elemento = this.sprite[0].height/this.escala;
+		this.centroElementox = this.coordx+(this.ancho_elemento/2);
+		this.centroElementoy = this.coordy+(this.alto_elemento/2);
+		this.centroElementox1 = this.centroElementox;
+		this.centroElementoy1 = this.centroElementoy-(this.alto_elemento/3);
+		this.centroElementox2 = this.centroElementox;
+		this.centroElementoy2 = this.centroElementoy+(this.alto_elemento/3);
 		
 		ctx = gameArea.context;
 		
@@ -399,8 +401,6 @@ function init(){
 		gameArea.borrar();
 		background.updateElement();
 		astronauta.updateElement();
-		
-		updatecentro(astronauta);
 		createButton(pausabuttcoordx,pausabuttcoordy,pausabuttWidth,pausabuttHeight,gameArea.context,"PAUSE")
 		
 		astronauta.coordx += movimientox
@@ -410,29 +410,25 @@ function init(){
 			movimientox = 0
 			astronauta.coordx = -20;
 		}
-		if(astronauta.coordx>(canvasWidth-imagenbuttWidth)){
+		if(astronauta.coordx>(canvasWidth-(imagenbuttWidth/escalaastro))){
 			movimientox = 0
-			astronauta.coordx = canvasWidth-imagenbuttWidth
+			astronauta.coordx = canvasWidth-(imagenbuttWidth/escalaastro)
 		}
 		if(astronauta.coordy<-20){
 			movimientoy = 0
 			astronauta.coordy = -20;
 		}
-		if(astronauta.coordy>(canvasHeight-imagenbuttHeight)){
+		if(astronauta.coordy>(canvasHeight-(imagenbuttHeight/escalaastro))){
 			movimientoy = 0
-			astronauta.coordy = canvasHeight-imagenbuttHeight
+			astronauta.coordy = canvasHeight-(imagenbuttHeight/escalaastro)
 		}
 		
 		for(let i = 0;i<meteoritos.length;i++){
-			meteoritos[i].updateElement();
-			updatecentro(meteoritos[i]);
-		
+			meteoritos[i].updateElement();		
 		
 			if(time >= timespacemeteor[i]){
 				meteoritos[i].coordx-=meteoritos[i].movimiento;
-			}	
-		
-			
+			}			
 		}
 		
 		for(let i = 0; i<meteoritos.length; i++){
@@ -447,9 +443,7 @@ function init(){
 		if(level >= 2){
 			
 			for(let i = 0;i<ovnis.length;i++){
-				ovnis[i].updateElement();
-				updatecentro(ovnis[i]);
-		
+				ovnis[i].updateElement();		
 		
 				if(time >= timespaceovni[i]){
 					ovnis[i].coordx-=ovnis[i].movimiento;
@@ -689,16 +683,16 @@ function init(){
 		
 		for(let i=0;i<meteoritos.length;i++){
 			if((	(distancia(astronauta.centroElementox,astronauta.centroElementoy,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 100/escalaastro))||
-			(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox1,meteoritos[i].centroElementoy1) <= 80/escalaastro))||
-			(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox2,meteoritos[i].centroElementoy2) <= 70/escalaastro))){
+			(		(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 80/escalaastro))||
+			(		(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,meteoritos[i].centroElementox,meteoritos[i].centroElementoy) <= 70/escalaastro))){
 				game_over();
 			}
 		}
 		if(level >= 2){
 			for(let i=0;i<ovnis.length;i++){
-				if((	(distancia(astronauta.centroElementox,astronauta.centroElementoy,ovnis[i].centroElementox,ovnis[i].centroElementoy) <= 100/escalaovni))||
-				(	(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,ovnis[i].centroElementox1,ovnis[i].centroElementoy1) <= 80/escalaovni))||
-				(	(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,ovnis[i].centroElementox2,ovnis[i].centroElementoy2) <= 70/escalaovni))){
+				if((	(distancia(astronauta.centroElementox,astronauta.centroElementoy,ovnis[i].centroElementox,ovnis[i].centroElementoy) <= 100/escalaastro))||
+				(		(distancia(astronauta.centroElementox1,astronauta.centroElementoy1,ovnis[i].centroElementox,ovnis[i].centroElementoy) <= 80/escalaastro))||
+				(		(distancia(astronauta.centroElementox2,astronauta.centroElementoy2,ovnis[i].centroElementox,ovnis[i].centroElementoy) <= 70/escalaastro))){
 					game_over();
 				}
 			}
@@ -707,17 +701,6 @@ function init(){
 	
 	
 	//función que actualiza los centros de cada elemento para el cálculo de distancias
-	function updatecentro(Elementox){
-		Elementox.centroElementox = Elementox.coordx+(Elementox.sprite[0].width/2)
-		Elementox.centroElementoy = Elementox.coordy+(Elementox.sprite[0].height/2)
-		
-		Elementox.centroElementox1 = Elementox.coordx+(Elementox.sprite[0].width/2) // Centro superior
-		Elementox.centroElementoy1 = Elementox.coordy+((Elementox.sprite[0].height/2)-(Elementox.sprite[0].height/3))
-		
-		Elementox.centroElementox2 = Elementox.coordx+(Elementox.sprite[0].width/2) //Centro inferior
-		Elementox.centroElementoy2 = Elementox.coordy+((Elementox.sprite[0].height/2)+(Elementox.sprite[0].height/3))
-		
-	}
 	
 		
 	//configuración de los controles
