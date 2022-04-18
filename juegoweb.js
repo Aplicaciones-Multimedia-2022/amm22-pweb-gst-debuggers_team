@@ -5,7 +5,7 @@ var velocidad_juego = 5;
 
 //Parametros niveles:
 var level = 1;
-var level_duration = 3000
+var level_duration = 8000
 
 //contadores:
 var time = 0;
@@ -115,6 +115,11 @@ function init(){
 	imagenfinal = document.getElementById("imagenfinal"); //imagen final
 	im_go = document.getElementById("go"); //game over
 	start_im = document.getElementById("start_im"); //imagen pulsa barra espaciadora
+	problem_vid = document.getElementById("videoproblems");
+	expl_vid = document.getElementById("videoexplicacion");
+	level1_vid = document.getElementById("level1");
+	level2_vid = document.getElementById("level2");
+	level3_vid = document.getElementById("level3");
 	
 	//Botones para la selección de personaje:
 	//imagenes de los botones:
@@ -767,7 +772,7 @@ function init(){
 	});
 	
 	video2.addEventListener('play',function() {
-		drawvideoIntroSkip(video2,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideo(video2,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
 	});
 	
 	video3.addEventListener('play',function() {
@@ -778,11 +783,37 @@ function init(){
 		drawvideoCharacter(videocharacter,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
 	});
 	
+	problem_vid.addEventListener('play',function() {
+		drawvideo(problem_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+	});
+	
+	expl_vid.addEventListener('play',function() {
+		drawvideo(expl_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+	});
+	
+	level1_vid.addEventListener('play',function() {
+		drawvideo(level1_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+	});
+	
+	level2_vid.addEventListener('play',function() {
+		drawvideo(level2_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+	});
+	
+	level3_vid.addEventListener('play',function() {
+		drawvideo(level3_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+	});
+	
 	//Para que no se superponga el video con el juego le impongo la condición que deje de dibujarse cuando finaliza el video:
 	function drawvideoIntroSkip(video, c, w, h){
 		if(video.ended == false){
 			c.drawImage(video,0,0, w, h);
 			saltarIntro(video,c)
+			setTimeout(drawvideoIntroSkip,20,video,c,w,h);
+		}
+	}
+	function drawvideo(video, c, w, h){
+		if(video.ended == false){
+			c.drawImage(video,0,0, w, h);
 			setTimeout(drawvideoIntroSkip,20,video,c,w,h);
 		}
 	}
@@ -805,7 +836,7 @@ function init(){
 		}
 	}	
 	
-															/****AQUÍ COMIENZA EL FLOW DEL JUEGO:****/
+		/****AQUÍ COMIENZA EL FLOW DEL JUEGO:****/
 	//Función escuchadora que inicia el juego al pulsar la barra espaciadora:
 	document.getElementById("micanvas").getContext("2d").drawImage(start_im,0,0)
 	
@@ -818,25 +849,49 @@ function init(){
 			videoplay(video1, video1Sound)
 		}
 	}
-	video1.onended = function() {
-				button = 3
-				document.addEventListener("click", buttonclick);
-				document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight);
-				videocharacter.play()
+	
+	video1.onended = function() {	
+			problem_vid.play()
+	}
+	
+	problem_vid.onended = function() {
+		
+		video1.pause();
+		video1.currentTime = 0
+		
+		button = 3
+		document.addEventListener("click", buttonclick);
+		document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight);
+		videocharacter.play()
 	}
 	
 	videocharacter.onended = function() {
 		if(chosen_character == true){
-			startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 1
+			videoexplicacion.play();
 		}
 	};
 	
+	expl_vid.onended = function() {
+		level1_vid.play()
+	};
+	
+	level1_vid.onended = function() {
+		startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 1
+	};
+	
 	video2.onended = function() {
+		level2_vid.play()
+	};
+	
+	level2_vid.onended = function() {
 		startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 2
 	};
-
 	video3.onended = function() {
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 3
+		level3_vid.play()
+	};
+	
+	level3_vid.onended = function() {
+		startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 2
 	};	
 }
 

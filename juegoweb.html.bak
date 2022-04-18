@@ -1,14 +1,17 @@
 <!DOCTYPE html> 
 <html>
 <head>
+	<!--Llamadas de archivo CSS y Javascript-->
 	<link rel="stylesheet" href="juegoweb.css">
 	<script src="juegoweb.js"></script>
+	<!--Título e icono pestaña-->
 	<title>SPACE JUMP</title>
 	<link rel="shortcut icon" href="./meteorito/icon.png">
 </head>
 
 <body>
-	
+
+	<!--Título de la página-->	
 	<div class="title">
 	<span>S</span>
 	<span>P</span>
@@ -24,341 +27,353 @@
 	
 	<!-- Creacion de distintas pestañas -->
 	<nav>
-	<button class="tablinks" onclick="openCity(event, 'Juego')" id="defaultOpen">Juego</button>
-	<button class="tablinks" onclick="openCity(event, 'Descripcion')">Descripci&oacuten del juego</button>
-	<button class="tablinks" onclick="openCity(event, 'Autores')">Autores</button>	
-	<button class="tablinks" onclick="openCity(event, 'Multimedia')">Multimedia</button>
-	<button class="tablinks" onclick="openCity(event, 'Desarrollo')">Desarrollo</button>
-	<button class="tablinks" onclick="openCity(event, 'Referencias')">Referencias</button>
+		<button class="tablinks" onclick="openCity(event, 'Juego')" id="defaultOpen">Juego</button>
+		<button class="tablinks" onclick="openCity(event, 'Descripcion')">Descripci&oacuten del juego</button>
+		<button class="tablinks" onclick="openCity(event, 'Autores')">Autores</button>	
+		<button class="tablinks" onclick="openCity(event, 'Multimedia')">Multimedia</button>
+		<button class="tablinks" onclick="openCity(event, 'Desarrollo')">Desarrollo</button>
+		<button class="tablinks" onclick="openCity(event, 'Referencias')">Referencias</button>
 	</nav>
 	
 
-	<!-- Contenido de las pestañas -->
+<!-- Contenido de las pestañas -->
   
   	<!-- Contenido de la pestaña de Juego -->
-	<div id="Juego" class="tabcontent" style="display:block">
-	<canvas id="micanvas" width="1420" height="680">
-
-		Este texto se muestra para los navegadores no compatibles con canvas
-	</canvas>
 	
-	<video id="video1" width = 1420 height = 640 controls >
-		<source src="./videos/videoaux1.mp4" type="video/mp4">
-		Your browser does not support HTML5 video.
-	</video>
-	
-	<video id="video2" width = 1420 height = 640 controls >
-		<source src="./videos/videoaux2.mp4" type="video/mp4">
-		Your browser does not support HTML5 video.
-	</video>
-	
-	<video id="video3" width = 1420 height = 640 controls >
-		<source src="./videos/videoaux3.mp4" type="video/mp4">
-		Your browser does not support HTML5 video.
-	</video>
-	
-	<video id="videocharacter" width = 1420 height = 640 controls >
-		<source src="./videos/videoaux4.mp4" type="video/mp4">
-		Your browser does not support HTML5 video.
-	</video>
-
+		<!--Creación canvas-->
+		<div id="Juego" class="tabcontent" style="display:block">
+		<canvas id="micanvas" width="1420" height="680">
+			Este texto se muestra para los navegadores no compatibles con canvas
+		</canvas>
 		
-	
+		<!--carga de vídeos utilizados-->
+		<video id="video1" width = 1420 height = 640 controls muted>
+			<source src="./videos/videoaux1.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+		</video>
+		
+		<video id="video2" width = 1420 height = 640 controls >
+			<source src="./videos/videoaux2.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+		</video>
+		
+		<video id="video3" width = 1420 height = 640 controls >
+			<source src="./videos/videoaux3.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+		</video>
+		
+		<video id="videocharacter" width = 1420 height = 640 controls >
+			<source src="./videos/videoaux4.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+		</video>
+		
+		<video id="videoproblems" width = 1420 height = 640 controls >
+			<source src="./videos/problems.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+		</video>
+		
+		<video id="videoexplicacion" width = 1420 height = 640 controls >
+			<source src="./videos/explicacion.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+		</video>
+		
+		<video id="level1" width = 1420 height = 640 controls >
+			<source src="./videos/level1.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+		</video>
+		
+		<video id="level2" width = 1420 height = 640 controls >
+			<source src="./videos/level2.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+		</video>
+		
+		<video id="level3" width = 1420 height = 640 controls >
+			<source src="./videos/level3.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+		</video>
 
-	<img id="b1" src="./background/fila-1-columna-1.jpg"> 
-	<img id="b2" src="./background/fila-1-columna-2.jpg"> 
-	<img id="b3" src="./background/fila-1-columna-3.jpg">
-	<img id="b4" src="./background/fila-1-columna-4.jpg"> 
-	<img id="b5" src="./background/fila-1-columna-5.jpg"> 
-	<img id="b6" src="./background/fila-1-columna-6.jpg"> 
-	<img id="b7" src="./background/fila-1-columna-7.jpg"> 
-	<img id="b8" src="./background/fila-1-columna-8.jpg"> 
-	<img id="b9" src="./background/fila-1-columna-9.jpg"> 
-	<img id="b10" src="./background/fila-1-columna-10.jpg"> 
-	<img id="b11" src="./background/fila-1-columna-11.jpg">
-	<img id="b12" src="./background/fila-1-columna-12.jpg"> 
-	<img id="b13" src="./background/fila-1-columna-13.jpg"> 
-	<img id="b14" src="./background/fila-1-columna-14.jpg">
-	<img id="b15" src="./background/fila-1-columna-15.jpg"> 
-	<img id="b16" src="./background/fila-1-columna-16.jpg"> 
-	<img id="b17" src="./background/fila-1-columna-17.jpg"> 
-	<img id="b18" src="./background/fila-1-columna-18.jpg"> 
-	<img id="b19" src="./background/fila-1-columna-19.jpg"> 
-	<img id="b20" src="./background/fila-1-columna-20.jpg"> 
-	<img id="b21" src="./background/fila-1-columna-21.jpg"> 
-	<img id="b22" src="./background/fila-1-columna-22.jpg"> 
-	<img id="b23" src="./background/fila-1-columna-23.jpg"> 
-	<img id="b24" src="./background/fila-1-columna-24.jpg"> 
-	<img id="b25" src="./background/fila-1-columna-25.jpg"> 
-	<img id="b26" src="./background/fila-1-columna-26.jpg"> 
-	<img id="b27" src="./background/fila-1-columna-27.jpg"> 
-	<img id="b28" src="./background/fila-1-columna-28.jpg"> 
-	<img id="b29" src="./background/fila-1-columna-29.jpg"> 
-	<img id="b30" src="./background/fila-1-columna-30.jpg"> 
-	<img id="b31" src="./background/fila-1-columna-31.jpg"> 
-	<img id="b32" src="./background/fila-1-columna-32.jpg"> 
-	<img id="b33" src="./background/fila-1-columna-33.jpg"> 
-	<img id="b34" src="./background/fila-1-columna-34.jpg"> 
-	<img id="b35" src="./background/fila-1-columna-35.jpg"> 
-	<img id="b36" src="./background/fila-1-columna-36.jpg"> 
-	<img id="b37" src="./background/fila-1-columna-37.jpg"> 
-	<img id="b38" src="./background/fila-1-columna-38.jpg"> 
-	<img id="b39" src="./background/fila-1-columna-39.jpg"> 
-	<img id="b40" src="./background/fila-1-columna-40.jpg">
-	<img id="b41" src="./background/fila-1-columna-41.jpg"> 
-	<img id="b42" src="./background/fila-1-columna-42.jpg"> 
-	<img id="b43" src="./background/fila-1-columna-43.jpg">
-	<img id="b44" src="./background/fila-1-columna-44.jpg"> 
-	<img id="b45" src="./background/fila-1-columna-45.jpg"> 
-	<img id="b46" src="./background/fila-1-columna-46.jpg"> 
-	<img id="b47" src="./background/fila-1-columna-47.jpg"> 
-	<img id="b48" src="./background/fila-1-columna-48.jpg"> 
-	<img id="b49" src="./background/fila-1-columna-49.jpg"> 
-	<img id="b50" src="./background/fila-1-columna-50.jpg"> 
-	<img id="b51" src="./background/fila-1-columna-51.jpg">
-	<img id="b52" src="./background/fila-1-columna-52.jpg"> 
-	<img id="b53" src="./background/fila-1-columna-53.jpg"> 
-	<img id="b54" src="./background/fila-1-columna-54.jpg">
-	<img id="b55" src="./background/fila-1-columna-55.jpg"> 
-	<img id="b56" src="./background/fila-1-columna-56.jpg"> 
-	<img id="b57" src="./background/fila-1-columna-57.jpg"> 
-	<img id="b58" src="./background/fila-1-columna-58.jpg"> 
-	<img id="b59" src="./background/fila-1-columna-59.jpg"> 
-	<img id="b60" src="./background/fila-1-columna-60.jpg"> 
-	<img id="b61" src="./background/fila-1-columna-61.jpg"> 
-	<img id="b62" src="./background/fila-1-columna-62.jpg"> 
-	<img id="b63" src="./background/fila-1-columna-63.jpg"> 
-	<img id="b64" src="./background/fila-1-columna-64.jpg"> 
-	<img id="b65" src="./background/fila-1-columna-65.jpg"> 
-	<img id="b66" src="./background/fila-1-columna-66.jpg"> 
-	<img id="b67" src="./background/fila-1-columna-67.jpg"> 
-	<img id="b68" src="./background/fila-1-columna-68.jpg"> 
-	<img id="b69" src="./background/fila-1-columna-69.jpg"> 
-	<img id="b70" src="./background/fila-1-columna-70.jpg"> 
-	<img id="b71" src="./background/fila-1-columna-71.jpg"> 
-	<img id="b72" src="./background/fila-1-columna-72.jpg"> 
-	<img id="b73" src="./background/fila-1-columna-73.jpg"> 
-	<img id="b74" src="./background/fila-1-columna-74.jpg"> 
-	<img id="b75" src="./background/fila-1-columna-75.jpg"> 
-	<img id="b76" src="./background/fila-1-columna-76.jpg"> 
-	<img id="b77" src="./background/fila-1-columna-77.jpg"> 
-	<img id="b78" src="./background/fila-1-columna-78.jpg"> 
-	<img id="b79" src="./background/fila-1-columna-79.jpg"> 
-	<img id="b80" src="./background/fila-1-columna-80.jpg">
-	<img id="b81" src="./background/fila-1-columna-81.jpg"> 
-	<img id="b82" src="./background/fila-1-columna-82.jpg"> 
-	<img id="b83" src="./background/fila-1-columna-83.jpg">
-	<img id="b84" src="./background/fila-1-columna-84.jpg"> 
-	<img id="b85" src="./background/fila-1-columna-85.jpg"> 
-	<img id="b86" src="./background/fila-1-columna-86.jpg"> 
-	<img id="b87" src="./background/fila-1-columna-87.jpg"> 
-	<img id="b88" src="./background/fila-1-columna-88.jpg"> 
-	<img id="b89" src="./background/fila-1-columna-89.jpg"> 
-	<img id="b90" src="./background/fila-1-columna-90.jpg"> 
-	<img id="b91" src="./background/fila-1-columna-91.jpg">
-	<img id="b92" src="./background/fila-1-columna-92.jpg"> 
-	<img id="b93" src="./background/fila-1-columna-93.jpg"> 
-	<img id="b94" src="./background/fila-1-columna-94.jpg">
-	<img id="b95" src="./background/fila-1-columna-95.jpg"> 
-	<img id="b96" src="./background/fila-1-columna-96.jpg"> 
-	<img id="b97" src="./background/fila-1-columna-97.jpg"> 
-	<img id="b98" src="./background/fila-1-columna-98.jpg"> 
-	<img id="b99" src="./background/fila-1-columna-99.jpg"> 
-	<img id="b100" src="./background/fila-1-columna-100.jpg">
-	<img id="b101" src="./background/fila-1-columna-101.jpg"> 
-	<img id="b102" src="./background/fila-1-columna-102.jpg"> 
-	<img id="b103" src="./background/fila-1-columna-103.jpg">
-	<img id="b104" src="./background/fila-1-columna-104.jpg"> 
-	<img id="b105" src="./background/fila-1-columna-105.jpg"> 
-	<img id="b106" src="./background/fila-1-columna-106.jpg"> 
-	<img id="b107" src="./background/fila-1-columna-107.jpg"> 
-	<img id="b108" src="./background/fila-1-columna-108.jpg"> 
-	<img id="b109" src="./background/fila-1-columna-109.jpg"> 
-	<img id="b110" src="./background/fila-1-columna-110.jpg"> 
-	<img id="b111" src="./background/fila-1-columna-111.jpg">
-	<img id="b112" src="./background/fila-1-columna-112.jpg"> 
-	<img id="b113" src="./background/fila-1-columna-113.jpg"> 
-	<img id="b114" src="./background/fila-1-columna-114.jpg">
-	<img id="b115" src="./background/fila-1-columna-115.jpg"> 
-	<img id="b116" src="./background/fila-1-columna-116.jpg"> 
-	<img id="b117" src="./background/fila-1-columna-117.jpg"> 
-	<img id="b118" src="./background/fila-1-columna-118.jpg"> 
-	<img id="b119" src="./background/fila-1-columna-119.jpg"> 
-	<img id="b120" src="./background/fila-1-columna-120.jpg"> 
-	
-  	
-	<img id="astro1" src="./astronaranja/Astro1.png"> 
-	<img id="astro2" src="./astronaranja/Astro2.png"> 
-	<img id="astro3" src="./astronaranja/Astro3.png"> 
-	<img id="astro4" src="./astronaranja/Astro4.png"> 
-	
-	<img id="astro1Green" src="./astroverde/Astro1Green.png"> 
-	<img id="astro2Green" src="./astroverde/Astro2Green.png"> 
-	<img id="astro3Green" src="./astroverde/Astro3Green.png"> 
-	<img id="astro4Green" src="./astroverde/Astro4Green.png"> 
-	
-	<img id="meteorito" src="./meteorito/meteorito.png">
-	<img id="meteorito1" src="./meteorito/meteorito1.png">
-	<img id="meteorito2" src="./meteorito/meteorito2.png">
-	<img id="meteorito3" src="./meteorito/meteorito3.png">
-	<img id="meteorito4" src="./meteorito/meteorito4.png">
-	<img id="meteorito5" src="./meteorito/meteorito5.png">
-	<img id="meteorito6" src="./meteorito/meteorito6.png">
-	<img id="meteorito7" src="./meteorito/meteorito7.png">
-	<img id="meteorito8" src="./meteorito/meteorito8.png">
-	<img id="meteorito9" src="./meteorito/meteorito9.png">
+		<!--Carga de imágenes de fondo y sprites-->
+		<img id="b1" src="./background/fila-1-columna-1.jpg"> 
+		<img id="b2" src="./background/fila-1-columna-2.jpg"> 
+		<img id="b3" src="./background/fila-1-columna-3.jpg">
+		<img id="b4" src="./background/fila-1-columna-4.jpg"> 
+		<img id="b5" src="./background/fila-1-columna-5.jpg"> 
+		<img id="b6" src="./background/fila-1-columna-6.jpg"> 
+		<img id="b7" src="./background/fila-1-columna-7.jpg"> 
+		<img id="b8" src="./background/fila-1-columna-8.jpg"> 
+		<img id="b9" src="./background/fila-1-columna-9.jpg"> 
+		<img id="b10" src="./background/fila-1-columna-10.jpg"> 
+		<img id="b11" src="./background/fila-1-columna-11.jpg">
+		<img id="b12" src="./background/fila-1-columna-12.jpg"> 
+		<img id="b13" src="./background/fila-1-columna-13.jpg"> 
+		<img id="b14" src="./background/fila-1-columna-14.jpg">
+		<img id="b15" src="./background/fila-1-columna-15.jpg"> 
+		<img id="b16" src="./background/fila-1-columna-16.jpg"> 
+		<img id="b17" src="./background/fila-1-columna-17.jpg"> 
+		<img id="b18" src="./background/fila-1-columna-18.jpg"> 
+		<img id="b19" src="./background/fila-1-columna-19.jpg"> 
+		<img id="b20" src="./background/fila-1-columna-20.jpg"> 
+		<img id="b21" src="./background/fila-1-columna-21.jpg"> 
+		<img id="b22" src="./background/fila-1-columna-22.jpg"> 
+		<img id="b23" src="./background/fila-1-columna-23.jpg"> 
+		<img id="b24" src="./background/fila-1-columna-24.jpg"> 
+		<img id="b25" src="./background/fila-1-columna-25.jpg"> 
+		<img id="b26" src="./background/fila-1-columna-26.jpg"> 
+		<img id="b27" src="./background/fila-1-columna-27.jpg"> 
+		<img id="b28" src="./background/fila-1-columna-28.jpg"> 
+		<img id="b29" src="./background/fila-1-columna-29.jpg"> 
+		<img id="b30" src="./background/fila-1-columna-30.jpg"> 
+		<img id="b31" src="./background/fila-1-columna-31.jpg"> 
+		<img id="b32" src="./background/fila-1-columna-32.jpg"> 
+		<img id="b33" src="./background/fila-1-columna-33.jpg"> 
+		<img id="b34" src="./background/fila-1-columna-34.jpg"> 
+		<img id="b35" src="./background/fila-1-columna-35.jpg"> 
+		<img id="b36" src="./background/fila-1-columna-36.jpg"> 
+		<img id="b37" src="./background/fila-1-columna-37.jpg"> 
+		<img id="b38" src="./background/fila-1-columna-38.jpg"> 
+		<img id="b39" src="./background/fila-1-columna-39.jpg"> 
+		<img id="b40" src="./background/fila-1-columna-40.jpg">
+		<img id="b41" src="./background/fila-1-columna-41.jpg"> 
+		<img id="b42" src="./background/fila-1-columna-42.jpg"> 
+		<img id="b43" src="./background/fila-1-columna-43.jpg">
+		<img id="b44" src="./background/fila-1-columna-44.jpg"> 
+		<img id="b45" src="./background/fila-1-columna-45.jpg"> 
+		<img id="b46" src="./background/fila-1-columna-46.jpg"> 
+		<img id="b47" src="./background/fila-1-columna-47.jpg"> 
+		<img id="b48" src="./background/fila-1-columna-48.jpg"> 
+		<img id="b49" src="./background/fila-1-columna-49.jpg"> 
+		<img id="b50" src="./background/fila-1-columna-50.jpg"> 
+		<img id="b51" src="./background/fila-1-columna-51.jpg">
+		<img id="b52" src="./background/fila-1-columna-52.jpg"> 
+		<img id="b53" src="./background/fila-1-columna-53.jpg"> 
+		<img id="b54" src="./background/fila-1-columna-54.jpg">
+		<img id="b55" src="./background/fila-1-columna-55.jpg"> 
+		<img id="b56" src="./background/fila-1-columna-56.jpg"> 
+		<img id="b57" src="./background/fila-1-columna-57.jpg"> 
+		<img id="b58" src="./background/fila-1-columna-58.jpg"> 
+		<img id="b59" src="./background/fila-1-columna-59.jpg"> 
+		<img id="b60" src="./background/fila-1-columna-60.jpg"> 
+		<img id="b61" src="./background/fila-1-columna-61.jpg"> 
+		<img id="b62" src="./background/fila-1-columna-62.jpg"> 
+		<img id="b63" src="./background/fila-1-columna-63.jpg"> 
+		<img id="b64" src="./background/fila-1-columna-64.jpg"> 
+		<img id="b65" src="./background/fila-1-columna-65.jpg"> 
+		<img id="b66" src="./background/fila-1-columna-66.jpg"> 
+		<img id="b67" src="./background/fila-1-columna-67.jpg"> 
+		<img id="b68" src="./background/fila-1-columna-68.jpg"> 
+		<img id="b69" src="./background/fila-1-columna-69.jpg"> 
+		<img id="b70" src="./background/fila-1-columna-70.jpg"> 
+		<img id="b71" src="./background/fila-1-columna-71.jpg"> 
+		<img id="b72" src="./background/fila-1-columna-72.jpg"> 
+		<img id="b73" src="./background/fila-1-columna-73.jpg"> 
+		<img id="b74" src="./background/fila-1-columna-74.jpg"> 
+		<img id="b75" src="./background/fila-1-columna-75.jpg"> 
+		<img id="b76" src="./background/fila-1-columna-76.jpg"> 
+		<img id="b77" src="./background/fila-1-columna-77.jpg"> 
+		<img id="b78" src="./background/fila-1-columna-78.jpg"> 
+		<img id="b79" src="./background/fila-1-columna-79.jpg"> 
+		<img id="b80" src="./background/fila-1-columna-80.jpg">
+		<img id="b81" src="./background/fila-1-columna-81.jpg"> 
+		<img id="b82" src="./background/fila-1-columna-82.jpg"> 
+		<img id="b83" src="./background/fila-1-columna-83.jpg">
+		<img id="b84" src="./background/fila-1-columna-84.jpg"> 
+		<img id="b85" src="./background/fila-1-columna-85.jpg"> 
+		<img id="b86" src="./background/fila-1-columna-86.jpg"> 
+		<img id="b87" src="./background/fila-1-columna-87.jpg"> 
+		<img id="b88" src="./background/fila-1-columna-88.jpg"> 
+		<img id="b89" src="./background/fila-1-columna-89.jpg"> 
+		<img id="b90" src="./background/fila-1-columna-90.jpg"> 
+		<img id="b91" src="./background/fila-1-columna-91.jpg">
+		<img id="b92" src="./background/fila-1-columna-92.jpg"> 
+		<img id="b93" src="./background/fila-1-columna-93.jpg"> 
+		<img id="b94" src="./background/fila-1-columna-94.jpg">
+		<img id="b95" src="./background/fila-1-columna-95.jpg"> 
+		<img id="b96" src="./background/fila-1-columna-96.jpg"> 
+		<img id="b97" src="./background/fila-1-columna-97.jpg"> 
+		<img id="b98" src="./background/fila-1-columna-98.jpg"> 
+		<img id="b99" src="./background/fila-1-columna-99.jpg"> 
+		<img id="b100" src="./background/fila-1-columna-100.jpg">
+		<img id="b101" src="./background/fila-1-columna-101.jpg"> 
+		<img id="b102" src="./background/fila-1-columna-102.jpg"> 
+		<img id="b103" src="./background/fila-1-columna-103.jpg">
+		<img id="b104" src="./background/fila-1-columna-104.jpg"> 
+		<img id="b105" src="./background/fila-1-columna-105.jpg"> 
+		<img id="b106" src="./background/fila-1-columna-106.jpg"> 
+		<img id="b107" src="./background/fila-1-columna-107.jpg"> 
+		<img id="b108" src="./background/fila-1-columna-108.jpg"> 
+		<img id="b109" src="./background/fila-1-columna-109.jpg"> 
+		<img id="b110" src="./background/fila-1-columna-110.jpg"> 
+		<img id="b111" src="./background/fila-1-columna-111.jpg">
+		<img id="b112" src="./background/fila-1-columna-112.jpg"> 
+		<img id="b113" src="./background/fila-1-columna-113.jpg"> 
+		<img id="b114" src="./background/fila-1-columna-114.jpg">
+		<img id="b115" src="./background/fila-1-columna-115.jpg"> 
+		<img id="b116" src="./background/fila-1-columna-116.jpg"> 
+		<img id="b117" src="./background/fila-1-columna-117.jpg"> 
+		<img id="b118" src="./background/fila-1-columna-118.jpg"> 
+		<img id="b119" src="./background/fila-1-columna-119.jpg"> 
+		<img id="b120" src="./background/fila-1-columna-120.jpg"> 
+		
+		
+		<img id="astro1" src="./astronaranja/Astro1.png"> 
+		<img id="astro2" src="./astronaranja/Astro2.png"> 
+		<img id="astro3" src="./astronaranja/Astro3.png"> 
+		<img id="astro4" src="./astronaranja/Astro4.png"> 
+		
+		<img id="astro1Green" src="./astroverde/Astro1Green.png"> 
+		<img id="astro2Green" src="./astroverde/Astro2Green.png"> 
+		<img id="astro3Green" src="./astroverde/Astro3Green.png"> 
+		<img id="astro4Green" src="./astroverde/Astro4Green.png"> 
+		
+		<img id="meteorito" src="./meteorito/meteorito.png">
+		<img id="meteorito1" src="./meteorito/meteorito1.png">
+		<img id="meteorito2" src="./meteorito/meteorito2.png">
+		<img id="meteorito3" src="./meteorito/meteorito3.png">
+		<img id="meteorito4" src="./meteorito/meteorito4.png">
+		<img id="meteorito5" src="./meteorito/meteorito5.png">
+		<img id="meteorito6" src="./meteorito/meteorito6.png">
+		<img id="meteorito7" src="./meteorito/meteorito7.png">
+		<img id="meteorito8" src="./meteorito/meteorito8.png">
+		<img id="meteorito9" src="./meteorito/meteorito9.png">
 
-	<img id="ovni" src="./ovni/s0.png">
-	<img id="ovni1" src="./ovni/s1.png">
-	<img id="ovni2" src="./ovni/s2.png">
-	<img id="ovni3" src="./ovni/s3.png">
-	<img id="ovni4" src="./ovni/s4.png">
-	<img id="ovni5" src="./ovni/s5.png">
-	<img id="ovni6" src="./ovni/s6.png">
-	<img id="ovni7" src="./ovni/s7.png">
-	<img id="ovni8" src="./ovni/s8.png">
-	
-	<img id="imagenfinal" src="./imagenes/final_image.png">
-	<img id="go" src="./imagenes/gameover.png">
-	<img id="start_im" src="./imagenes/startimage.png">
-	
-	<img id="selnaranja" src="./imagenes/naranja.png">
-	<img id="selverde" src="./imagenes/verde.png">
+		<img id="ovni" src="./ovni/s0.png">
+		<img id="ovni1" src="./ovni/s1.png">
+		<img id="ovni2" src="./ovni/s2.png">
+		<img id="ovni3" src="./ovni/s3.png">
+		<img id="ovni4" src="./ovni/s4.png">
+		<img id="ovni5" src="./ovni/s5.png">
+		<img id="ovni6" src="./ovni/s6.png">
+		<img id="ovni7" src="./ovni/s7.png">
+		<img id="ovni8" src="./ovni/s8.png">
+		
+		<img id="imagenfinal" src="./imagenes/final_image.png">
+		<img id="go" src="./imagenes/gameover.png">
+		<img id="start_im" src="./imagenes/startimage.png">	
+		
+		<img id="selnaranja" src="./imagenes/naranja.png">
+		<img id="selverde" src="./imagenes/verde.png">
 	
 	</div>
 
   	<!-- Contenido de la pestaña de Descripción del juego -->
-	<div id="Descripcion" class="tabcontent">
-	<div class="maquina"><br>17 de Agosto, 2087</div>
-	<div class="maquina2"><br>La nave espacial ‘Libertfall’ despega de la Tierra en la misión ‘M310-x3’, con el objetivo de llevar provisiones<br> 
-	al campamento base establecido por los humanos en Marte.<br>
-	Tras varias semanas de viaje, por problemas técnicos, la nave se detiene en mitad de la ruta entre ambos planetas,<br> 
-	cerca de la estrella comúnmente conocida como ‘Red’.<br>
-	Uno de los astronautas, encargado del mantenimiento del motor de la nave, tiene que salir para arreglar una pieza<br> 
-	sin la que la nave no podrá avanzar.<br>
-	Sin embargo, nada más salir, el cable que le une con sus compañeros se rompe, quedando flotando en medio del espacio.<br>
-	En un intento por volver a engancharse a la cuerda, pierde la mochila que contenía las herramientas necesarias para<br> 
-	la reparación de ‘Libertfall’.<br> </div>
-	<div class="maquina3"> Y tampoco consigue reenganchar el cable...<br> </div>
-	<div class="maquina2">
-	<h1>OBJETIVO DEL JUEGO</h1>
-	El protagonista de la historia deberá conseguir coger la mochila con las herramientas, intentar sobrevivir a los ataques<br>
-	alienígenas de las colonias descubiertas que habitan en la estrella ‘Red’ y llegar de nuevo a la nave ‘Libertfall’, pero <br>
-	no será nada fácil.<br>
-	<h1>CONTROLES</h1>
-	Para comenzar el juego, se debe presionar la barra espaciadora.<br>
-	A continuación, se debe elegir el color del traje del astronauta.<br>
-	<dl>
-	<dt>Movimiento del astronauta:<br></dt>
-	<dd>ARRIBA: tecla W<br></dd>
-	<dd>ABAJO: tecla S<br></dd>
-	<dd>DERECHA: tecla D<br></dd>
-	<dd>IZQUIERDA: tecla A<br></dd>
-	<dt><br>Controles adicionales:<br></dt>
-	<dd>Pausa: tecla P<br></dd>
-	</dl>
-	</div>
-	</div>
+	
+		<!--Introducción y controles-->
+		<div id="Descripcion" class="tabcontent">
+			<div class="maquina"><br>17 de Agosto, 2087 </div>
+			<div class="maquina2"><br>La nave espacial ‘Libertfall’ despega de la Tierra en la misión ‘M310-x3’, con el objetivo de llevar provisiones<br> 
+				al campamento base establecido por los humanos en Marte.<br>
+				Tras varias semanas de viaje, por problemas técnicos, la nave se detiene en mitad de la ruta entre ambos planetas,<br> 
+				cerca de la estrella comúnmente conocida como ‘Red’.<br>
+				Uno de los astronautas, encargado del mantenimiento del motor de la nave, tiene que salir para arreglar una pieza<br> 
+				sin la que la nave no podrá avanzar.<br>
+				Sin embargo, nada más salir, el cable que le une con sus compañeros se rompe, quedando flotando en medio del espacio.<br>
+				En un intento por volver a engancharse a la cuerda, pierde la mochila que contenía las herramientas necesarias para<br> 
+				la reparación de ‘Libertfall’.<br> 
+			</div>
+			<div class="maquina3"> Y tampoco consigue reenganchar el cable...<br> </div>
+			<div class="maquina2">
+				<h1>OBJETIVO DEL JUEGO</h1>
+				El protagonista de la historia deberá conseguir coger la mochila con las herramientas, esquivar los meteoritos, intentar<br>
+				sobrevivir a los ataques alienígenas de las colonias descubiertas que habitan en la estrella ‘Red’ y llegar de nuevo a <br>
+				la nave ‘Libertfall’, pero no será nada fácil.<br>
+				<h1>CONTROLES</h1>
+				Para comenzar el juego, se debe presionar la barra espaciadora.<br>
+				A continuación, se debe elegir el color del traje del astronauta.<br>
+				<dl>
+					<dt>Movimiento del astronauta:<br></dt>
+					<dd>ARRIBA: tecla W<br></dd>
+					<dd>ABAJO: tecla S<br></dd>
+					<dd>DERECHA: tecla D<br></dd>
+					<dd>IZQUIERDA: tecla A<br></dd>
+					<dt><br>Controles adicionales:<br></dt>
+					<dd>Pausa: botón arriba a la derecha<br></dd>
+				</dl>
+			</div>
+		</div>
 	
 	
 	<!-- Contenido de la pestaña de Autores -->
-	<div id="Autores" class="tabcontent">
-	<div class="container">
-  <div class="wgh-slider">
-    <input class="wgh-slider-target" type="radio" id="slide-1" name="slider"/>
-    <input class="wgh-slider-target" type="radio" id="slide-2" name="slider" checked="checked"/>
-    <input class="wgh-slider-target" type="radio" id="slide-3" name="slider"/>
-	<div class="wgh-slider__viewport">
-      <div class="wgh-slider__viewbox">
-        <div class="wgh-slider__container">
-		
-          <div class="wgh-slider-item">
-            <div class="wgh-slider-item__inner">
-				<figure class="wgh-slider-item-figure"><img class="wgh-slider-item-figure__image" src="./imagenes/foto-adriana.jpg" alt="Foto adriana"/>
-                <figcaption class="wgh-slider-item-figure__caption">Adriana Fuertes<span>Desarrollo HTML y CSS.<br>Dise&ntildeo creativo.</span></figcaption>
-                </figure>
-	        <label class="wgh-slider-item__trigger" for="slide-1" title="Show product 1"></label>
-            </div>
-          </div>
+	
+		<!--Slider con imágenes y rol general de los autores-->
+		<div id="Autores" class="tabcontent">
 
-		  <div class="wgh-slider-item">
-            <div class="wgh-slider-item__inner">
-              <figure class="wgh-slider-item-figure"><img class="wgh-slider-item-figure__image" src="./imagenes/erizo1.jpg" alt="Erizo 1"/>
-                <figcaption class="wgh-slider-item-figure__caption">Erizo 1<span>Hola</span></figcaption>
-              </figure>
-              <label class="wgh-slider-item__trigger" for="slide-2" title="Show product 2"></label>
-            </div>
-          </div>
-		  
-          <div class="wgh-slider-item">
-            <div class="wgh-slider-item__inner">
-              <figure class="wgh-slider-item-figure"><img class="wgh-slider-item-figure__image" src="./imagenes/erizo2.jpg" alt="Erizo 2"/>
-                <figcaption class="wgh-slider-item-figure__caption">Erizo 2<span>Hola tambien</span></figcaption>
-              </figure>
-              <label class="wgh-slider-item__trigger" for="slide-3" title="Show product 3"></label>
-            </div>
-          </div>
-		 </div>
-        </div>
-       </div>
-      </div>
-	 </div>
-	</div>
+			<section id="slider">
+				<input type="radio" name="slider" id="s1" checked>
+				<input type="radio" name="slider" id="s2">
+				<input type="radio" name="slider" id="s3">
+				
+				<label for="s1" id="slide1"><img src="./imagenes/foto-adriana.jpg" alt="Adriana Fuertes">
+					<p>Adriana Fuertes Dom&iacutenguez<br>Desarrollo HTML/CSS<br>Diseño p&aacutegina web</p>
+				</label>
+				<label for="s2" id="slide2"><img src="./imagenes/foto-gabriel.jpg" alt="Gabriel Franco">
+					<p>Gabriel Franco Ferreria<br>Desarrollo CSS/Javascript<br>Diseño juego</p>
+				</label>
+				<label for="s3" id="slide3"><img src="./imagenes/foto-mario.jpg" alt="Mario Roca">
+					<p>Mario Roca Lago<br>Desarrollo HTML/Javascript<br>Diseño juego</p>
+				</label>
+			</section>
+		
+		</div>
 	
 	
   	<!-- Contenido de la pestaña de elementos Multimedia -->
-	<div id="Multimedia" class="tabcontent">
-	<p>Flujo multimedia insertado externamente mediante framework de Gstreamer + explicación</p>
-	</div>
+	
+		<div id="Multimedia" class="tabcontent">
+			<p>Flujo multimedia insertado externamente mediante framework de Gstreamer + explicación</p>	
+		</div>
 	
 	
   	<!-- Contenido de la pestaña de Desarollo del juego -->
-	<div id="Desarrollo" class="tabcontent">
-	<h2> Gabriel Franco Ferreria </h2>
-	<h4>					
-	Estudiante de ingenier&iacutea de Sonido e imagen.<br>
-
-	</h4>
 	
-	<h2> Adriana Fuertes Dom&iacutenguez </h2>
-	<h4>					
-	Estudiante de ingenier&iacutea de Sonido e imagen.<br>
-	</h4>
-	
-	<h2> Mario Roca Lago </h2>
-	<h4>					
-	Estudiante de ingenier&iacutea de Sonido e imagen.<br>
-	</h4>
-	</div>
+		<!--Cargos de cada miembro del grupo y tiempo empleado-->
+		<div id="Desarrollo" class="tabcontent">
+			<h2> Gabriel Franco Ferreria </h2>
+			<h4>					
+			Estudiante de ingenier&iacutea de Sonido e imagen.<br>
+			</h4>
+			
+			<h2> Adriana Fuertes Dom&iacutenguez </h2>
+			<h4>					
+			Estudiante de ingenier&iacutea de Sonido e imagen.<br>
+			</h4>
+			
+			<h2> Mario Roca Lago </h2>
+			<h4>					
+			Estudiante de ingenier&iacutea de Sonido e imagen.<br>
+			</h4>
+		</div>
 	
 	
   	<!-- Contenido de la pestaña de Referencias -->
-	<div id="Referencias" class="tabcontent">
-	<div class="boton-ref">
-	<button onclick="window.open('https://www.artstation.com/artwork/288Lyx')">Sprite astronauta</button>
-	<button onclick="window.open('https://www.cleanpng.com/png-astronaut-drawing-royalty-free-astronauta-ni-ntild-5585063/')">Imagen astronauta final</button>
-	<button onclick="window.open('https://www.freepng.es/png-kcvzdm/')">Sprite meteorito</button>
-	</div>
-	<div class="boton-ref">
-	<button onclick="window.open('https://stock.adobe.com/es/search?k=cartoon+space&search_type=recentsearch&asset_id=289726988')">Imagen fondo</button>
-	<button onclick="window.open('https://www.pexels.com/es-es/video/nubes-galaxy-via-lactea-estrellas-9341428/')">Fondo elección traje</button>		
-	<button onclick="window.open('https://www.pexels.com/es-es/video/lanzamiento-del-transbordador-espacial-854252/')">V&iacutedeo inicial</button>
-	</div>
-	<div class="boton-ref">	
-	<button onclick="window.open('https://www.pexels.com/es-es/video/espacio-exterior-856309/')">V&iacutedeo nivel 3</button>
-	<button onclick="window.open('https://www.w3schools.com/graphics/game_intro.asp')">Ejemplos juego</button>
-	<button onclick="window.open('http://html5doctor.com/video-canvas-magic/')">Insertar v&iacutedeo en canvas</button>
-	</div>
-	<div class="boton-ref">
-	<button onclick="window.open('https://stackoverflow.com/questions/55677/how-do-i-get-the-coordinates-of-a-mouse-click-on-a-canvas-element')">Coordenadas en canvas</button>
-	<button onclick="window.open('https://codepen.io/ricardoolivaalonso/pen/wvvGoeY')">Letras t&iacutetulo</button>
-	<button onclick="window.open('https://codepen.io/denic/pen/GRoOxbM')">Texto a m&aacutequina</button>
-	</div>
-	<div class="boton-ref">
-	<button onclick="window.open('https://www.fiftysounds.com/es/musica-libre-de-derechos/sfx-impacto-horror.html')">Sonido impacto</button>
-	<button onclick="window.open('https://www.fiftysounds.com/es/musica-libre-de-derechos/en-la-memoria.html')">M&uacutesica piano</button>
-	</div>
-	</div>
+	
+		<!--Botones a cada referencia utlizada-->
+		<div id="Referencias" class="tabcontent">
+			<div class="boton-ref">
+				<button onclick="window.open('https://www.artstation.com/artwork/288Lyx')">Sprite astronauta</button>
+				<button onclick="window.open('https://www.cleanpng.com/png-astronaut-drawing-royalty-free-astronauta-ni-ntild-5585063/')">Imagen astronauta final</button>
+				<button onclick="window.open('https://www.freepng.es/png-kcvzdm/')">Sprite meteorito</button>
+			</div>
+			<div class="boton-ref">
+				<button onclick="window.open('https://stock.adobe.com/es/search?k=cartoon+space&search_type=recentsearch&asset_id=289726988')">Imagen fondo</button>
+				<button onclick="window.open('https://www.pexels.com/es-es/video/nubes-galaxy-via-lactea-estrellas-9341428/')">Fondo elección traje</button>		
+				<button onclick="window.open('https://www.pexels.com/es-es/video/lanzamiento-del-transbordador-espacial-854252/')">V&iacutedeo inicial</button>
+			</div>
+			<div class="boton-ref">	
+				<button onclick="window.open('https://www.pexels.com/es-es/video/espacio-exterior-856309/')">V&iacutedeo nivel 3</button>
+				<button onclick="window.open('https://www.w3schools.com/graphics/game_intro.asp')">Ejemplos juego</button>
+				<button onclick="window.open('http://html5doctor.com/video-canvas-magic/')">Insertar v&iacutedeo en canvas</button>
+			</div>
+			<div class="boton-ref">
+				<button onclick="window.open('https://stackoverflow.com/questions/55677/how-do-i-get-the-coordinates-of-a-mouse-click-on-a-canvas-element')">Coordenadas en canvas</button>
+				<button onclick="window.open('https://codepen.io/ricardoolivaalonso/pen/wvvGoeY')">Letras t&iacutetulo</button>
+				<button onclick="window.open('https://codepen.io/denic/pen/GRoOxbM')">Texto a m&aacutequina</button>
+			</div>
+			<div class="boton-ref">
+				<button onclick="window.open('https://www.fiftysounds.com/es/musica-libre-de-derechos/sfx-impacto-horror.html')">Sonido impacto</button>
+				<button onclick="window.open('https://www.fiftysounds.com/es/musica-libre-de-derechos/en-la-memoria.html')">M&uacutesica piano</button>
+				<button onclick="window.open('https://dev.to/shantanu_jana/3d-image-slider-using-html-css-328b')">Slider im&aacutegenes</button>
+			</div>
+		</div>
 	
 </body>
 </html>
