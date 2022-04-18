@@ -34,10 +34,10 @@ var video1Sound; //Sonido vídeo 1
 
 //Botones del canvas:
 //Botón pantalla final:
-var finalbuttWidth = 400
+var finalbuttWidth = 300
 var finalbuttHeight = 150
 var finalbuttcoordx = (canvasWidth/2) - (finalbuttWidth/2)
-var finalbuttcoordy = ((canvasHeight/2)+90) - (finalbuttHeight/2)
+var finalbuttcoordy = ((canvasHeight/2)+40) - (finalbuttHeight/2)
 
 //Botón pantalla game over:
 var gobuttWidth = 400
@@ -47,13 +47,13 @@ var gobuttcoordy = ((canvasHeight/2)+140) - (gobuttHeight/2)
 
 //Botón skip intro:
 var skipbuttWidth = 150
-var skipbuttHeight = 40
+var skipbuttHeight = 60
 var skipbuttcoordx = 1250
 var skipbuttcoordy = 25
 
 //Botón pausa
 var pausabuttWidth = 150
-var pausabuttHeight = 40
+var pausabuttHeight = 60
 var pausabuttcoordx = 1250
 var pausabuttcoordy = 25
 
@@ -524,7 +524,7 @@ function init(){
 		context.beginPath();
 		context.strokeStyle = "white";
 		context.rect(buttoncoordx, buttoncoordy, buttonWidth, buttonHeight);
-		context.fillStyle = "#C9ECF5";
+		context.fillStyle = "#CFCFCF";
 		context.fill();
 		//text
 		context.font = "30px FuenteNasa";
@@ -796,6 +796,7 @@ function init(){
 			c.textAlign = "center";
 			c.fillText("SELECT", canvasWidth/2, (canvasHeight/2)-50);
 			c.fillText("YOUR SUIT", canvasWidth/2, (canvasHeight/2)+50);
+			c.fillText("-SPACEJUMP-", canvasWidth/2, (canvasHeight/2)+200);
 			if(video.ended == true){
 				video.currentTime = 0
 				video.play()
