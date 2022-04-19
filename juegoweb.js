@@ -13,13 +13,16 @@ var time_level = level_duration;
 
 //Variables de los elementos:
 //Frecuencia en la que aparecen los meteoritos:
-var f_aparicion_met = 1200;
+var f_aparicion_met = 800;
+var f_aparicion_ovni = 1500;
 //numero max de meteoritos:
 var numerodemet = 5;
 var numerodeovnis = 5;
 //velocidad de los met.
 var vel_max_meteo = 4;
+var movimiento_vertical = -1
 var velocidadAstronauta = 5
+var vertical_oscilation = 20
 
 //Dimensiones de los elementos:
 var escalabackground = 1
@@ -367,6 +370,7 @@ function init(){
 	var meteoritos = new Array();
 	var timespacemeteor = new Array();
 	var timespaceovni = new Array();
+	var initial_pos_ovni = new Array();
 	var ovnis = new Array();
 
 	
@@ -380,7 +384,8 @@ function init(){
 		myMusic.play();
 		
 		timespacemeteor[0] = f_aparicion_met;
-		timespaceovni[0] = f_aparicion_met;
+		timespaceovni[0] = f_aparicion_ovni;
+		
 		
 		background = new Elemento(0,0,0,spriteBackground,3,escalabackground)
 		astronauta = new Elemento(100,getRndInteger(100,400),0,spriteElegido,20,escalaastro)
@@ -389,14 +394,13 @@ function init(){
 			escalameteor = getRndInteger(1, 4)
 			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteMeteorito,getRndInteger(2, 6),escalameteor);
 			timespacemeteor[i+1] = timespacemeteor[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
-		
 		}
 		
 		for(let i = 0;i<numerodeovnis;i++){
 			escalaovni = getRndInteger(3, 5)
 			ovnis[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteOvni,getRndInteger(2, 6),escalaovni);
 			timespaceovni[i+1] = timespaceovni[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
-		
+			initial_pos_ovni[i] = ovnis[i].coordy;
 		}
 	}
 	
@@ -450,9 +454,21 @@ function init(){
 			
 			for(let i = 0;i<ovnis.length;i++){
 				ovnis[i].updateElement();		
-		
+				
 				if(time >= timespaceovni[i]){
 					ovnis[i].coordx-=ovnis[i].movimiento;
+					//movimiento vertical
+					if((ovnis[i].coordy!=initial_pos_ovni[i]-vertical_oscilation) && (ovnis[i].coordy!=initial_pos_ovni[i]+vertical_oscilation)){
+						ovnis[i].coordy+=movimiento_vertical;
+					}else{
+						if(ovnis[i].coordy==initial_pos_ovni[i]-vertical_oscilation){
+							movimiento_vertical = 1
+						}
+						if(ovnis[i].coordy==initial_pos_ovni[i]+vertical_oscilation){
+							movimiento_vertical = -1
+						}
+						ovnis[i].coordy+=movimiento_vertical
+					}
 				}	
 			}
 		
@@ -460,6 +476,7 @@ function init(){
 				if(ovnis[i].coordx<-200){
 					ovnis[i].coordx = canvasWidth;
 					ovnis[i].coordy = getRndInteger(50,600);
+					initial_pos_ovni[i] = ovnis[i].coordy; //actualizo posición inicial para referenciar el movimiento vertical
 					ovnis[i].movimiento = getRndInteger(1,vel_max_meteo);
 					timespaceovni[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
 				}
@@ -520,7 +537,7 @@ function init(){
 		context.font = "80px FuenteNasa";
 		context.fillStyle = "black"
 		context.textAlign = "center";
-		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+40);
+		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+30);
 	}
 	
 	
@@ -535,7 +552,7 @@ function init(){
 		context.font = "30px FuenteNasa";
 		context.fillStyle = "black"
 		context.textAlign = "center";
-		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+15);
+		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+10);
 	}
 	//función que maneja los botones:
 	function buttonclick(){
