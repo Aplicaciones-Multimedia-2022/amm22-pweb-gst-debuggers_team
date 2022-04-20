@@ -221,12 +221,12 @@ function init(){
 					}
 					if(button == 5 && intro == false){
 						ctx.drawImage(spriteBackground[recorrer_backround],0,0,canvasWidth,canvasHeight)
-						ctx.drawImage(astronauta.sprite[astronauta.recorrerSprite],0,0,astronauta.coordx,astronauta.coordy,(astronauta.sprite[astronauta.recorrerSprite].width/astronauta.escalaastro)*escalado_canvas, (astronauta.sprite[astronauta.recorrerSprite].height/astronauta.escalaastro)*escalado_canvas)
+						ctx.drawImage(astronauta.sprite[astronauta.recorrerSprite],astronauta.coordx,astronauta.coordy,(astronauta.sprite[astronauta.recorrerSprite].width/escalaastro)*escalado_canvas, (astronauta.sprite[astronauta.recorrerSprite].height/escalaastro)*escalado_canvas)
 						for(let i = 0;i<meteoritos.length;i++){
-							ctx.drawImage(meteoritos[i].sprite[meteoritos[i].recorrerSprite],0,0,meteoritos[i].coordx,meteoritos[i].coordy,(meteoritos[i].sprite[meteoritos[i].recorrerSprite].width/meteoritos[i].escalameteor)*escalado_canvas, (meteoritos[i].sprite[meteoritos[i].recorrerSprite].height/meteoritos[i].escalameteor)*escalado_canvas)
+							ctx.drawImage(meteoritos[i].sprite[meteoritos[i].recorrerSprite],meteoritos[i].coordx,meteoritos[i].coordy,(meteoritos[i].sprite[meteoritos[i].recorrerSprite].width/meteoritos[i].escalameteor)*escalado_canvas, (meteoritos[i].sprite[meteoritos[i].recorrerSprite].height/meteoritos[i].escalameteor)*escalado_canvas)
 						}
 						for(let i = 0;i<ovnis.length;i++){
-							ctx.drawImage(ovnis[i].sprite[ovnis[i].recorrerSprite],0,0,ovnis[i].coordx,ovnis[i].coordy,(ovnis[i].sprite[ovnis[i].recorrerSprite].width/ovnis[i].escalaovni)*escalado_canvas, (ovnis[i].sprite[ovnis[i].recorrerSprite].height/ovnis[i].escalaovni)*escalado_canvas)
+							ctx.drawImage(ovnis[i].sprite[ovnis[i].recorrerSprite],ovnis[i].coordx,ovnis[i].coordy,(ovnis[i].sprite[ovnis[i].recorrerSprite].width/ovnis[i].escalaovni)*escalado_canvas, (ovnis[i].sprite[ovnis[i].recorrerSprite].height/ovnis[i].escalaovni)*escalado_canvas)
 						}
 						createButton(continuebuttcoordx,continuebuttcoordy,continuebuttWidth,continuebuttHeight,ctx,"CONTINUE");
 						createButton(pausabuttcoordx,pausabuttcoordy,pausabuttWidth,pausabuttHeight,ctx,"PAUSE")
