@@ -8,7 +8,7 @@ var primera_carga = true //para que el canvas solo redimensione los elementos un
 var spriteElegido;
 //Parametros niveles:
 var level = 1;
-var level_duration = 8000
+var level_duration = 3500
 
 //contadores:
 var time = 0;
@@ -151,8 +151,9 @@ function init(){
 	var verdebuttcoordx = canvasWidth - (naranjabuttcoordx+imagenbuttWidth)
 	var verdebuttcoordy = naranjabuttcoordy
 	
+	/*** El juego está diseñado para que el canvas se pueda cambiar de tamaño durante la ejecución a gusto del usuario ***/
 	//Con esta función se llamará a inicializarCanvas que recalculará los valores del tamaño del canvas:
-
+	
 	setTimeout(function() {
 		inicializarCanvas();
 		addEventListener("resize", inicializarCanvas);
@@ -513,7 +514,7 @@ function init(){
 		timespacemeteor[0] = f_aparicion_met;
 		timespaceovni[0] = f_aparicion_ovni;
 		
-		astronauta = new Elemento(0.07*canvasWidth,getRndInteger(0.15*canvasHeight,0.66*canvasHeight),0,spriteElegido,20,escalaastro)
+		astronauta = new Elemento(0.07*canvasWidth,getRndInteger(0.15*canvasHeight,0.66*canvasHeight),0,spriteElegido,40,escalaastro)
 		
 		for(let i = 0;i<numerodemet;i++){
 			escalameteor = getRndInteger(1, 4) //meteoritos y ovnis con distintos tamaños
