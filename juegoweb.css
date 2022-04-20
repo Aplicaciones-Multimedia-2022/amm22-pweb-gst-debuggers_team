@@ -11,7 +11,7 @@
 
 /*color de fondo y dimensiones de la página*/
 body{ 
-	background-color: #FAE4D5;
+	background-color: #131A45;
 	width: 100%;
 	height: 100%;
 	margin: 10px 0;
@@ -21,7 +21,7 @@ body{
 span{ 
 	margin: 0 15px;
 	line-height: .7;
-	text-shadow: 0 0 5px #2E43E0;
+	text-shadow: 0 0 7px #FFFFFF;
 	animation: span 5s ease-in infinite alternate;
 }
 
@@ -31,7 +31,7 @@ span{
 	font-family: 'FuenteNasa', sans-serif;
 	font-weight: bold;
 	font-size: 45px;
-	color: #192158;
+	color: #DFDFDF;
 	justify-content: center;
 	align-items: flex-start;
 	@media(max-width: 500px)
@@ -42,12 +42,12 @@ span{
 .letter{ 
 	height: 27px;
 	width: 38px;
-	border: 6px solid #192158;
+	border: 6px solid #DFDFDF;
 	border-top: 0px;
 	border-radius: 10px;
 	box-shadow:
-		 0 3px 3px -1.5px #B3BFF6,
-		inset 0 -5px 5px -0.01px #B3BFF6;
+		 0 3px 3px -1.5px #FFFFFF,
+		inset 0 -5px 5px -0.01px #FFFFFF;
 	animation: letter 5s ease-in-out infinite alternate;
 }
 
@@ -72,7 +72,7 @@ img{
 	display:none
 }
 video{
-	display:none
+	display:none;
 }
 
 						/******  ESTILO PESTAÑAS  ******/
@@ -80,19 +80,20 @@ video{
 
 /* estilo de la barra de pestañas */
 nav {
-  border: 6px solid #192158;
-  background-color: #192158;
+  border: 6px solid #222E79;
+  background-color: #222E79; 
   display: block;
   text-align: center;
 }
 
 /* estilo botón de pestaña seleccionada */
 nav button {
-  font-size: 17px;
+  font-size: 20px;
+  font-family: 'FuenteNasa', sans-serif;
   color: #FFFFFF;
   font-weight: bold;
   min-width: 210px;
-  background-color: #2A3795;
+  background-color: #364AC5;
   border: none;
   padding: 15px 15px;
   transition: 0.3s;
@@ -101,7 +102,7 @@ nav button {
 
 /* color botón al pasar el ratón por encima */
 nav button:hover {
-  background-color: #2E43E0;
+  background-color: #F3863A;
 }
 
 /* color específico pestaña seleccionada */
@@ -128,15 +129,15 @@ nav button.active {
 
 /*Color títulos*/
 h1{
-	color: #E5670F;
-	font-family: verdana;
+	color: #F3863A;
+    font-family: 'FuenteNasa', sans-serif;
 }	
 
 /*estilo título 1 a máquina*/				
 .maquina { 
+  color: white;
   width: 20ch;
-  font-family: 'Courier new', monospace;
-  font-weight: bold;
+  font-family: 'FuenteNasa', sans-serif;
   animation: typing 2s steps(22), blink .5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
@@ -145,9 +146,9 @@ h1{
 
 /*estilo tipo de texto 2 a máquina*/
 .maquina2 { 
-  width: 120ch;
-  font-family: 'Courier new', monospace;
-  font-weight: bold;
+  color: white;
+  width: 100%;
+  font-family: 'FuenteNasa', sans-serif;
   animation: typing 2s steps(22), blink .5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
@@ -156,9 +157,9 @@ h1{
 
 /*estilo tipo de texto 3 a máquina*/
 .maquina3 { 
-  width: 50ch;
-  font-family: 'Courier new', monospace;
-  font-weight: bold;
+  color: white;
+  width: 17%;
+  font-family: 'FuenteNasa', sans-serif;
   animation: typing 2s steps(22), blink .5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
@@ -239,7 +240,7 @@ p{
   margin-left: 5px;
   margin-bottom: 0px;
   font-size: 25px;
-  font-family: 'Roboto';
+  font-family: 'FuenteNasa', sans-serif;
   font-weight: bold;
   color: #000000;
   text-align: left;
@@ -275,7 +276,10 @@ p{
 					/******  PESTAÑA DE DESARROLLO  ******/
 					
 /*Deslizar texto hacia la izquierda */
-h2 {
+h2, th {
+  font-family: 'FuenteNasa', sans-serif;
+  color: #F3863A;
+  font-size: 20px;
   -moz-animation-duration: 2.5s;
   -webkit-animation-duration: 2.5s;
   -moz-animation-name: slidein-left;
@@ -283,6 +287,10 @@ h2 {
 }
 
 h4 {
+  font-family: 'FuenteNasa', sans-serif;
+  color: white;
+  font-weight: lighter;
+  font-size: 16px;  
   -moz-animation-duration: 2.5s;
   -webkit-animation-duration: 2.5s;
   -moz-animation-name: slidein-left;
@@ -311,6 +319,18 @@ h4 {
   }
 }
 
+/*estilo tabla definida al final de la pestaña*/
+.table {
+	width: 100%;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 15px;
+	font-weight: lighter;
+	font-family: 'FuenteNasa', sans-serif;
+	border: 2px solid #DFDFDF;
+	border-collapse: separate;
+}
+
 					/******  PESTAÑA DE REFERENCIAS  ******/
 
 /* espacio botones referencias*/					
@@ -324,10 +344,10 @@ h4 {
 .boton-ref button {
   color: #000000;
   width: 33%;
-  font-style: 'Courier new', monostyle;
-  font-size: 13px;
+  font-family: 'FuenteNasa', sans-serif;
+  font-size: 16px;
   font-weight: bold;
-  background-color: #98A2EA; 
+  background-color: #A6B0F5; 
   border: 2px solid #808DEB;
   border-radius: 6px;
   padding: 8px 8px 8px 8px;
