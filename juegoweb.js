@@ -221,12 +221,12 @@ function init(){
 					}
 					if(button == 5 && intro == false){
 						ctx.drawImage(spriteBackground[recorrer_backround],0,0,canvasWidth,canvasHeight)
-						astronauta.updateElement()
+						ctx.drawImage(astronauta.sprite[astronauta.recorrerSprite],0,0,canvasWidth,canvasHeight)
 						for(let i = 0;i<meteoritos.length;i++){
-							meteoritos[i].updateElement();
+							ctx.drawImage(meteoritos[i].sprite[meteoritos[i].recorrerSprite],0,0,canvasWidth,canvasHeight)
 						}
-						for(let i = 0;i<meteoritos.length;i++){
-							ovnis[i].updateElement();
+						for(let i = 0;i<ovnis.length;i++){
+							ctx.drawImage(ovnis[i].ovnis[ovnis[i].recorrerSprite],0,0,canvasWidth,canvasHeight)
 						}
 						createButton(continuebuttcoordx,continuebuttcoordy,continuebuttWidth,continuebuttHeight,ctx,"CONTINUE");
 						createButton(pausabuttcoordx,pausabuttcoordy,pausabuttWidth,pausabuttHeight,ctx,"PAUSE")
