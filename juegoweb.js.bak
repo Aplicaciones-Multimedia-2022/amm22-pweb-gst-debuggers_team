@@ -1,11 +1,11 @@
 //Variables globales:
-var canvasWidth = 1420;
-var canvasHeight = 640;
-var velocidad_juego = 5;
+var canvasWidth;
+var canvasHeight;
+var velocidad_juego = 10;
 
 //Parametros niveles:
 var level = 1;
-var level_duration = 8000
+var level_duration = 2000
 
 //contadores:
 var time = 0;
@@ -13,15 +13,15 @@ var time_level = level_duration;
 
 //Variables de los elementos:
 //Frecuencia en la que aparecen los meteoritos:
-var f_aparicion_met = 800;
-var f_aparicion_ovni = 1500;
+var f_aparicion_met = 500;
+var f_aparicion_ovni = 1000;
 //numero max de meteoritos:
 var numerodemet = 5;
 var numerodeovnis = 5;
 //velocidad de los met.
-var vel_max_meteo = 4;
+
 var movimiento_vertical = -1
-var velocidadAstronauta = 5
+
 
 //Dimensiones de los elementos:
 var escalabackground = 1
@@ -34,41 +34,13 @@ var mySound; //Sonido de impacto
 var myMusic; //Música de fondo
 var video1Sound; //Sonido vídeo 1
 
-//Botones del canvas:
-//Botón pantalla final:
-var finalbuttWidth = 300
-var finalbuttHeight = 150
-var finalbuttcoordx = (canvasWidth/2) - (finalbuttWidth/2)
-var finalbuttcoordy = ((canvasHeight/2)+40) - (finalbuttHeight/2)
-
-//Botón pantalla game over:
-var gobuttWidth = 400
-var gobuttHeight = 150
-var gobuttcoordx = (canvasWidth/2) - (gobuttWidth/2)
-var gobuttcoordy = ((canvasHeight/2)+140) - (gobuttHeight/2)
-
-//Botón skip intro:
-var skipbuttWidth = 150
-var skipbuttHeight = 60
-var skipbuttcoordx = 1250
-var skipbuttcoordy = 25
-
-//Botón pausa
-var pausabuttWidth = 150
-var pausabuttHeight = 60
-var pausabuttcoordx = 1250
-var pausabuttcoordy = 25
-
-//Botón continuar
-var continuebuttWidth = 200
-var continuebuttHeight = 100
-var continuebuttcoordx = (canvasWidth/2) - (continuebuttWidth/2)
-var continuebuttcoordy = ((canvasHeight/2)+140) - (continuebuttHeight/2)
-
 var button; 
 
+	
+var primera_carga = true
 //traje del astronauta:
 var spriteElegido;
+	
 
 		/* PESTAÑAS  */
 function openCity(evt, cityName) {
@@ -97,10 +69,62 @@ function openCity(evt, cityName) {
 window.onload = init;
 
 function init(){
-	var movimientox = 0;
-	var movimientoy = 0;
+	var tamaño_canvas = new Array();
+	var escalado_canvas
+	var canvas = document.getElementById("micanvas")
+	var ctx = canvas.getContext("2d");
+	if(primera_carga == true){
+		canvas.width = window.innerWidth
+		canvas.height = 0.50*canvas.width
+		primera_carga = false;
+	}
+	trajenaranja = document.getElementById("selnaranja");
+	trajeverde = document.getElementById("selverde");
 	
-	//declaración sonidos:
+	//imagenes de los botones:
+	
+	inicializarCanvas()
+	tamaño_canvas[0] = tamaño_canvas[1]
+	escalado_canvas = tamaño_canvas[1]/tamaño_canvas[0]
+	
+	
+	
+		//Botones del canvas:
+		//Botón pantalla final:
+var finalbuttWidth = 0.28*canvasWidth
+var finalbuttHeight = 0.23*canvasHeight
+var finalbuttcoordx = (canvasWidth/2) - (finalbuttWidth/2)
+var finalbuttcoordy = ((canvasHeight/2)+(0.062*canvasHeight)) - (finalbuttHeight/2)
+
+//Botón pantalla game over:
+var gobuttWidth = 0.28*canvasWidth
+var gobuttHeight = 0.23*canvasHeight
+var gobuttcoordx = (canvasWidth/2) - (gobuttWidth/2)
+var gobuttcoordy = ((canvasHeight/2)+(0.22*canvasHeight)) - (gobuttHeight/2)
+
+//Botón skip intro:
+var skipbuttWidth = 0.1*canvasWidth
+var skipbuttHeight = 0.09*canvasHeight
+var skipbuttcoordx = 0.88*canvasWidth
+var skipbuttcoordy = 0.039*canvasHeight
+
+//Botón pausa
+var pausabuttWidth = 0.1*canvasWidth
+var pausabuttHeight = 0.09*canvasHeight
+var pausabuttcoordx = 0.88*canvasWidth
+var pausabuttcoordy = 0.039*canvasHeight
+
+//Botón continuar
+var continuebuttWidth = 0.14*canvasWidth
+var continuebuttHeight = 0.16*canvasHeight
+var continuebuttcoordx = (canvasWidth/2) - (continuebuttWidth/2)
+var continuebuttcoordy = ((canvasHeight/2)+(0.22*canvasHeight)) - (continuebuttHeight/2)
+
+var velocidadAstronauta = 5*(canvasWidth/1420)
+var vertical_oscilation = 20*(canvasWidth/1420)
+var vel_max_meteo = 4*(canvasWidth/1420);
+
+//declaración sonidos:
 	video1Sound = new sound("./audios/audioaux1.mp3"); //Música vídeo 1
 	mySound = new sound("./audios/impacto.mp3"); //Sonido de impacto
 	myMusic = new sound("./audios/ambiente.mp3"); //Música de fondo
@@ -123,17 +147,114 @@ function init(){
 	level2_vid = document.getElementById("level2");
 	level3_vid = document.getElementById("level3");
 	
-	//Botones para la selección de personaje:
-	//imagenes de los botones:
-	trajenaranja = document.getElementById("selnaranja");
-	trajeverde = document.getElementById("selverde");
-	//dimensiones y coordenadas de los botones
-	var imagenbuttWidth = trajenaranja.width
-	var imagenbuttHeight = trajenaranja.height
-	var naranjabuttcoordx = 125
-	var naranjabuttcoordy = 150
+	trajewidth_naranja = trajenaranja.width*(canvasWidth/1420)
+	trajeheight_naranja = trajenaranja.height*(canvasHeight/710)
+	trajewidth_verde = trajeverde.width*(canvasWidth/1420)
+	trajeheight_verde = trajeverde.height*(canvasHeight/710)
+	
+	var imagenbuttWidth = trajewidth_naranja
+	var imagenbuttHeight = trajeheight_naranja
+	var naranjabuttcoordx = 0.13*canvasWidth
+	var naranjabuttcoordy = 0.27*canvasHeight
 	var verdebuttcoordx = canvasWidth - (naranjabuttcoordx+imagenbuttWidth)
-	var verdebuttcoordy = 150
+	var verdebuttcoordy = naranjabuttcoordy
+	
+var intro = true;
+var recorrer_backround = 0
+
+	setTimeout(function() {
+		inicializarCanvas();
+		addEventListener("resize", inicializarCanvas);
+		}, 15);
+		
+	function inicializarCanvas(){
+
+		
+		if (canvas && canvas.getContext) {
+			
+				if (ctx){
+		   // calcula la anchura y la altura del canvas
+					var s = getComputedStyle(canvas);
+					var w = s.width;
+					var h = s.height;
+		   // extrae el valor numerico
+				tamaño_canvas[0] = tamaño_canvas[1]
+				
+				canvasWidth = canvas.width = w.split("px")[0];
+				canvasHeight = canvas.height = h.split("px")[0];
+				
+				tamaño_canvas[1] = canvasWidth
+				escalado_canvas = tamaño_canvas[1]/tamaño_canvas[0]
+				
+				
+						//Botones del canvas:
+						//Botón pantalla final:
+						finalbuttWidth = 0.28*canvasWidth
+						finalbuttHeight = 0.23*canvasHeight
+						finalbuttcoordx = (canvasWidth/2) - (finalbuttWidth/2)
+						finalbuttcoordy = ((canvasHeight/2)+(0.062*canvasHeight)) - (finalbuttHeight/2)
+
+						//Botón pantalla game over:
+						gobuttWidth = 0.28*canvasWidth
+						gobuttHeight = 0.23*canvasHeight
+						gobuttcoordx = (canvasWidth/2) - (gobuttWidth/2)
+						gobuttcoordy = ((canvasHeight/2)+(0.22*canvasHeight)) - (gobuttHeight/2)
+
+						//Botón skip intro:
+						skipbuttWidth = 0.1*canvasWidth
+						skipbuttHeight = 0.09*canvasHeight
+						skipbuttcoordx = 0.88*canvasWidth
+						skipbuttcoordy = 0.039*canvasHeight
+
+						//Botón pausa
+						pausabuttWidth = 0.1*canvasWidth
+						pausabuttHeight = 0.09*canvasHeight
+						pausabuttcoordx = 0.88*canvasWidth
+						pausabuttcoordy = 0.039*canvasHeight
+
+						//Botón continuar
+						continuebuttWidth = 0.14*canvasWidth
+						continuebuttHeight = 0.16*canvasHeight
+						continuebuttcoordx = (canvasWidth/2) - (continuebuttWidth/2)
+						continuebuttcoordy = ((canvasHeight/2)+(0.22*canvasHeight)) - (continuebuttHeight/2)
+						
+				
+					if(button == 0 && intro == false){
+						createButtonAndImage(finalbuttcoordx,finalbuttcoordy,finalbuttWidth,finalbuttHeight,ctx,imagenfinal,"RESTART")
+					}
+				
+					if(button == 1 && intro == false){
+						createButtonAndImage(finalbuttcoordx,finalbuttcoordy,finalbuttWidth,finalbuttHeight,ctx,imagenfinal,"RESTART")
+					}
+					if(button == 5 && intro == false){
+						ctx.drawImage(spriteBackground[recorrer_backround],0,0,canvasWidth,canvasHeight)
+						astronauta.updateElement()
+						for(let i = 0;i<meteoritos.length;i++){
+							meteoritos[i].updateElement();
+						}
+						for(let i = 0;i<meteoritos.length;i++){
+							ovnis[i].updateElement();
+						}
+						createButton(continuebuttcoordx,continuebuttcoordy,continuebuttWidth,continuebuttHeight,ctx,"CONTINUE");
+						createButton(pausabuttcoordx,pausabuttcoordy,pausabuttWidth,pausabuttHeight,ctx,"PAUSE")
+					}
+					if(intro == true){
+						ctx.drawImage(start_im,0,0,canvasWidth,canvasHeight)
+					}
+				}
+		}
+	}
+	
+
+	
+	
+	
+	
+	
+	var movimientox = 0;
+	var movimientoy = 0;
+	
+	
 	
 	//Cargo los sprites de los elementos del juego:
 	const spriteBackground = [document.getElementById("b1"),
@@ -269,6 +390,10 @@ function init(){
 		document.getElementById("meteorito8"),
 		document.getElementById("meteorito9")
 		];
+		for(i=0;i<spriteMeteorito.length;i++){
+			spriteMeteorito[i].width = spriteMeteorito[i].width*(canvasWidth/1420)
+			spriteMeteorito[i].height = spriteMeteorito[i].height*(canvasHeight/710)
+		}
 	const spriteOvni = [document.getElementById("ovni"),
 		document.getElementById("ovni1"),
 		document.getElementById("ovni2"),
@@ -280,32 +405,42 @@ function init(){
 		document.getElementById("ovni8"),
 		];
 		
+		for(i=0;i<spriteOvni.length;i++){
+			spriteOvni[i].width = spriteOvni[i].width*(canvasWidth/1420)
+			spriteOvni[i].height = spriteOvni[i].height*(canvasHeight/710)
+		}
+		
 	const spriteAstronautaGreen = [document.getElementById("astro1Green"),
 		document.getElementById("astro2Green"),
 		document.getElementById("astro3Green"),
 		document.getElementById("astro4Green")
 		];
 		
+		for(i=0;i<spriteAstronautaGreen.length;i++){
+			spriteAstronautaGreen[i].width = spriteAstronautaGreen[i].width*(canvasWidth/1420)
+			spriteAstronautaGreen[i].height = spriteAstronautaGreen[i].height*(canvasHeight/710)
+		}
+		
 	const spriteAstronauta = [document.getElementById("astro1"),
 		document.getElementById("astro2"),
 		document.getElementById("astro3"),
 		document.getElementById("astro4")
 		];
+		for(i=0;i<spriteAstronauta.length;i++){
+			spriteAstronauta[i].width = spriteAstronauta[i].width*(canvasWidth/1420)
+			spriteAstronauta[i].height = spriteAstronauta[i].height*(canvasHeight/710)
+		}
 	
 	//Objeto que contiene todo lo relacionado con el área de juego(canvas)
 	
 	var gameArea = {
-		canvas : document.getElementById("micanvas"),
 	
 		start : function() {
-			this.canvas.width = canvasWidth;
-		    this.canvas.height = canvasHeight;
-			this.context = this.canvas.getContext("2d");
 			this.interval = setInterval(updateGameArea, velocidad_juego);
 		},
 		
 		borrar : function() {
-			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+			ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 		}
 	}
 	
@@ -325,8 +460,6 @@ function init(){
 		this.ancho_elemento = this.sprite[0].width/this.escala;
 		this.alto_elemento = this.sprite[0].height/this.escala;
 		
-		ctx = gameArea.context;
-		
 		//Esta función se encargará de actualizar los sprites de cada elemento:
 		this.updateElement = function(){
 			
@@ -338,7 +471,7 @@ function init(){
 			this.centroElementoy2 = this.centroElementoy+(this.alto_elemento/3);
 			
 			if(this.recorrerSprite < this.sprite.length){
-				ctx.drawImage(this.sprite[this.recorrerSprite],this.coordx, this.coordy, this.sprite[this.recorrerSprite].width/escala, this.sprite[this.recorrerSprite].height/escala)
+				ctx.drawImage(this.sprite[this.recorrerSprite],this.coordx, this.coordy, (this.sprite[this.recorrerSprite].width/escala)*escalado_canvas, (this.sprite[this.recorrerSprite].height/escala)*escalado_canvas)
 				if(this.contador == this.velocidad_refresco){
 					this.recorrerSprite++;
 					this.contador = 0;
@@ -385,18 +518,16 @@ function init(){
 		timespacemeteor[0] = f_aparicion_met;
 		timespaceovni[0] = f_aparicion_ovni;
 		
-		
-		background = new Elemento(0,0,0,spriteBackground,3,escalabackground)
-		astronauta = new Elemento(100,getRndInteger(100,400),0,spriteElegido,20,escalaastro)
+		astronauta = new Elemento(0.07*canvasWidth,getRndInteger(0.15*canvasHeight,0.66*canvasHeight),0,spriteElegido,20,escalaastro)
 		
 		for(let i = 0;i<numerodemet;i++){
 			escalameteor = getRndInteger(1, 4)
-			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteMeteorito,getRndInteger(2, 6),escalameteor);
+			meteoritos[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger((canvasWidth/1420),vel_max_meteo),spriteMeteorito,getRndInteger(2, 6),escalameteor);
 			timespacemeteor[i+1] = timespacemeteor[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
 		}
 		
 		for(let i = 0;i<numerodeovnis;i++){
-			escalaovni = getRndInteger(3, 5)
+			escalaovni = getRndInteger(2, 5)
 			ovnis[i] = new Elemento(canvasWidth,getRndInteger(50,600),getRndInteger(1,vel_max_meteo),spriteOvni,getRndInteger(2, 6),escalaovni);
 			timespaceovni[i+1] = timespaceovni[i] + getRndInteger(f_aparicion_met*0.8,f_aparicion_met);
 			initial_pos_ovni[i] = ovnis[i].coordy;
@@ -408,9 +539,16 @@ function init(){
 	function updateGameArea(){
 		
 		gameArea.borrar();
-		background.updateElement();
+		
+		if(recorrer_backround<spriteBackground.length){
+			ctx.drawImage(spriteBackground[recorrer_backround],0,0,canvasWidth,canvasHeight)
+			recorrer_backround++;
+			if(recorrer_backround == spriteBackground.length){
+				recorrer_backround = 0
+			}
+		}
 		astronauta.updateElement();
-		createButton(pausabuttcoordx,pausabuttcoordy,pausabuttWidth,pausabuttHeight,gameArea.context,"PAUSE")
+		createButton(pausabuttcoordx,pausabuttcoordy,pausabuttWidth,pausabuttHeight,ctx,"PAUSE")
 		
 		astronauta.coordx += movimientox
 		astronauta.coordy += movimientoy
@@ -431,22 +569,25 @@ function init(){
 			movimientoy = 0
 			astronauta.coordy = canvasHeight-(imagenbuttHeight/escalaastro)
 		}
+		if(level == 1 || level ==3){
+			
+			for(let i = 0;i<meteoritos.length;i++){
+				meteoritos[i].updateElement();		
 		
-		for(let i = 0;i<meteoritos.length;i++){
-			meteoritos[i].updateElement();		
-		
-			if(time >= timespacemeteor[i]){
-				meteoritos[i].coordx-=meteoritos[i].movimiento;
-			}			
-		}
-		
-		for(let i = 0; i<meteoritos.length; i++){
-			if(meteoritos[i].coordx<-200){
-				meteoritos[i].coordx = canvasWidth;
-				meteoritos[i].coordy = getRndInteger(50,600);
-				meteoritos[i].movimiento = getRndInteger(1,vel_max_meteo);
-				timespacemeteor[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
+				if(time >= timespacemeteor[i]){
+					meteoritos[i].coordx-=meteoritos[i].movimiento;
+				}			
 			}
+		
+			for(let i = 0; i<meteoritos.length; i++){
+				if(meteoritos[i].coordx<-300){
+					meteoritos[i].coordx = canvasWidth;
+					meteoritos[i].coordy = getRndInteger(50,600);
+					meteoritos[i].movimiento = getRndInteger(1,vel_max_meteo);
+					timespacemeteor[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
+				}
+			}
+			
 		}
 		
 		if(level >= 2){
@@ -457,13 +598,13 @@ function init(){
 				if(time >= timespaceovni[i]){
 					ovnis[i].coordx-=ovnis[i].movimiento;
 					//movimiento vertical
-					if((ovnis[i].coordy!=initial_pos_ovni[i]-20) && (ovnis[i].coordy!=initial_pos_ovni[i]+20)){
+					if((ovnis[i].coordy!=initial_pos_ovni[i]-vertical_oscilation) && (ovnis[i].coordy!=initial_pos_ovni[i]+vertical_oscilation)){
 						ovnis[i].coordy+=movimiento_vertical;
 					}else{
-						if(ovnis[i].coordy==initial_pos_ovni[i]-10){
+						if(ovnis[i].coordy==initial_pos_ovni[i]-vertical_oscilation){
 							movimiento_vertical = 1
 						}
-						if(ovnis[i].coordy==initial_pos_ovni[i]+10){
+						if(ovnis[i].coordy==initial_pos_ovni[i]+vertical_oscilation){
 							movimiento_vertical = -1
 						}
 						ovnis[i].coordy+=movimiento_vertical
@@ -472,12 +613,12 @@ function init(){
 			}
 		
 			for(let i = 0; i<ovnis.length; i++){
-				if(ovnis[i].coordx<-200){
+				if(ovnis[i].coordx<-300){
 					ovnis[i].coordx = canvasWidth;
 					ovnis[i].coordy = getRndInteger(50,600);
 					initial_pos_ovni[i] = ovnis[i].coordy; //actualizo posición inicial para referenciar el movimiento vertical
 					ovnis[i].movimiento = getRndInteger(1,vel_max_meteo);
-					timespaceovni[i] = time + getRndInteger(Math.round(f_aparicion_met*0.8),f_aparicion_met);
+					timespaceovni[i] = time + getRndInteger(Math.round(f_aparicion_ovni*0.8),f_aparicion_ovni);
 				}
 			}
 		}
@@ -515,7 +656,7 @@ function init(){
 					button = 1
 					//Esta parte va a finalizar el juego con una pantalla en la que se muestra un botón para empezar de nuevo y un mensaje de victoria
 					level = 1
-					createButtonAndImage(finalbuttcoordx,finalbuttcoordy,finalbuttWidth,finalbuttHeight,gameArea.context,imagenfinal,"RESTART")
+					createButtonAndImage(finalbuttcoordx,finalbuttcoordy,finalbuttWidth,finalbuttHeight,ctx,imagenfinal,"RESTART")
 					document.addEventListener("click", buttonclick)
 				}
 				
@@ -526,14 +667,15 @@ function init(){
 
 	//creación de botón en una imagen:
 	function createButtonAndImage(buttoncoordx,buttoncoordy,buttonWidth,buttonHeight,context,image,texto){
-		context.drawImage(image,0,0)
+		context.drawImage(image,0,0,canvasWidth,canvasHeight)
 		context.beginPath();
 		context.strokeStyle = "white";
 		context.rect(buttoncoordx, buttoncoordy, buttonWidth, buttonHeight);
 		context.fillStyle = "white";
 		context.fill();
 		//text
-		context.font = "80px FuenteNasa";
+		pixels = 80*(canvasWidth/1420)
+		context.font = pixels.toString()+"px FuenteNasa";
 		context.fillStyle = "black"
 		context.textAlign = "center";
 		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+30);
@@ -548,7 +690,8 @@ function init(){
 		context.fillStyle = "#CFCFCF";
 		context.fill();
 		//text
-		context.font = "30px FuenteNasa";
+		pixels = 30*(canvasWidth/1420)
+		context.font = pixels.toString()+"px FuenteNasa";
 		context.fillStyle = "black"
 		context.textAlign = "center";
 		context.fillText(texto,buttoncoordx+(buttonWidth/2),buttoncoordy+(buttonHeight/2)+10);
@@ -556,7 +699,7 @@ function init(){
 	//función que maneja los botones:
 	function buttonclick(){
 		
-		const rect = gameArea.canvas.getBoundingClientRect()
+		const rect = canvas.getBoundingClientRect()
 		var x = event.clientX - rect.left;
 		var y = event.clientY - rect.top;
 
@@ -571,6 +714,7 @@ function init(){
 			if(x >= limitexizqda && x <= limitexdrcha){
 				if(y >= limiteyabajo && y <= limiteyarriba){
 					document.removeEventListener("click", buttonclick);
+					primera_carga = false;
 					init();
 				}
 			}
@@ -586,6 +730,7 @@ function init(){
 			if(x >= limitexizqda && x <= limitexdrcha){
 				if(y >= limiteyabajo && y <= limiteyarriba){
 					document.removeEventListener("click", buttonclick);
+					primera_carga = false
 					init();
 				}
 			}
@@ -655,7 +800,7 @@ function init(){
 			if(x >= limitexizqda1 && x <= limitexdrcha1){
 				if(y >= limiteyabajo1 && y <= limiteyarriba1){
 					clearInterval(gameArea.interval);
-					createButton(continuebuttcoordx,continuebuttcoordy,continuebuttWidth,continuebuttHeight,gameArea.context,"CONTINUE");
+					createButton(continuebuttcoordx,continuebuttcoordy,continuebuttWidth,continuebuttHeight,ctx,"CONTINUE");
 					myMusic.stop();
 					button = 5;
 				}
@@ -684,7 +829,6 @@ function init(){
 			createButton(skipbuttcoordx,skipbuttcoordy,skipbuttWidth,skipbuttHeight,context,"SKIP")
 			document.addEventListener("click", buttonclick)
 		}
-		
 	}
 	
 	function game_over(){
@@ -697,7 +841,7 @@ function init(){
 		time = 0;
 		
 		button = 0
-		createButtonAndImage(gobuttcoordx,gobuttcoordy,gobuttWidth,gobuttHeight,gameArea.context,im_go,"RESTART")
+		createButtonAndImage(gobuttcoordx,gobuttcoordy,gobuttWidth,gobuttHeight,ctx,im_go,"RESTART")
 		document.addEventListener("click", buttonclick)
 	}
 	
@@ -778,45 +922,42 @@ function init(){
 		audio.play();
 	} 
 	
-	
-	
-	
 	//Cada vez que llamo a la funcion drawvideo es cada vez que el video dispara un evento play cuando se está reproduciendo:
 	
 	video1.addEventListener('play',function() {
-		drawvideoIntroSkip(video1,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoIntroSkip(video1,ctx,canvasWidth, canvasHeight);
 	});
 	
 	video2.addEventListener('play',function() {
-		drawvideo(video2,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideo(video2,ctx,canvasWidth, canvasHeight);
 	});
 	
 	video3.addEventListener('play',function() {
-		drawvideoIntroSkip(video3,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoIntroSkip(video3,ctx,canvasWidth, canvasHeight);
 	});
 	
 	videocharacter.addEventListener('play',function() {
-		drawvideoCharacter(videocharacter,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideoCharacter(videocharacter,ctx,canvasWidth, canvasHeight);
 	});
 	
 	problem_vid.addEventListener('play',function() {
-		drawvideo(problem_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideo(problem_vid,ctx,canvasWidth, canvasHeight);
 	});
 	
 	expl_vid.addEventListener('play',function() {
-		drawvideo(expl_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideo(expl_vid,ctx,canvasWidth, canvasHeight);
 	});
 	
 	level1_vid.addEventListener('play',function() {
-		drawvideo(level1_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideo(level1_vid,ctx,canvasWidth, canvasHeight);
 	});
 	
 	level2_vid.addEventListener('play',function() {
-		drawvideo(level2_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideo(level2_vid,ctx,canvasWidth, canvasHeight);
 	});
 	
 	level3_vid.addEventListener('play',function() {
-		drawvideo(level3_vid,gameArea.canvas.getContext("2d"),canvasWidth, canvasHeight);
+		drawvideo(level3_vid,ctx,canvasWidth, canvasHeight);
 	});
 	
 	//Para que no se superponga el video con el juego le impongo la condición que deje de dibujarse cuando finaliza el video:
@@ -824,43 +965,46 @@ function init(){
 		if(video.ended == false){
 			c.drawImage(video,0,0, w, h);
 			saltarIntro(video,c)
-			setTimeout(drawvideoIntroSkip,20,video,c,w,h);
+			setTimeout(drawvideoIntroSkip,20,video,c,canvasWidth,canvasHeight);
 		}
 	}
 	function drawvideo(video, c, w, h){
 		if(video.ended == false){
 			c.drawImage(video,0,0, w, h);
-			setTimeout(drawvideoIntroSkip,20,video,c,w,h);
+			setTimeout(drawvideoIntroSkip,20,video,c,canvasWidth,canvasHeight);
 		}
 	}
 	function drawvideoCharacter(video, c, w, h){
 		if(chosen_character == false){
 			c.drawImage(video,0,0, w, h);
-			c.drawImage(trajenaranja,naranjabuttcoordx,naranjabuttcoordy)
-			c.drawImage(trajeverde,verdebuttcoordx,verdebuttcoordy)
-			c.font = "80px FuenteNasa";
+			c.drawImage(trajenaranja,naranjabuttcoordx,naranjabuttcoordy,trajewidth_naranja,trajeheight_naranja)
+			c.drawImage(trajeverde,verdebuttcoordx,verdebuttcoordy,trajewidth_verde,trajeheight_verde)
+			pixels = 80*(canvasWidth/1420)
+			c.font = pixels.toString()+"px FuenteNasa";
 			c.fillStyle = "white";
 			c.textAlign = "center";
-			c.fillText("SELECT", canvasWidth/2, (canvasHeight/2)-50);
-			c.fillText("YOUR SUIT", canvasWidth/2, (canvasHeight/2)+50);
-			c.fillText("-SPACEJUMP-", canvasWidth/2, (canvasHeight/2)+200);
+			c.fillText("SELECT", w/2, (h/2)-(50*(canvasWidth/1420)));
+			c.fillText("YOUR SUIT", w/2, (h/2)+(50*(canvasWidth/1420)));
+			c.fillText("-SPACEJUMP-", w/2, (h/2)+(200*(canvasWidth/1420)));
 			if(video.ended == true){
 				video.currentTime = 0
 				video.play()
 			}
-			setTimeout(drawvideoCharacter,20,video,c,w,h);
+			
+			setTimeout(drawvideoCharacter,20,video,c,canvasWidth,canvasHeight);
 		}
 	}	
 	
 		/****AQUÍ COMIENZA EL FLOW DEL JUEGO:****/
 	//Función escuchadora que inicia el juego al pulsar la barra espaciadora:
-	document.getElementById("micanvas").getContext("2d").drawImage(start_im,0,0)
+	ctx.drawImage(start_im,0,0,canvasWidth,canvasHeight)
 	
 	document.addEventListener('keypress',startgameflow)
 	
 	function startgameflow(){
 		if(event.keyCode == '32'){
-			document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight)
+			intro = false;
+			ctx.clearRect(0, 0, canvasWidth, canvasHeight)
 			document.removeEventListener("keypress", startgameflow);
 			videoplay(video1, video1Sound)
 		}
@@ -871,13 +1015,12 @@ function init(){
 	}
 	
 	problem_vid.onended = function() {
-		
-		video1.pause();
 		video1.currentTime = 0
+		video1.pause();
 		
 		button = 3
 		document.addEventListener("click", buttonclick);
-		document.getElementById("micanvas").getContext("2d").clearRect(0, 0, canvasWidth, canvasHeight);
+		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 		videocharacter.play()
 	}
 	
@@ -886,7 +1029,6 @@ function init(){
 			videoexplicacion.play();
 		}
 	};
-	
 	expl_vid.onended = function() {
 		level1_vid.play()
 	};
@@ -907,7 +1049,7 @@ function init(){
 	};
 	
 	level3_vid.onended = function() {
-		startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 2
+		startgame(f_aparicion_met,numerodemet,vel_max_meteo); //level 3
 	};	
 }
 
