@@ -332,13 +332,13 @@
 			<h4>Flujo multimedia insertado externamente mediante framework de Gstreamer + explicación 
 			<br><br>Pasos para ejecutar el flujo multimedia:
 			<br>1) Acceder a la carpeta de la página web desde la terminal de linux donde se encuentran los archivos de video a reproducirse y el archivo juegoweb.html
-			<br><br>2) Ejecutar un servidor de python con un puerto distinto a 9090, por ejemplo: 8888, 8080... Ejecutar el siguiente comando: python -m SimpleHTTPServer 8888
+			<br><br>2) Ejecutar un servidor de python con un puerto distinto a 9898, por ejemplo: 8888, 8080... Ejecutar el siguiente comando: python -m SimpleHTTPServer 8888
 			<br><br>3) Abrir la web desde la siguiente url: http://localhost:8888/juegoweb.html
 			<br><br>4) Ejecutar el archivo .sh (pipeline_vid.sh) que se encuentra en el directorio de la web, puede ejecutar este comando: ./pipeline_vid
 			<br><br>5) ¡Ya puede visualizar el stream!
 			<br><br>El efecto que hemos usado es un mixer que mezcla un vídeo con un fondo verde que usaremos como chroma y un vídeo de meteoritos que servirá de fondo.
-			<br><br>Para ello hemos utilizado dos tuberías que procesan los vídeos por separado con ! queue !. El vídeo del chroma (astronauta) añade un efecto que elimina el color verde
-			<br><br>el efecto que usamos es  ! alpha method = green !, luego hacemos un video convert y lo mezclamos. Y el otro vídeo lo decodificamos también en su tubería,
+			<br><br>Para ello hemos utilizado dos tuberías que procesan los vídeos por separado con ! queue !. El vídeo del chroma (astronauta) añade un efecto que elimina el color verde.
+			<br>El efecto que usamos es ! alpha method = green !, luego hacemos un video convert y lo mezclamos. Y el otro vídeo lo decodificamos también en su tubería,
 			<br>luego le aplicamos el vídeo convert y lo mezclamos usando videomix con la otra tubería. Al final queda un flujo que le aplicamos una codificación:
 			<br>theoraenc ! oggmux. El comando para ejecutar el pipeline que
 se encuentra dentro del archivo sh es:<br><br>gst-launch-1.0 filesrc location=./aux.mp4 ! decodebin ! queue ! videoconvert ! videomixer name=mix sink_0::zorder=0 sink_1::zorder=1 ! videoconvert ! theoraenc ! oggmux ! tcpserversink host=127.0.0.1 port=9090 filesrc location=./astronaut.mp4 ! decodebin ! queue ! alpha method=green ! videoconvert ! mix. </h4>
