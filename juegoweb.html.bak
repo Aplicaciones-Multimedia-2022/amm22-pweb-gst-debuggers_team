@@ -1,6 +1,9 @@
 <!DOCTYPE html> 
 <html>
 <head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
 	<!--Llamadas de archivo CSS y Javascript-->
 	<link rel="stylesheet" href="juegoweb.css">
 	<script src="juegoweb.js"></script>
@@ -47,47 +50,47 @@
 		</canvas>
 		
 		<!--carga de vídeos utilizados-->
-		<video id="video1" width = 1420 height = 640 controls muted>
+		<video id="video1" class="nodisplay" width = 1420 height = 640 controls muted>
 			<source src="./videos/videoaux1.mp4" type="video/mp4">
 			Your browser does not support HTML5 video.
 		</video>
 		
-		<video id="video2" width = 1420 height = 640 controls >
+		<video id="video2" class="nodisplay" width = 1420 height = 640 controls >
 			<source src="./videos/videoaux2.mp4" type="video/mp4">
 			Your browser does not support HTML5 video.
 		</video>
 		
-		<video id="video3" width = 1420 height = 640 controls >
+		<video id="video3" class="nodisplay" width = 1420 height = 640 controls >
 			<source src="./videos/videoaux2.mp4" type="video/mp4">
 			Your browser does not support HTML5 video.
 		</video>
 		
-		<video id="videocharacter" width = 1420 height = 640 controls >
+		<video id="videocharacter" class="nodisplay" width = 1420 height = 640 controls >
 			<source src="./videos/videoaux4.mp4" type="video/mp4">
 			Your browser does not support HTML5 video.
 		</video>
 		
-		<video id="videoproblems" width = 1420 height = 640 controls >
+		<video id="videoproblems" class="nodisplay" width = 1420 height = 640 controls >
 			<source src="./videos/problems.mp4" type="video/mp4">
 			Your browser does not support HTML5 video.
 		</video>
 		
-		<video id="videoexplicacion" width = 1420 height = 640 controls >
+		<video id="videoexplicacion" class="nodisplay" width = 1420 height = 640 controls >
 			<source src="./videos/explicacion.mp4" type="video/mp4">
 			Your browser does not support HTML5 video.
 		</video>
 		
-		<video id="level1" width = 1420 height = 640 controls >
+		<video id="level1" class="nodisplay" width = 1420 height = 640 controls >
 			<source src="./videos/level1.mp4" type="video/mp4">
 			Your browser does not support HTML5 video.
 		</video>
 		
-		<video id="level2" width = 1420 height = 640 controls >
+		<video id="level2" class="nodisplay" width = 1420 height = 640 controls >
 			<source src="./videos/level2.mp4" type="video/mp4">
 			Your browser does not support HTML5 video.
 		</video>
 		
-		<video id="level3" width = 1420 height = 640 controls >
+		<video id="level3" class="nodisplay" width = 1420 height = 640 controls >
 			<source src="./videos/level3.mp4" type="video/mp4">
 			Your browser does not support HTML5 video.
 		</video>
@@ -321,7 +324,24 @@
   	<!-- Contenido de la pestaña de elementos Multimedia -->
 	
 		<div id="Multimedia" class="tabcontent">
-			<p>Flujo multimedia insertado externamente mediante framework de Gstreamer + explicación</p>	
+
+			<video width="640" height="360" autoplay>
+				<source src="http://localhost:9898" type="video/mp4">
+			</video>
+
+			<h4>Flujo multimedia insertado externamente mediante framework de Gstreamer + explicación 
+			<br><br>Pasos para ejecutar el flujo multimedia:
+			<br>1) Acceder a la carpeta de la página web desde la terminal de linux donde se encuentran los archivos de video a reproducirse y el archivo juegoweb.html
+			<br><br>2) Ejecutar un servidor de python con un puerto distinto a 9090, por ejemplo: 8888, 8080... Ejecutar el siguiente comando: python -m SimpleHTTPServer 8888
+			<br><br>3) Abrir la web desde la siguiente url: http://localhost:8888/juegoweb.html
+			<br><br>4) Ejecutar el archivo .sh (pipeline_vid.sh) que se encuentra en el directorio de la web, puede ejecutar este comando: ./pipeline_vid
+			<br><br>5) ¡Ya puede visualizar el stream!
+			<br><br>El efecto que hemos usado es un mixer que mezcla un vídeo con un fondo verde que usaremos como chroma y un vídeo de meteoritos que servirá de fondo.
+			<br><br>Para ello hemos utilizado dos tuberías que procesan los vídeos por separado con ! queue !. El vídeo del chroma (astronauta) añade un efecto que elimina el color verde
+			<br><br>el efecto que usamos es  ! alpha method = green !, luego hacemos un video convert y lo mezclamos. Y el otro vídeo lo decodificamos también en su tubería,
+			<br>luego le aplicamos el vídeo convert y lo mezclamos usando videomix con la otra tubería. Al final queda un flujo que le aplicamos una codificación:
+			<br>theoraenc ! oggmux. El comando para ejecutar el pipeline que
+se encuentra dentro del archivo sh es:<br>gst-launch-1.0 filesrc location=./aux.mp4 ! decodebin ! queue ! videoconvert ! videomixer name=mix sink_0::zorder=0 sink_1::zorder=1 ! videoconvert ! theoraenc ! oggmux ! tcpserversink host=127.0.0.1 port=9090 filesrc location=./astronaut.mp4 ! decodebin ! queue ! alpha method=green ! videoconvert ! mix. </h4>
 		</div>
 	
 	
@@ -708,16 +728,6 @@
 				<td> HTML </td>
 			</tr>
 
-
-			<tr>
-				<td> Pausa juego al clicar pestaña externa</td>
-
-				<td> 7</td>
-
-				<td> Adriana</td>
-
-				<td> Javascript</td>
-			</tr>
 
 			<tr>
 				<td> Diseño página </td>
