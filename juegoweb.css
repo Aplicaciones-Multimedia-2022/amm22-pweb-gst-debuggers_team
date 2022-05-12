@@ -71,7 +71,7 @@ canvas{
 img{
 	display:none
 }
-video{
+.nodisplay{
 	display:none;
 }
 
