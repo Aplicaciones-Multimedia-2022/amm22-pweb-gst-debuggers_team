@@ -1,0 +1,9 @@
+#!/bin/sh
+
+gst-launch-1.0 filesrc location=./meteor.mp4 ! decodebin ! queue ! videoconvert ! videomixer name=mix sink_0::zorder=0 sink_1::zorder=1 ! videoconvert ! theoraenc ! oggmux ! tcpserversink host=127.0.0.1 port=9898 filesrc location=./astronaut.mp4 ! decodebin ! queue ! alpha method=green ! videoconvert ! mix. 
+
+            
+
+               
+
+      
